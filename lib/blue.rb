@@ -7,10 +7,8 @@ module Span
       
       protected
 
-      def Routing.included(mod)
-        @@page_type_mappings ||= {}
-      end
-      
+      @@page_type_mappings ||= {}
+ 
       def Routing.map_page_type_route(page_type, function)
         @@page_type_mappings[page_type.to_s] = function
       end
