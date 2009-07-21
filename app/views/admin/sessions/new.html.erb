@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<%= stylesheet_link_tag "reset", :cache => false %>
+	<%= stylesheet_link_tag "admin/blue", :plugin => 'blue' %>
+  <%= stylesheet_link_tag('admin/blue_dialog', :plugin => 'blue')%>
+  <%= stylesheet_link_tag('admin/shared', :plugin => 'blue')%>
+
+	<%= javascript_include_tag "jquery/jquery-1.2.6", :cache => false %>
+	<%= javascript_include_tag "admin", :plugin => 'blue'%>
+</head>
+<body class="admin login">
+	
+	<%= render :partial => 'admin/blue_toolbar' %>
+	
+	<div id="content">
+		<div id="login">
+		<% form_for @admin_session, :url => admin_session_path do |f| %>
+	    	<%= f.error_messages %>
+	
+		    <%= f.label :login %>
+		    <%= f.text_field :login %>
+		
+		    <%= f.label :password %>
+		    <%= f.password_field :password %>
+		
+		    <div class="buttons">
+		    	<%= f.submit "Login" %>
+			</div>
+		<% end %>	
+		</div>
+	</div>
+	
+</body>
+</html>

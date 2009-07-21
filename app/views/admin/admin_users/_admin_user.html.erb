@@ -1,0 +1,12 @@
+<li id="admin_user_<%= admin_user.id %>"><%= image_tag admin_user.photo.url %>
+	<% if current_admin_user.has_role?(:administrator) or current_admin_user == admin_user %>
+	<span class="tools"> <%= link_to "Edit", edit_admin_admin_user_path(admin_user), :class => "edit" %>
+		<% if current_admin_user != admin_user %>
+		 | <%= link_to "Delete", admin_admin_user_path(admin_user), :class => "delete" %>
+		<% end %>
+	</span>
+	<% end %>
+	<span class="name"><%= admin_user.fullname %></span>
+	<span class="email"><%= link_to admin_user.email, "mailto:#{admin_user.email}" %></span> <br />
+	<span class="rolls">Roles: <% admin_user.roles.each do |role| %><span class="role"><%= role.name %></span> <% end %></span>
+</li>

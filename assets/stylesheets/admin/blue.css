@@ -1,0 +1,99 @@
+body.admin 					{font-family:helvetica, arial, sans-serif;}
+body.admin h1 {margin-bottom:10px;font-size:16px;color:#203B8F;border-bottom:1px solid #203B8F;padding-bottom:6px;}
+
+
+
+body.login #login {width:370px;margin:120px auto 0;background:#B4C6FF;border:3px solid #203B8F;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;}
+body.login #login input, 
+body.login #login label {margin:2px 20px;}
+body.login #login label {font-size:14px;font-weight:normal;color:#203B8F;display:block;margin-top:10px;}
+body.login #login .buttons {margin-top:10px;padding:5px 0;float:none;text-align:center;background:#778EC1;-moz-border-radius:0 0 6px 6px;-webkit-border-bottom-left-radius: 6px;-webkit-border-bottom-right-radius: 6px;border-radius:0 0 6px 6px;}
+
+body.admin .errorExplanation {color:#AF1010;-moz-border-radius:6px 6px 0 0 ;-webkit-border-top-left-radius: 6px;-webkit-border-top-right-radius: 6px;border-radius:6px 6px 0 0 ;margin-bottom:10px;}
+body.admin .errorExplanation h2 {font-size:12px;line-height:120%;text-transform:capitalize;font-weight:normal;letter-spacing:1px;background:#AF1010;color:#fff;padding:5px 20px;-moz-border-radius:6px 6px 0 0 ;-webkit-border-top-left-radius: 6px;-webkit-border-top-right-radius: 6px;border-radius:6px 6px 0 0 ;margin-bottom:5px;}
+body.admin .errorExplanation p, body.admin .errorExplanation ul {padding:4px 20px;font-size:14px;}
+body.admin .errorExplanation p {font-weight:bold;}
+body.admin .errorExplanation ul {list-style:disc;margin-left:20px;padding-bottom:10px;float:none;}
+body.admin .fieldWithErrors label {padding:0;color:#AF1010 !important;font-style:italic;}
+body.admin .fieldWithErrors input {color:#AF1010;}
+body.admin #navigations {float:right;width:53%;}
+body.admin #pages 		{float:left;width:43%;-moz-border-radius: 6px;}
+
+body.admin #navigations h2 {margin-bottom:10px;font-size:16px;color:#203B8F;}
+body.admin #navigations .navigation {clear:both;padding:5px;border:1px solid #778EC1;overflow: auto;margin-bottom:10px;min-height:82px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
+body.admin #navigations .navigation h3 {font-size:14px;clear:both;margin-bottom:10px;color:#203B8F;}
+body.admin #navigations .preview {clear:left;height:auto;}
+body.admin #navigations .preview li {float:left;text-align:center;font-size:11px;padding:5px;width:55px;height:auto;}
+body.admin #navigations .preview .page {background:url("/images/blue/page_32.png") top center no-repeat;padding-top:36px;}
+body.admin #navigations .preview .link {background:url("/images/blue/page_link_32.png") top center no-repeat;padding-top:36px;}
+
+body.admin #content {margin:20px;}
+
+body.admin div.placement {border:1px dashed #000;}
+
+body.admin #navigations .tree {clear:both;display:none;margin-left:11px;min-height:50px;}
+body.admin #navigations .tree li {background:#ddd;}
+body.admin #navigations .tree li li {padding-left:28px;background:#fff;}
+body.admin #navigations .tree li div.navigation_page {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
+body.admin #navigations .tree li div.navigation_link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
+body.admin #navigations .tree li span.tools {padding-left:10px;display:none;font-size:10px;line-height:12px;}
+body.admin #navigations .tree li span.tools a {color:#203B8F;}
+body.admin #navigations .tree li div.navigation_page:hover {background-color:#B4C6FF;}
+body.admin #navigations .tree li div.navigation_page:hover span.tools {display:inline;}
+body.admin #navigations .tree li li.jTreePlacement {margin-left:28px;}
+
+body.admin #pages h2 {margin-bottom:10px;font-size:16px;color:#203B8F;}
+body.admin #pages #search {border:1px solid #778EC1;padding:5px;background:#778EC1}
+body.admin #pages #search {-moz-border-radius: 6px 6px 0 0;-webkit-border-top-left-radius: 6px;-webkit-border-top-right-radius: 6px;border-radius: 6px 6px 0 0;}
+body.admin #pages #search h3 {color:#B4C6FF;font-size:14px;margin-bottom:5px;}
+body.admin #pages #search label {color:#fff;font-size:12px;margin-left:0px;}
+body.admin #pages .list {border:1px solid #778EC1;padding:5px;}
+body.admin #pages .list {-moz-border-radius:0 0 6px 6px;-webkit-border-bottom-left-radius: 6px;-webkit-border-bottom-right-radius: 6px;border-radius:0 0 6px 6px;}
+body.admin #pages .list li {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
+body.admin #pages .list li.link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
+
+body.admin #pages .list li span.tools {font-size:10px;display:none;line-height:10px;padding-left:10px;}
+body.admin #pages .list li span.tools a {color:#203B8F;}
+body.admin #pages .list li:hover span.tools {display:inline;}
+body.admin #pages .list li:hover {background-color:#B4C6FF;}
+
+body.admin #admin_users li {line-height:130%;font-size:14px;width:350px;clear:both;margin:0 20px 20px 0;}
+body.admin #admin_users li a {color:#203B8F;font-size:12px;}
+body.admin #admin_users li img {float:left;margin-right:10px;border:1px solid #000;}
+body.admin #admin_users li .name {padding-top:5px;display:block;}
+body.admin #admin_users li .role {background:#B4C6FF;padding:2px 5px;font-size:12px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
+body.admin #admin_users li span.tools {float:right;padding-top:5px;}
+body.admin #admin_users li span.tools a {color:#203B8F;font-size:12px;}
+
+body.admin #pending_publish {float:left;width:400px;clear:both;padding:5px;border:1px solid #778EC1;overflow: auto;margin-bottom:10px;min-height:82px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
+body.admin #pending_publish h2 {margin-bottom:10px;font-size:16px;color:#203B8F;}
+body.admin #pending_publish li {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
+body.admin #pending_publish li.link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
+body.admin #pending_publish li span.tools {font-size:11px;display:none;line-height:20px;padding-left:10px;}
+body.admin #pending_publish li span.tools a {color:#203B8F;}
+body.admin #pending_publish li:hover span.tools {display:inline;}
+body.admin #pending_publish li:hover {background-color:#B4C6FF;}
+
+body.admin form.edit_member label {display:block;margin-bottom:2px;font-size:12px;clear:left;color:#203B8F;font-weight:bold;}
+body.admin form.edit_member input {display:block;margin-bottom:10px;width:250px;}
+body.admin form.edit_member input.button {display:inline;width:auto;}
+body.admin form.edit_member .buttons {float:none;}
+
+.buttons {font-size:12px;float:right;}
+.buttons a {margin-left:5px;color:#203B8F;}
+.buttons .new {background:url("/images/blue/page_new.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
+.buttons .new_link {background:url("/images/blue/link_new.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
+.buttons .new_folder {background:url("/images/blue/folder_new.gif") no-repeat left center;}
+.buttons .new_user {background:url("/images/blue/user_new.gif") no-repeat left center;}
+.buttons .pin {background:url("/images/blue/pin_off.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
+.buttons .pinned {background:url("/images/blue/pin_on.gif") no-repeat left center;}
+.buttons .publish_all {background:url("/images/blue/icon_world_dynamic.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
+span.tools .delete {background:url("/images/blue/trash.gif") top left no-repeat;padding-left:1.2em;}
+span.tools .publish {background:url("/images/blue/icon_world.gif") left center no-repeat;padding-left:1.4em;line-height:24px;}
+
+
+#jTreeHelper li div.navigation_page {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
+#jTreeHelper li div.navigation_link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
+#jTreeHelper li span.tools {display:none;}
+
+#ajaxupload {display:none;}

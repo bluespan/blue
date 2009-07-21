@@ -1,0 +1,22 @@
+<h2>Comments</h2>
+
+
+<% if not @commentable.comments.empty? %>
+
+<ol class="comments">
+	<% @commentable.comments.each do |comment| %>
+	<%= render :partial => "verbiage_comment", :locals => {:comment => comment}%>
+	<% end %>
+</ol>
+
+<% else %>
+<p>No comments have been made yet.</p>
+<% end %>
+
+<% form_for @comment, :url => admin_page_verbiage_comments_path(@commentable.page, @commentable) do |f| %>
+	
+	<label for="comment_comment">Comment</label>
+	<%= f.text_area :comment %>
+	
+	<input type="submit" value="Create" class="button submit" />
+<% end %>

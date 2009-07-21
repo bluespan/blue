@@ -1,0 +1,16 @@
+<h2>Images</h2>
+
+<div id="path_breadcrumb">
+	<em>Current Folder:</em> <% asset_breadcrumbs "selector" do |folder, url| %>
+	/ <%= link_to folder, url, :class => "directory" %>
+	<% end %>
+</div>
+
+<ul class="assets">
+	<% @assets.each do |asset| %>
+		<li><% link_to asset, :class => asset_css_class(asset) do %>
+			<div class="thumbnail"><%= image_tag asset.thumbnail_url %></div><span><%= asset.filename %></span>
+			<% end %>
+		</li>
+	<% end %>
+</ul>

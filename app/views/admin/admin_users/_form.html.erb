@@ -1,0 +1,60 @@
+<div class="left_column">
+	<div class="photo">
+		<%= image_tag @admin_user.photo.url %><br />
+		<%= link_to "Change", "#", :class => "select_file" %>
+	</div>
+</div>
+
+<div class="middle_column">
+<fieldset>
+	<legend>Personal Information</legend>
+	
+	<div class="side_by_side">
+	<label for="admin_user_firstname">First Name</label>
+	<%= f.text_field :firstname %>
+	</div>
+
+	<div class="side_by_side">
+	<label for="admin_user_lastname">Last name</label>
+	<%= f.text_field :lastname %>
+	</div>
+
+	<div class="single_line">
+	<label for="admin_user_email">Email</label>
+	<%= f.text_field :email %>
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>Login Information</legend>
+	
+	<div class="two_lines">
+	<label for="admin_user_login">Login</label>
+	<%= f.text_field :login %>
+	</div>
+	
+	<div class="two_lines">
+	<label for="admin_user_password">Password</label>
+	<%= f.password_field :password %>
+	</div>
+	
+	<div class="two_lines">
+	<label for="admin_user_password_confirmation">Password Confirmation</label>
+	<%= f.password_field :password_confirmation %>
+	</div>
+</fieldset>
+</div>
+
+<div class="right_column">
+<% if current_admin_user.has_role?(:administrator)%>
+<fieldset>
+	<legend>Roles</legend>
+	
+	<ul class="roles">
+		<% roles.each do |role| %>
+			<li><input type="checkbox" name="admin_user[admin_user_roles][<%= role.name %>]" value="1" <%= "checked" if @admin_user.has_role?(role.name) %> /> <%= role.name %></li>
+		<% end %>
+	</ul>	
+</fieldset>
+<% end %>
+</div>

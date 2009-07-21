@@ -1,0 +1,2 @@
+class Verbiage < Content
+end

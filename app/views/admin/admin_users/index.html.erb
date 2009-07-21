@@ -1,0 +1,19 @@
+<%= javascript_include_tag 'admin/admin_user', :plugin => "blue" %>
+
+<script type="text/javascript" charset="utf-8">
+	var form_authenticity_token = "<%= form_authenticity_token %>";
+</script>
+
+
+<h1>
+	<% if current_admin_user.has_role?(:administrator)%>
+	<span class="buttons"><a href="admin_users/new" class="new new_user" id="new_admin_user_button">Create Admin User</a></span>
+	<% end %>
+	Admin Users
+</h1>
+
+<ul id="admin_users">
+	<%= render :partial => 'admin_user', :collection => @admin_users %>
+</ul>
+
+<div class="dialog" id="admin_user_dialog"></div>

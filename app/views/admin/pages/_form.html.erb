@@ -1,0 +1,19 @@
+<div class="pagetype">
+	<fieldset>
+		<legend><em>1</em>Page Type</legend>
+		<p>First select <em>type</em> of page this is going to be.</p>
+	<select name="page[type]" id="page_type">
+		<% if @page.class == Page %>
+		<option value=""></option>
+		<% end %>
+		
+		<% Page.types.each do |page_type| -%>
+		<option value="<%= page_type.to_s %>" <%= @page.type.to_s == page_type.to_s ? "selected" : "" %>><%= page_type.type_name %></option>
+		<% end -%>
+	</select>	
+	</fieldset>
+</div>
+
+<div id="page_type_form">
+	<%= render :partial => "admin/pages/forms/#{@page.type.to_s.underscore}.html.erb", :locals => {:f => f} unless @page.class == Page%>
+</div>

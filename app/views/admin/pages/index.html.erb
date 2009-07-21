@@ -1,0 +1,38 @@
+<%= javascript_include_tag 'admin/page', :plugin => "blue" %>
+<%= javascript_include_tag 'admin/navigation', :plugin => "blue" %>
+
+<script type="text/javascript" charset="utf-8">
+	var form_authenticity_token = "<%= form_authenticity_token %>";
+</script>
+
+
+<div id="pages">
+	<h2>
+		<% if current_admin_user.has_role?(:editor)%>
+		<span class="buttons"><a href="/admin/pages/new" class="new" id="new_page_button">Create Page</a></span>
+		<% end %>
+		Pages
+	</h2>
+	<div id="search">
+		<h3>Search</h3>
+		<label for="search_box">Title</label>
+		<input type="text" name="search" id="search_box" />
+	</div>
+	<ul class="list" id="page_list">
+		<%= render :partial => "page", :collection => @pages %>
+	</ul>
+</div>
+
+<div id="navigations">
+	<h2>
+		<% if current_admin_user.has_role?(:editor)%>
+		<span class="buttons"><a href="/admin/navigations/new" class="new" id="new_bucket_button">Create Bucket</a></span>
+		<% end %>
+		Navigation Buckets
+	</h2>
+	
+	<%= render :partial => 'admin/navigations/bucket', :collection => Navigation.buckets %>
+
+</div>
+
+<div class="dialog" id="new_page_dialog"></div>

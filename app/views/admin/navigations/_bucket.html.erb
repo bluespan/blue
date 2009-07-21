@@ -1,0 +1,11 @@
+<div id="navigation_<%= bucket.id %>" class="navigation">
+	<h3><span class="buttons"><a href="#" class="pin" id="pin_<%= bucket.id %>">Pin</a></span><%= bucket.title %></h3>
+	<ul class="preview">
+		<% bucket.children.each do |navigation| %>
+		<li class="page <%= navigation.page.css_class %>"><span class="title"><%= navigation.page.title %></span></li>
+		<% end %>
+	</ul>
+	<ul class="tree"><% bucket_tree bucket.children do |navigation| -%>
+		<%= render :partial => navigation %>
+	<% end -%></ul>
+</div>

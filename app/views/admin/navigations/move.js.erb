@@ -1,0 +1,11 @@
+<% if @page -%>
+$("#navigations .new_page_navigation").attr("id", "navigation_<%= @navigation.id %>")
+<% end -%>
+
+$("#navigation_<%= @navigation.id %>").html("<%= escape_javascript(render :partial => @navigation) %>");
+
+bind_buckets("#navigation_<%= @navigation.id %>");
+
+updateBucketPreviews();
+
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

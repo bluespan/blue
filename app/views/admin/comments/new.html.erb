@@ -1,0 +1,13 @@
+<h1>Add a comment to <%= humanize(@commentable.class) %> <%= @commentable.title %><h1>
+	
+<% form_for [:admin, @commentable, @comment] do |f| %>
+	<label for="comment_title">Title</label>
+	<%= f.text_field :title %>
+	
+	<label for="comment_comment">Comment</label>
+	<%= f.text_area :comment %>
+	
+	<div class="buttons">
+	<input type="submit" value="Create" class="button submit" /> | <a href="#cancel" class="close">Cancel</a>
+	</div>
+<% end %>

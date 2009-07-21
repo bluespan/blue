@@ -1,0 +1,24 @@
+<% if flash[:notice] %>
+<script>
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });
+</script>
+<% end %>
+
+<h1>Membership</h1>
+
+<% form_for @member, :url => admin_membership_url do |f| %>
+	<%= f.error_messages %>
+
+	<label for="member_login">Login</label>
+	<%= f.text_field :login %>
+
+	<label for="member_password">Password</label>
+	<%= f.password_field :password %>
+
+	<label for="member_password_confirmation">Password Confirmation</label>
+	<%= f.password_field :password_confirmation %>
+	
+	<div class="buttons">
+		<input type="submit" value="Update" class="button submit" />
+	</div>
+<% end %>

@@ -1,0 +1,78 @@
+.blue_toolbar {left:0px;height:50px;background:#778EC1;border-bottom:5px solid #203B8F;position:fixed;width:100%;top:-45px;opacity:.25;margin-bottom:10px;z-index:10000;font-family:arial;}
+.admin .blue_toolbar {position:relative;opacity:1;top:0;width:100%;}
+
+.blue_toolbar ul.blue_logo {position:relative;float:left;margin:6px 0px 0 8px !important;margin:6px 1px 0 6px;}
+.blue_toolbar ul.blue_logo li {font-size:28px;font-weight:normal;color:#203B8F;padding:4px 8px 8px;}
+.blue_toolbar ul.blue_logo li span {color:#B4C6FF;font-size:20px;margin-left:1px;}
+.blue_toolbar ul.blue_logo li {float:none;clear:both;} 
+             
+.blue_toolbar ul.blue_choose_logo {z-index:20000;position:absolute;left:0;background:#000;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
+.blue_toolbar ul.blue_choose_logo li:hover{cursor:pointer;color:#4A71EB;}
+.blue_toolbar ul.blue_choose_logo li:hover span {color:#E0E8FF;}
+
+.blue_toolbar ul.blue_choose_logo li.back {width: 9px; height: 14px;
+z-index: 8;
+position: absolute;
+border:1px solid #B4C6FF;
+margin-left:0px;
+background:#B4C6FF;
+-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
+
+.blue_toolbar ul.blue_admin_navigation li {float:left;line-height:50px;font-size:13px;font-weight:bold;z-index:10;margin-left:14px;padding:2px 0 2px 4px;margin-right:6px;}
+.blue_toolbar ul.blue_admin_navigation li a {color:#000;}
+.blue_toolbar ul.blue_admin_navigation li.current a {color:#203B8F;}
+
+.blue_toolbar ul.blue_admin_navigation {
+    position: relative;
+    height: 37px; 
+    overflow: hidden;
+	float:left;
+}
+
+	/* Represents the background of the highlighted menu-item. */
+	.blue_toolbar ul.blue_admin_navigation  li.back {
+		width: 0px; height: 14px;
+		z-index: 8;
+		margin-top:17px;
+		position: absolute;
+		border:1px solid #B4C6FF;
+		margin-left:0px;
+		background:#B4C6FF;
+		-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;
+	}
+
+	
+
+	/* Styles for each menu-item. */
+	.blue_toolbar ul.blue_admin_navigation  li a {
+		overflow: hidden;
+		outline: none;
+		position:relative;
+		z-index: 10;
+	}
+
+.blue_toolbar .blue_account {float:right;margin:10px 20px 0 0 !important;margin-right:10px;font-size:9px;line-height:13px;white-space:nowrap;width:auto;}
+.blue_toolbar .blue_account span {font-size:12px;font-weight:bold;}
+.blue_toolbar .blue_account img {float:left;margin-right:4px;width:32px;border:1px solid #000;background:#fff;}
+.blue_toolbar .blue_account div {float:left;}
+.blue_toolbar .blue_account a {color:#203B8F;text-decoration:underline;}
+
+.blue_toolbar .blue_context_toolbar {position:relative;margin:7px auto 0 10px;float:left;}
+.blue_toolbar .blue_context_toolbar legend {font-weight:normal;color:#000;font-size:10px;margin-left:2px;padding:2px;}
+
+.blue_toolbar .blue_context_toolbar ul.dropdown {position:relative;cursor:pointer;background:#778EC1;border:1px solid #203B8F;padding:0;float:left;}
+.blue_toolbar .blue_context_toolbar ul.dropdown strong.title {background:url('/images/blue/dropdown_arrow.gif')  left center no-repeat;font-weight:normal;padding:3px 30px 3px 22px;display:block;font-size:11px;}
+.blue_toolbar .blue_context_toolbar ul.dropdown li {position:relative;}
+.blue_toolbar .blue_context_toolbar ul.dropdown ul {padding-top:0px;left:-1px;display:none;position:absolute;z-index:20000;background:#778EC1;width:100%;border:1px solid #203B8F;border-top-width:0;opacity:0.9;}
+.blue_toolbar .blue_context_toolbar ul.dropdown ul li a {font-size:11px;padding-top:6px;}
+.blue_toolbar .blue_context_toolbar ul.dropdown:hover ul {display:block;position:absolute;}
+.blue_toolbar .blue_context_toolbar ul.dropdown:hover strong.title {background-color:#B4C6FF;}
+
+.blue_toolbar .blue_context_toolbar a {color:#000;text-transform:capitalize;display:block;margin:0;font-size:12px;}
+.blue_toolbar .blue_context_toolbar a:hover {background-color:#B4C6FF;}
+.blue_toolbar .blue_context_toolbar .edit {background:url('/images/blue/page_edit.gif') no-repeat 2px center;padding-left:22px;line-height:16px;}
+
+div.jGrowl div.success { background:#338F26;line-height:130%; }
+div.jGrowl div.success em {color:#97EF3F;font-style:normal;}
+div.jGrowl div.success div.header {margin-bottom:8px;font-size:14px;color:#97EF3F;}
+

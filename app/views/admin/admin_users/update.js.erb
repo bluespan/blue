@@ -1,0 +1,31 @@
+// Submit photo via ajax if changed
+if ($("#admin_user_photo_form").length > 0) {
+	// Create Upload iframe
+	$("#admin_user_photo_form").after('<iframe id="upload_frame" name="upload_frame" style="display:none;"/>'); 
+	$("#admin_user_photo_form").attr("target", "upload_frame")
+	$("#admin_user_photo_form").submit(function(){
+		$("#upload_frame").load(function() {
+				response = $("#upload_frame").contents().find('body').html();	
+				admin_users_tear_down(response);
+		})
+	});
+	$("#admin_user_photo_form").trigger("submit");
+} else {
+	admin_users_tear_down("<%= escape_javascript(render :partial => 'admin_user', :locals => {:admin_user => @admin_user}) %>");
+}
+
+function admin_users_tear_down(admin_user) {
+	$.modal.close();
+	$("#admin_user_<%= @admin_user.id %>").html(admin_user)
+
+	// Update Logged In As Name
+	<% if current_admin_user == @admin_user %>
+	$("#blue_account .name").html("<%= escape_javascript(@admin_user.fullname) %>");
+	<% end %>
+
+	bind_admin_users("#admin_user_<%= @admin_user.id %>");
+
+	$("#admin_user_<%= @admin_user.id %>").hide();
+	$("#admin_user_<%= @admin_user.id %>").fadeIn();
+}
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

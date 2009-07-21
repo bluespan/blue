@@ -1,0 +1,8 @@
+<li>
+	<div class="head">
+	<%= image_tag comment.admin_user.photo.url(:icon) %>
+	<span class="name"><%= comment.admin_user.fullname %></span>
+	<span class="date"><%= comment.created_at.strftime("on %m/%d/%Y %I:%M%p")  %></span>
+	</div>
+	<span class="comment"><%= comment.comment %></span>
+</li>

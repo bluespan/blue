@@ -1,0 +1,20 @@
+<div class="left_column">
+<fieldset>
+	<legend><em>2</em>Link Configuration</legend>
+	<label for="page_title" style="width:24px;">Title</label>
+	<%= f.text_field :title, :name => "page[title]", :id => "page_title" %>
+
+	<label for="page_url" style="width:24px;">Url</label>
+	<%= f.text_field :url, :name => "page[url]", :id => "page_url" %>
+</fieldset>
+</div>
+
+<div class="right_column">
+	<fieldset>
+		<legend>Options</legend>
+		
+		<ul class="options checkbox">
+			<li><%= f.check_box :open_new_window, :name => "page[open_new_window]", :id => "page_open_new_window"  %> <label for="page_open_new_window">Open in New Window</label></li>
+		</ul>
+	</fieldset>
+</div>

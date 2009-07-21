@@ -1,0 +1,14 @@
+<h1>
+	<span class="tools"><a href="<%= admin_page_verbiage_comments_url(working_page, @verbiage)%>" class="view_comments" id="view_page_verbiage_comments_button">View Comments</a></span>
+	Edit Verbiage
+</h1>
+
+<% form_for @verbiage, :url => "/admin/pages/#{working_page.id}/verbiage/#{@verbiage.title}", :method => :put do |f| %>
+
+<%= f.text_area :content, :class => 'wymeditor' %>
+
+<div class="buttons">
+<input type="submit" value="Update" class="button submit wymupdate" /> | <a href="#cancel" class="close">Cancel</a>
+</div>
+
+<% end %>

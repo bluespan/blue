@@ -1,0 +1,16 @@
+<h1>New Folder</h1>
+
+<form action="/admin/assets/create_folder" method="post" enctype="multipart/form-data">
+
+	<p>Create Folder In:<br />/assets/<%= @path.gsub("%20", " ") %></p>
+
+	<label for="folder_name">Name</label>
+	<input type="text" name="folder[name]" id="folder_name">
+
+	<input type="hidden" name="folder[path]" value="<%= @path %>" />
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+	<div class="buttons">
+	<input type="submit" value="Create" class="button submit" /> | <a href="#cancel" class="close">Cancel</a>
+	</div>
+
+</form>

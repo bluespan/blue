@@ -1,0 +1,14 @@
+<% form_for [:admin, @admin_user], :html => {:id => "admin_user_photo_form_template", :enctype => 'multipart/form-data'} do |f| %>
+	<h2>Change Photo</h2>
+	
+	<p>Please choose a photo that is square or the photo will be automatically cropped to a square.</p>
+	
+	<div class="two_lines">
+	<label for="admin_user_photo">Photo Avatar</label>
+	<%= f.file_field :photo, :size => "20" %>
+	</div>
+	
+	<input type="hidden" name="_method" value="put" />
+	
+	<p><a href="#cancel" class="close">Cancel</a></p>
+<% end %>

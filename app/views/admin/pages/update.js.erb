@@ -1,0 +1,7 @@
+$.modal.close();
+$("#page_<%= @page.id %>").replaceWith("<%= escape_javascript(render :partial => 'page', :locals => {:page => @page}) %>")
+bind_pages("#page_<%= @page.id %>");
+$('#navigations .navigation .tree, #pages .list').jTree({onChangeCallback:navigationChange});
+$("#page_<%= @page.id %>").hide();
+$("#page_<%= @page.id %>").fadeIn();
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

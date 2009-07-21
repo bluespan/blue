@@ -1,0 +1,9 @@
+$('.modalData .errorExplanation').remove();
+$('.modalData .content').before('<%=  escape_javascript(error_messages_for :object => object) %>');
+
+<% object.attributes.each do |name, attr| %>
+ 	$('#<%= object.class.to_s.underscore %>_<%= name %>').removeClass('error').prev("label").removeClass("error")
+	<% unless object.errors[name].nil? %>
+	$('#<%= object.class.to_s.underscore %>_<%= name %>').addClass('error').prev("label").addClass("error")
+	<% end %>
+<% end %>

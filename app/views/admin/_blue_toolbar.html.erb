@@ -1,0 +1,54 @@
+<div id="blue_toolbar" class="blue_toolbar" <%= "style=\"display:none;\"" unless current_engine == :blue %>>
+	<ul id="blue_logo" class="blue_logo"><li class="blue_logo">blue<span>cms</span></li></ul>
+	
+	<% if logged_in? %>
+	
+	
+		<ul id="blue_admin_navigation" class="blue_admin_navigation">
+			<li <%= (controller.class.to_s =~ /.*pages.*/i ? "class=\"current\"" : "") %>><a href="/admin/pages">Pages &amp; Navigation</a></li>
+			<li <%= (controller.class.to_s =~ /.*publish.*/i ? "class=\"current\"" : "") %>><a href="/admin/publish">Publish</a></li>
+			<li <%= (controller.class.to_s =~ /.*assets.*/i ? "class=\"current\"" : "") %>><a href="/admin/assets">Assets</a></li>
+			<% if current_admin_user.has_permission?(:admin_membership) %>
+			<li <%= (controller.class.to_s =~ /.*membership.*/i ? "class=\"current\"" : "") %>><a href="/admin/membership">Membership</a></li>
+			<% end %>
+			<li <%= (controller.class.to_s =~ /.*adminusers.*/i ? "class=\"current\"" : "") %>><a href="/admin/admin_users">Admin Users</a></li>
+		</ul>
+	
+		<div id="blue_account" class="blue_account">
+			<%= image_tag current_admin_user.photo.url(:icon) %>
+			<div>
+			Logged In As:<br />
+			<span class="name"><%= current_admin_user.fullname %></span>
+			<%= link_to "Logout", admin_session_url, :method => :delete %>
+			</div>
+		</div>
+
+		<% if controller.class.to_s == "PagesController" %>
+		<% if current_admin_user.has_role?(:editor) %>	
+		<fieldset class="blue_context_toolbar">
+		<legend>Page Options</legend>
+			<% unless @page.nil? || @page.content.select{|c| c.class == Verbiage}.empty?%>
+			<ul class="dropdown">
+				<li><strong class="title">Edit Verbiage</strong>
+					<ul>
+						<% @page.content.each do |content| %>
+							<li><a href="/admin/pages/<%= @page.id %>/<%= content.class.to_s.downcase %>/<%= content.title %>/edit" class="edit edit_<%= content.class.to_s.downcase %>"><%= content.title.humanize %> <%= content.class.to_s %></a></li>
+						<% end %>
+					</ul>
+				</li>
+			</ul>
+			<% end %>
+		</fieldset>
+		<% end %>
+		
+		<fieldset class="blue_context_toolbar">
+		<legend>View Site</legend>
+			<div class="checkbox">
+				<input name="session[view_live_site]" id="session_view_live_site" type="checkbox" value="1" <%= session[:view_live_site] ? "checked" : ""%>/><label for="session_view_live_site">Live</label>
+			</div>
+		</fieldset>	
+		<% end %>
+		
+
+	<% end %>
+</div>
