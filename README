@@ -4,10 +4,22 @@ Blue
 Blue is a content management system foundation used to create adminable websites.
 
 
-Example
+Install
 =======
 
-Example goes here.
+0. Pre-req, install rails engines if not already.
 
+1. Add as a submodule
+git submodule add git@github.com:bluespan/blue.git vendor/plugins/blue
+git submodule init
+git submodule update
+
+2. Include routes in your applications config/routes.rb
+map.from_plugin :blue
+
+3. Copy over initializers/blue.rb to config/initializers
+
+4. Link plugin assets
+ln -s vendor/plugins/assets public/plugin_assets/blue
 
 Copyright (c) 2009 Blue Span Associates, Inc.
