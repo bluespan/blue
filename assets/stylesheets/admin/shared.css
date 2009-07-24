@@ -61,7 +61,7 @@ background:#B4C6FF;
 .blue_toolbar .blue_context_toolbar legend {font-weight:normal;color:#000;font-size:10px;margin-left:2px;padding:2px;}
 
 .blue_toolbar .blue_context_toolbar ul.dropdown {position:relative;cursor:pointer;background:#778EC1;border:1px solid #203B8F;padding:0;float:left;}
-.blue_toolbar .blue_context_toolbar ul.dropdown strong.title {background:url('/images/blue/dropdown_arrow.gif')  left center no-repeat;font-weight:normal;padding:3px 30px 3px 22px;display:block;font-size:11px;}
+.blue_toolbar .blue_context_toolbar ul.dropdown strong.title {background:url('/plugin_assets/blue/images/dropdown_arrow.gif')  left center no-repeat;font-weight:normal;padding:3px 30px 3px 22px;display:block;font-size:11px;}
 .blue_toolbar .blue_context_toolbar ul.dropdown li {position:relative;}
 .blue_toolbar .blue_context_toolbar ul.dropdown ul {padding-top:0px;left:-1px;display:none;position:absolute;z-index:20000;background:#778EC1;width:100%;border:1px solid #203B8F;border-top-width:0;opacity:0.9;}
 .blue_toolbar .blue_context_toolbar ul.dropdown ul li a {font-size:11px;padding-top:6px;}
@@ -70,7 +70,7 @@ background:#B4C6FF;
 
 .blue_toolbar .blue_context_toolbar a {color:#000;text-transform:capitalize;display:block;margin:0;font-size:12px;}
 .blue_toolbar .blue_context_toolbar a:hover {background-color:#B4C6FF;}
-.blue_toolbar .blue_context_toolbar .edit {background:url('/images/blue/page_edit.gif') no-repeat 2px center;padding-left:22px;line-height:16px;}
+.blue_toolbar .blue_context_toolbar .edit {background:url('/plugin_assets/blue/images/page_edit.gif') no-repeat 2px center;padding-left:22px;line-height:16px;}
 
 div.jGrowl div.success { background:#338F26;line-height:130%; }
 div.jGrowl div.success em {color:#97EF3F;font-style:normal;}

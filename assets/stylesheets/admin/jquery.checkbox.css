@@ -2,7 +2,7 @@
 .jquery-checkbox .mark {display: inline;}
 
 .jquery-checkbox img {vertical-align: middle; width: 60px; height: 20px;}
-.jquery-checkbox img{background: transparent url('/images/blue/checkbox.png') no-repeat;}
+.jquery-checkbox img{background: transparent url('/plugin_assets/blue/images/checkbox.png') no-repeat;}
 
 .jquery-checkbox img{
 	background-position: 0px 0px;

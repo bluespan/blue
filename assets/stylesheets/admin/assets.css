@@ -8,5 +8,5 @@ ul.assets li a {color:#203B8F;}
 ul.assets li div {height:100px;background-position:center bottom;background-repeat:no-repeat;}
 
 #path_breadcrumb {margin-bottom:10px;font-size:12px;text-transform:lowercase;color:#203B8F;margin-bottom:15px;}
-#path_breadcrumb a {color:#203B8F;background:url("/images/blue/folder_16.png") no-repeat 0 -3px;padding-left:18px;}
+#path_breadcrumb a {color:#203B8F;background:url("/plugin_assets/blue/images/folder_16.png") no-repeat 0 -3px;padding-left:18px;}
 #path_breadcrumb em {color:#000;font-weight:bold;text-transform:capitalize;font-size:11px;}

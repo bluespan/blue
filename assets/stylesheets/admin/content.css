@@ -1,6 +1,6 @@
 .admin_content {position:relative;clear:both;}
 .admin_content .tools {text-transform:capitalize;text-align:right;top:5px;right:5px;position:absolute;display:none;background:#203B8F;padding:2px 5px;font-size:10px;line-height:16px;}
-body .admin_content .tools a {width:auto !important;height:auto !important;background:url('/images/blue/page_edit.gif') no-repeat !important;color:#fff !important;padding:0 0 0 18px !important;float:left !important;}
+body .admin_content .tools a {width:auto !important;height:auto !important;background:url('/plugin_assets/blue/images/page_edit.gif') no-repeat !important;color:#fff !important;padding:0 0 0 18px !important;float:left !important;}
 .admin_content .tools strong {float:left;color:#fff !important;padding-right:5px;}
 .admin_content:hover {background:#eeeeff;}
 .admin_content:hover .tools {display:block;}
