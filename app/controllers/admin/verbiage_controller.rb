@@ -3,6 +3,8 @@ class Admin::VerbiageController < Admin::BlueAdminController
   before_filter :verify_editor
   layout false
   
+  helper :pages
+  
   def edit
     @page = Page.working.find(params[:page_id])
     @verbiage = @page.verbiage(params[:id])

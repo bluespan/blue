@@ -45,7 +45,7 @@ module PagesHelper
   end
   
   def working_page
-    @working_page =  @page.published? ? @page.working : @page
+    @working_page = @page.published? ? @page.working : @page
   end
   
   def search_highlite(result, field)
