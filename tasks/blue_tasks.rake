@@ -12,9 +12,43 @@ namespace :deploy do
 end
 
 namespace :blue do
+  
+  desc "Bootstrap your application for using blue"
+  task :bootstrap => [:"bootstrap:link_assets", :"bootstrap:copy_migrations"]
+  
+  namespace :bootstrap do
+    
+    desc "Link blue assets to the public assets"
+    task :link_assets do
+      asset_linked = false
+      print "Linking assets... "
+      ["javascripts", "stylesheets", "images"].each do |asset|
+        asset_blue = "#{RAILS_ROOT}/vendor/plugins/blue/assets/#{asset}"
+        asset_link = "#{RAILS_ROOT}/public/#{asset}/blue"
+        unless File.exist?(asset_link)
+          asset_linked = true
+          print "#{asset}... "
+          File.symlink(asset_blue, asset_link) 
+        end
+      end
+      
+      puts asset_linked ?  "done." : "assets already linked."
+    end
+
+    desc "Copy blue migrations"
+    task :copy_migrations do
+      print "Copying migrations... "
+      FileUtils.mkdir_p "#{RAILS_ROOT}/db/migrate"
+      FileList["#{RAILS_ROOT}/vendor/plugins/blue/db/migrate/*"].each do |source|
+          FileUtils.cp_r source, source.gsub("/vendor/plugins/blue", "")
+      end
+      puts "done."
+    end
+  end
+  
   namespace :create do
     desc "Create a default admin"
-    task (:admin => :roles) do
+    task (:admin => :admin_roles) do
       if AdminUser.count == 0
         chars = ("a".."z").to_a + ("1".."9").to_a 
         newpass = Array.new(8, '').collect{chars[rand(chars.size)]}.join
@@ -29,7 +63,7 @@ namespace :blue do
     end
     
     desc "Create user admin roles"
-    task (:roles => :environment) do
+    task (:admin_roles => :environment) do
       AdminUserRole.create({:name => "Administrator", :admin_admin_users => true})
       AdminUserRole.create({:name => "Publisher", :publish => true})
       AdminUserRole.create({:name => "Editor", :admin_content => true, :admin_assets => true})
@@ -37,20 +71,4 @@ namespace :blue do
     end
   end
   
-  namespace :transform do
-    desc "Transform all pages to sub pages"
-    task (:pages_to_subpages => :environment) do
-      puts "Transforming pages to sub pages"
-      page_count = 0
-      Page.find(:all).each do |page|
-        if page.class == Page
-          page.type = "PageTypes::SubPage"
-          page.save
-          page_count += 1
-        end
-      end
-      puts "Transformed #{page_count} pages"
-    end
-    
-  end
 end
