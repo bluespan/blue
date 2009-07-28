@@ -14,35 +14,49 @@ end
 namespace :blue do
   
   desc "Bootstrap your application for using blue"
-  task :bootstrap => [:"bootstrap:link_assets", :"bootstrap:copy_migrations"]
+  task :bootstrap => [:"bootstrap:link:assets", :"bootstrap:copy:migrations", :"bootstrap:copy:configs"]
   
   namespace :bootstrap do
     
-    desc "Link blue assets to the public assets"
-    task :link_assets do
-      asset_linked = false
-      print "Linking assets... "
-      ["javascripts", "stylesheets", "images"].each do |asset|
-        asset_blue = "#{RAILS_ROOT}/vendor/plugins/blue/assets/#{asset}"
-        asset_link = "#{RAILS_ROOT}/public/#{asset}/blue"
-        unless File.exist?(asset_link)
-          asset_linked = true
-          print "#{asset}... "
-          File.symlink(asset_blue, asset_link) 
+    namespace :link do
+      desc "Link blue assets to the public assets"
+      task :assets do
+        asset_linked = false
+        print "Linking assets... "
+        ["javascripts", "stylesheets", "images"].each do |asset|
+          asset_blue = "#{RAILS_ROOT}/vendor/plugins/blue/assets/#{asset}"
+          asset_link = "#{RAILS_ROOT}/public/#{asset}/blue"
+          unless File.exist?(asset_link)
+            asset_linked = true
+            print "#{asset}... "
+            File.symlink(asset_blue, asset_link) 
+          end
         end
-      end
       
-      puts asset_linked ?  "done." : "assets already linked."
+        puts asset_linked ?  "done." : "assets already linked."
+      end
     end
 
-    desc "Copy blue migrations"
-    task :copy_migrations do
-      print "Copying migrations... "
-      FileUtils.mkdir_p "#{RAILS_ROOT}/db/migrate"
-      FileList["#{RAILS_ROOT}/vendor/plugins/blue/db/migrate/*"].each do |source|
-          FileUtils.cp_r source, source.gsub("/vendor/plugins/blue", "")
+    namespace :copy do
+      desc "Copy blue migrations"
+      task :migrations do
+        print "Copying migrations... "
+        FileUtils.mkdir_p "#{RAILS_ROOT}/db/migrate"
+        FileList["#{RAILS_ROOT}/vendor/plugins/blue/db/migrate/*"].each do |source|
+            FileUtils.cp_r source, source.gsub("/vendor/plugins/blue", "")
+        end
+        puts "done."
       end
-      puts "done."
+    
+      desc "Copy configs"
+      task :configs do
+        print "Copying configs... "
+        FileList["#{RAILS_ROOT}/vendor/plugins/blue/config/environment.rb"].each do |source|
+            print "#{source.gsub("/vendor/plugins/blue", "").gsub(RAILS_ROOT,"")}... "
+            FileUtils.cp_r source, source.gsub("/vendor/plugins/blue", "")
+        end
+        puts "done."
+      end
     end
   end
   

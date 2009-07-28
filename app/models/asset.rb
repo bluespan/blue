@@ -28,14 +28,14 @@ class Asset < File
   end
 
   def thumbnail_url
-    return '/plugin_assets/blue/images/folder.jpg' if File.directory?(path)
-    return '/plugin_assets/blue/images/page_pdf.png' if extension == "pdf"
-    return '/plugin_assets/blue/images/page_word.png' if extension == "doc" || extension == "docx"
-    return '/plugin_assets/blue/images/page.png'
+    return '/images/blue/folder.jpg' if File.directory?(path)
+    return '/images/blue/page_pdf.png' if extension == "pdf"
+    return '/images/blue/page_word.png' if extension == "doc" || extension == "docx"
+    return '/images/blue/page.png'
   end
   
   def thumbnail_url
-    return '/plugin_assets/blue/images/folder.jpg' if File.directory?(path)
+    return '/images/blue/folder.jpg' if File.directory?(path)
     return ''
   end
   
