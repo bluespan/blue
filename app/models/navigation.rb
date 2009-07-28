@@ -22,7 +22,7 @@ class Navigation < ActiveRecord::Base
   end
   
   def self_and_ancestors_cached
-    @self_and_ancestors ||= self_and_ancestors(:include => :page)
+    @self_and_ancestors ||= self_and_ancestors#(:include => :page) 
   end
   
   def url

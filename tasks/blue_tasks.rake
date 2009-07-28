@@ -1,3 +1,15 @@
+def file_starts_with?(file, string)
+  return false unless File.exists?(file)
+
+  contents = ''
+  File.open(file, 'r') do |f|
+   contents = f.sysread(20)
+  end
+  
+  contents.include?(string)
+end
+
+
 namespace :deploy do
   namespace :migrate do 
     desc "Migrate plugins"
@@ -14,46 +26,54 @@ end
 namespace :blue do
   
   desc "Bootstrap your application for using blue"
-  task :bootstrap => [:"bootstrap:link:assets", :"bootstrap:copy:migrations", :"bootstrap:copy:configs"]
+  task :bootstrap => [:"bootstrap:link:assets", :"bootstrap:sync", :"bootstrap:copy:configs"] do
+    if File.exist?("public/index.html")
+      puts "Removing public/index.html"
+      File.unlink "public/index.html" 
+    end
+  end
   
   namespace :bootstrap do
     
     namespace :link do
       desc "Link blue assets to the public assets"
       task :assets do
-        asset_linked = false
-        print "Linking assets... "
+        print "** Linking assets... "
         ["javascripts", "stylesheets", "images"].each do |asset|
           asset_blue = "#{RAILS_ROOT}/vendor/plugins/blue/assets/#{asset}"
           asset_link = "#{RAILS_ROOT}/public/#{asset}/blue"
           unless File.exist?(asset_link)
-            asset_linked = true
             print "#{asset}... "
             File.symlink(asset_blue, asset_link) 
           end
         end
       
-        puts asset_linked ?  "done." : "assets already linked."
+        puts "done."
+      end
+    end
+
+    desc "Updates blue files within your application"
+    task :sync => [:"sync:migrations"]
+    namespace :sync do 
+      desc "Sync blue migrations"
+      task :migrations do 
+        puts "** Syncing migrations..."
+        system "rsync -ruv vendor/plugins/blue/db/migrate db"
+        puts "** Done syncing migrations."
       end
     end
 
     namespace :copy do
-      desc "Copy blue migrations"
-      task :migrations do
-        print "Copying migrations... "
-        FileUtils.mkdir_p "#{RAILS_ROOT}/db/migrate"
-        FileList["#{RAILS_ROOT}/vendor/plugins/blue/db/migrate/*"].each do |source|
-            FileUtils.cp_r source, source.gsub("/vendor/plugins/blue", "")
-        end
-        puts "done."
-      end
     
       desc "Copy configs"
       task :configs do
-        print "Copying configs... "
-        FileList["#{RAILS_ROOT}/vendor/plugins/blue/config/environment.rb"].each do |source|
-            print "#{source.gsub("/vendor/plugins/blue", "").gsub(RAILS_ROOT,"")}... "
-            FileUtils.cp_r source, source.gsub("/vendor/plugins/blue", "")
+        print "** Copying configs... "
+        FileList["vendor/plugins/blue/config/environment.rb", "vendor/plugins/blue/config/initializers/blue.rb"].each do |source|
+            target = source.gsub("vendor/plugins/blue", "")
+            unless file_starts_with?(RAILS_ROOT+target, "# modified by blue")
+              print "#{target}... "
+              FileUtils.cp_r source, RAILS_ROOT+target
+            end
         end
         puts "done."
       end

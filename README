@@ -12,6 +12,7 @@ Install
 script/plugin install git://github.com/collectiveidea/awesome_nested_set.git
 script/plugin install git://github.com/thoughtbot/paperclip.git
 script/plugin install git://github.com/jackdempsey/acts_as_commentable.git
+script/plugin install git://github.com/rsl/stringex.git
 
 1. Add as a submodule
 git submodule add git@github.com:bluespan/blue.git vendor/plugins/blue
@@ -24,7 +25,10 @@ rake blue:bootstrap
 3. Install gems
 rake gems:install
 
-4. Create Admin
+4. Run Migrations
+rake db:migrate
+
+5. Create Admin
 rake blue:create:admin
 
 Copyright (c) 2009 Blue Span Associates, Inc.

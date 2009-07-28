@@ -2,13 +2,13 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<%= stylesheet_link_tag "reset", :cache => false %>
-	<%= stylesheet_link_tag "admin/blue", :plugin => 'blue' %>
-  <%= stylesheet_link_tag('admin/blue_dialog', :plugin => 'blue')%>
-  <%= stylesheet_link_tag('admin/shared', :plugin => 'blue')%>
+	<%= stylesheet_link_tag "blue/reset" %>
+	<%= stylesheet_link_tag "blue/admin/blue" %>
+  	<%= stylesheet_link_tag('blue/admin/blue_dialog')%>
+  	<%= stylesheet_link_tag('blue/admin/shared')%>
 
-	<%= javascript_include_tag "jquery/jquery-1.2.6", :cache => false %>
-	<%= javascript_include_tag "admin", :plugin => 'blue'%>
+	<%= javascript_include_tag "blue/jquery/jquery" %>
+	<%= javascript_include_tag "blue/admin"%>
 </head>
 <body class="admin login">
 	

@@ -1,12 +1,14 @@
-BLUE_TEMPLATE_ROOT = RAILS_ROOT+'/app/views/pages/templates/'
-BLUE_ASSETS_ROOT = RAILS_ROOT+'/public/assets/'
-BLUE_IMAGE_ASSETS_ROOT = BLUE_ASSETS_ROOT+'images/'
+# modified by blue
 
 Page.types = [
   PageTypes::SubPage,
   PageTypes::HomePage,
   PageTypes::Link
 ]
+
+BLUE_TEMPLATE_ROOT = RAILS_ROOT+'/app/views/pages/templates/'
+BLUE_ASSETS_ROOT = RAILS_ROOT+'/public/assets/'
+BLUE_IMAGE_ASSETS_ROOT = BLUE_ASSETS_ROOT+'images/'
 
 module ActionView
   module Helpers
