@@ -33,6 +33,7 @@ class TemplateFile < File
       
       return templates 
     else
+      raise BlueTempateFileNotFound.new(:path => BLUE_TEMPLATE_ROOT, :template_file => template) unless TemplateFile.exist?(BLUE_TEMPLATE_ROOT + template)
       TemplateFile.new(BLUE_TEMPLATE_ROOT + template, mode)
     end
   end

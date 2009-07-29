@@ -1,5 +1,5 @@
 def file_starts_with?(file, string)
-  return false unless File.exists?(file)
+  return false unless File.exist?(file)
 
   contents = ''
   File.open(file, 'r') do |f|
@@ -15,7 +15,7 @@ namespace :deploy do
     desc "Migrate plugins"
     task :plugins => :environment do
       Engines.plugins.each do |plugin|
-        next unless File.exists? plugin.migration_directory
+        next unless File.exist? plugin.migration_directory
         puts "Migrating plugin #{plugin.name} ..."
         plugin.migrate
       end
@@ -26,7 +26,7 @@ end
 namespace :blue do
   
   desc "Bootstrap your application for using blue"
-  task :bootstrap => [:"bootstrap:link:assets", :"bootstrap:sync", :"bootstrap:copy:configs"] do
+  task :bootstrap => [:"bootstrap:link:assets", :"bootstrap:sync", :"bootstrap:copy:configs", :"bootstrap:copy:initial_templates"] do
     if File.exist?("public/index.html")
       puts "Removing public/index.html"
       File.unlink "public/index.html" 
@@ -51,7 +51,7 @@ namespace :blue do
         puts "done."
       end
     end
-
+    
     desc "Updates blue files within your application"
     task :sync => [:"sync:migrations"]
     namespace :sync do 
@@ -77,13 +77,30 @@ namespace :blue do
         end
         puts "done."
       end
+      
+      desc "Initial Templates"
+      task :initial_templates do
+        print "** Copying initial templates... "
+        mkdir_p("app/views/pages")
+        FileList["vendor/plugins/blue/app/views/pages/home_page/home.html.erb"].each do |source|
+            target = source.gsub("vendor/plugins/blue/", "")
+            unless File.exist?(target)
+              mkdir_p(target.gsub(/\/[^\/]+$/, ""))
+              FileUtils.cp_r source, target
+              print "#{target}... "
+            end
+        end
+        puts "done."
+      end
     end
   end
   
   namespace :create do
     desc "Create a default admin"
-    task (:admin => :admin_roles) do
-      if AdminUser.count == 0
+    task (:admin, :force, :needs => [:admin_roles]) do |t, args|
+      if AdminUser.count == 0 or args.force
+        AdminUser.find_by_login("admin").destroy if AdminUser.count > 0
+        
         chars = ("a".."z").to_a + ("1".."9").to_a 
         newpass = Array.new(8, '').collect{chars[rand(chars.size)]}.join
         

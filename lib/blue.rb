@@ -117,3 +117,8 @@ module Span
   end
 end
 
+class BlueError < StandardError #:nodoc:
+end
+
+class BlueTempateFileNotFound < BlueError #:nodoc:
+end

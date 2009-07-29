@@ -6,7 +6,7 @@ Page.types = [
   PageTypes::Link
 ]
 
-BLUE_TEMPLATE_ROOT = RAILS_ROOT+'/app/views/pages/templates/'
+BLUE_TEMPLATE_ROOT = RAILS_ROOT+'/app/views/pages'
 BLUE_ASSETS_ROOT = RAILS_ROOT+'/public/assets/'
 BLUE_IMAGE_ASSETS_ROOT = BLUE_ASSETS_ROOT+'images/'
 
@@ -17,3 +17,7 @@ module ActionView
     end
   end
 end
+
+ActiveSupport::Inflector.inflections do |inflect| 
+  inflect.uncountable %w( content ) 
+end 
