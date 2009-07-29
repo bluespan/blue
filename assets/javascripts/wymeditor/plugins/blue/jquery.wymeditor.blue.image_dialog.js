@@ -72,22 +72,19 @@ BlueImageDialog.prototype.bindImages = function() {
 
 	current_dialog.dialog.leftTray.find("a.file").click(function() {
 
-	
-
-		if (!$.browser.msie) {
-			wym._exec(WYMeditor.CREATE_LINK, sStamp);
-		}
-		else {
-			thisBlueImageDialog.selectedPos.execCommand(WYMeditor.INSERT_IMAGE, false, sStamp);
-		}
-
-		
 		
 		sUrl = $(this).attr("href").replace(/^.*selector/, "");
 		sUrl = "/assets" + sUrl;
+
+		if (!$.browser.msie) {
+			wym._exec(WYMeditor.INSERT_IMAGE, sUrl);
+		}
+		else {
+			thisBlueImageDialog.selectedPos.execCommand(WYMeditor.INSERT_IMAGE, false, sUrl);
+		}
+
 		
-  	jQuery("img[@src=" + sStamp + "]", wym._doc.body)
-      .attr(WYMeditor.SRC, sUrl)
+  	jQuery("img[src='" + sUrl + "']", wym._doc.body)
       .attr(WYMeditor.TITLE, "")
       .attr(WYMeditor.ALT, "");
 
