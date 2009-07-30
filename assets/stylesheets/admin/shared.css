@@ -76,3 +76,12 @@ div.jGrowl div.success { background:#338F26;line-height:130%; }
 div.jGrowl div.success em {color:#97EF3F;font-style:normal;}
 div.jGrowl div.success div.header {margin-bottom:8px;font-size:14px;color:#97EF3F;}
 
+#slide_panel {background:#778EC1;border-top:5px solid #203B8F;font-size:12px;}
+#slide_panel h1 {font-size:14px;font-weight:bold;border-bottom-width:0;margin-bottom:5px;padding-bottom:0;}
+#slide_panel .wym_box {margin-bottom:5px;clear:both;}
+#slide_panel .wym_box iframe {height:120px;}
+#slide_panel label {font-weight:bold;font-size:12px;}
+#slide_panel input {margin-bottom:5px;}
+
+#slide_panel #notfication_form {width:90%;margin:10px auto;}
+#slide_panel #notfication_form
