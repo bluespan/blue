@@ -47,7 +47,14 @@ namespace :blue do
             File.symlink(asset_blue, asset_link) 
           end
         end
+        
+        puts "done."
       
+        print "** Creating public asset directories... "
+        ["images", "documents"].each do |directory|
+          print "#{directory}... "
+          mkdir_p "public/assets/#{directory}"
+        end
         puts "done."
       end
     end
