@@ -168,7 +168,7 @@ function navigationChange(navigation) {
 	if (object[0] == "page") {
 		navigation.addClass("new_page_navigation");
 	}
-	$.post("/admin/navigations/move.js", $.extend(new_location, {authenticity_token:escape(form_authenticity_token), id: object[1], type:object[0], _method:"put"}), null, "script");	
+	$.post("/admin/navigations/move.js", $.extend(new_location, {authenticity_token:form_authenticity_token, id: object[1], type:object[0], _method:"put"}), null, "script");	
 
 }
 
