@@ -131,7 +131,8 @@ function bind_buckets(selector) {
 	// Bind Delete
 	$(selector).find('.delete').click(function() {
 		if (confirm("Are you sure you want to DELETE the NAVIGATION: \""+$(this).parent().prev(".title").html()+"?\"")) {
-			$.post($(this).attr("href") + ".js", "_method=delete&authenticity_token="+form_authenticity_token, null, "script");
+			params = {"_method":"delete", "authenticity_token":form_authenticity_token}
+			$.post($(this).attr("href") + ".js", params, null, "script");
 		}
 		return false
 	})
@@ -167,7 +168,7 @@ function navigationChange(navigation) {
 	if (object[0] == "page") {
 		navigation.addClass("new_page_navigation");
 	}
-	$.post("/admin/navigations/move.js", $.extend(new_location, {authenticity_token:form_authenticity_token, id: object[1], type:object[0], _method:"put"}), null, "script");	
+	$.post("/admin/navigations/move.js", $.extend(new_location, {authenticity_token:escape(form_authenticity_token), id: object[1], type:object[0], _method:"put"}), null, "script");	
 
 }
 
