@@ -40,8 +40,8 @@ namespace :blue do
       task :assets do
         print "** Linking assets... "
         ["javascripts", "stylesheets", "images"].each do |asset|
-          asset_blue = "#{RAILS_ROOT}/vendor/plugins/blue/assets/#{asset}"
-          asset_link = "#{RAILS_ROOT}/public/#{asset}/blue"
+          asset_blue = "../../vendor/plugins/blue/assets/#{asset}"
+          asset_link = "public/#{asset}/blue"
           unless File.exist?(asset_link)
             print "#{asset}... "
             File.symlink(asset_blue, asset_link) 
