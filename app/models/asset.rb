@@ -34,11 +34,6 @@ class Asset < File
     return '/images/blue/page.png'
   end
   
-  def thumbnail_url
-    return '/images/blue/folder.jpg' if File.directory?(path)
-    return ''
-  end
-  
   def self.find(file, options = {})
     options = { :dir => BLUE_ASSETS_ROOT, 
                 :include_directories => true }.merge(options)
