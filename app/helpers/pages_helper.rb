@@ -1,19 +1,32 @@
 module PagesHelper
   
   def verbiage(key, options = {}, &default_block)
-    options = {:page => @page}.merge(options)
-    
+    options = {:page => @page, :partial => "verbiage"}.merge(options)
     return if options[:page].nil?
     
-    key = key.to_s
-    default_content = block_given? ? capture(&default_block) : nil
-    verbiage = options[:page].verbiage(key, :default => default_content)
-    
-    if logged_in?
-      concat render(:partial => "admin/pages/verbiage", :object => verbiage)
-    else
-      concat verbiage.content
-    end
+    global_verbiage(key, options, &default_block)  
+  end
+  
+  def global_verbiage(key, options = {}, &default_block)    
+      options = {:partial => "global_verbiage"}.merge(options)
+      key = key.to_s
+      default_content = block_given? ? capture(&default_block) : nil
+      
+      if (options[:page].nil?)
+        verbiage = GlobalVerbiage[key]
+        if verbiage.new_record?
+          verbiage.content = default_content
+          verbiage.save!
+        end
+      else
+        verbiage = options[:page].verbiage(key, :default => default_content)
+      end
+      
+      if logged_in?
+        concat render(:partial => "admin/pages/#{options[:partial]}", :object => verbiage)
+      else
+        concat verbiage.content
+      end
   end
   
   def navigation(top, options = {})

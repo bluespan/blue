@@ -4,8 +4,11 @@ map.namespace :admin do |admin|
   admin.resources :pages, :member => {:publish => :put, :typecast => :get}, :collection => {:publish_all => :put, :typecast => :get} do |pages|
     pages.resources :verbiage do |verbiage|
       verbiage.resources :comments
-    end
+    end  
     pages.resources :comments
+  end
+  admin.resources :global_verbiage do |global_verbiage|
+    global_verbiage.resources :comments
   end
   admin.resources :external_links
   admin.resources :navigations, :collection => { :move => :put }
