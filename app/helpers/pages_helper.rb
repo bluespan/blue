@@ -41,7 +41,8 @@ module PagesHelper
   end
   
   def page_title
-    " - #{@page.title}" if @page
+    return "" if @page.nil?
+    " - #{@page.title}"
   end
   
   def working_page
