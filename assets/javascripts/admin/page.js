@@ -139,7 +139,7 @@ BlueVideoSelectDialog.prototype.init = function() {
   //handle click event
 
 		jQuery("#video_settings #browse_video").click(function(){
-	    blue_video_select_dialog.open($(this).attr('href'));
+	    blue_video_select_dialog.open("/admin/videos");
 			return false;
 		});
 

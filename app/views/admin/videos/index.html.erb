@@ -1,6 +1,8 @@
 <h1>Videos</h1>
 <ul id="videos">
 	<% @videos.each do |video| %>
-	<li id="<%= video.lookup %>"><%= image_tag video.thumbnail, :width => 100 %><span class="title"><%= video.title %></span><br /><span class="duration">Duration: <%= video.duration %></a></li>
+	<li id="<%= video.lookup %>"><%= image_tag video.thumbnail, :width => 100 %><span class="title"><%= video.title %></span><br /><span class="duration">Duration: <%= video.duration %></a>
+		<input type="button" class="select_video" value="Select" />
+	</li>
 	<% end %>
 </ul>
