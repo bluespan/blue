@@ -66,6 +66,15 @@ module PagesHelper
     (content = result.highlight(@search_query, :field => field, :num_excerpts => 2, :pre_tag => "<em>", :post_tag => "</em>")).blank? ? result.send(field).split(" ")[0..40].join(" ") : content
   end
   
+  def embed_video(video, options = {})
+    video.embed_html(options)
+  end
+  
+  def video_paginate(options = {})
+    options = {:page => 1, :include => {:page => :video}}.merge(options)
+    @navigation.children.paginate(options)
+  end
+  
   private 
   def navigation_tree(navigations, options = {}, url = "", level = 1)
     output = ""

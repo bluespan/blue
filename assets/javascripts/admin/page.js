@@ -38,6 +38,10 @@ var page_dialog = {
 			dialog.data.find('.close').click(function () { $.modal.close();return false; });
 			dialog.data.find('ul.tags li').click(function() {$(this).toggleClass("use")});
 		
+			// Bind Video Tray
+			var video_select_dialog = blue_video_select_dialog({current_dialog: current_dialog});
+	  	video_select_dialog.init();
+			
 			// Add Ajax Submit
 			dialog.data.find('form').submit(function(){
 				$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
@@ -57,10 +61,12 @@ var page_dialog = {
 									dataType: 'html',
 									success: function (html) {
 										page_dialog.display(dialog, link, html);
+									
 									}
 							});
 					});
 				});
+				
 				
 			dialog.data.find('.content').fadeIn(500);
 		});
@@ -89,10 +95,11 @@ var page_dialog = {
 	}
 }
 
+var current_dialog;
 function bind_page_dialog(selector) {
 	$(selector).click(function() {
 		var link = $(this);
-		$("#new_page_dialog").modal({
+		current_dialog = $("#new_page_dialog").modal({
 			onOpen: function(dialog){ page_dialog.open(dialog, link)	},
 			onClose: page_dialog.close,		  
 			onShow: page_dialog.show
@@ -114,5 +121,63 @@ function bind_pages(page) {
 		return false
 	})
 }
+
+
+blue_video_select_dialog = function(options) {
+  var blue_video_select_dialog = new BlueVideoSelectDialog(options);
+  return(blue_video_select_dialog);
+};
+
+function BlueVideoSelectDialog(options) {
+	this._options = options;
+};
+
+BlueVideoSelectDialog.prototype.init = function() {
+
+  var blue_video_select_dialog = this;
+  
+  //handle click event
+
+		jQuery("#video_settings #browse_video").click(function(){
+	    blue_video_select_dialog.open($(this).attr('href'));
+			return false;
+		});
+
+};
+
+BlueVideoSelectDialog.prototype.open = function(path) {
+
+	var current_dialog = this._options.current_dialog;
+
+	current_dialog.toggleRightTray({width:400, 
+		onopen:function() {
+			var tray_dialog = current_dialog.dialog.rightTray.find(".trayDialog .content");
+			var tray_loading = current_dialog.dialog.rightTray.find(".trayDialog .loading");
+
+			tray_dialog.hide();
+			tray_loading.show();	
+
+			$.get(path, {}, function(data) {
+
+				tray_dialog.html(data);
+				
+				tray_dialog.find("li").click(function() {
+					jQuery("#selected_video img").attr("src", $(this).find("img").attr("src"));
+					jQuery("#selected_video label").html($(this).find(".title").html());
+					jQuery("#selected_video input").val($(this).attr("id"));
+					return false
+				});
+				
+				tray_dialog.find("#options .cancel").click(function() {
+					current_dialog.closeRightTray();
+				});
+
+				tray_loading.fadeOut(150, function() {
+					tray_dialog.fadeIn(150);
+				});
+			});
+		}
+	});
+};
 
 

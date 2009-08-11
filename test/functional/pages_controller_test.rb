@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+
 class PagesControllerTest < ActionController::TestCase
 
   class PageTypes::NoTemplatePage < Page

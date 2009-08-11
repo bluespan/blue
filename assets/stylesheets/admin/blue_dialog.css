@@ -165,3 +165,10 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 
 
 .modalContainer input.clear {float:none;clear:both;display:block;}
+
+#video_settings label {clear:both;float:none;}
+
+.trayDialog #videos img {float:left;margin-right:5px;}
+.trayDialog #videos li {clear:both;font-size:12px;padding:5px;margin:5px 0;cursor:pointer;border:2px solid #fff;overflow:auto;}
+.trayDialog #videos li:hover {border-color:#203B8F;background:#B4C6FF;}
+.trayDialog #videos .title {font-weight:bold;line-height:130%;}
