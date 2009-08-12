@@ -11,8 +11,9 @@ class VideoType::Vimeo < Video
       <object width="#{options[:width]}" height="#{options[:height]}">
         <param name="allowfullscreen" value="#{options[:allowfullscreen]}" />
         <param name="allowscriptaccess" value="#{options[:allowscriptaccess]}" />
+        <param name="wmode" value="transparent"> 
         <param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=#{clip_id}&amp;server=vimeo.com&amp;show_title=#{options[:show_title] ? "1" : "0"}&amp;show_byline=#{options[:show_byline] ? "1" : "0"}&amp;show_portrait=#{options[:show_portrait] ? "1" : "0"}&amp;color=#{options[:color]}&amp;fullscreen=#{options[:allowfullscreen] ? "1" : "0"}" />
-        <embed src="http://vimeo.com/moogaloop.swf?clip_id=#{clip_id}&amp;server=vimeo.com&amp;show_title=#{options[:show_title] ? "1" : "0"}&amp;show_byline=#{options[:show_byline] ? "1" : "0"}&amp;show_portrait=#{options[:show_portrait] ? "1" : "0"}&amp;color=#{options[:color]}&amp;fullscreen=#{options[:allowfullscreen] ? "1" : "0"}" type="application/x-shockwave-flash" allowfullscreen="#{options[:allowfullscreen]}" allowscriptaccess="#{options[:allowscriptaccess]}" width="#{options[:width]}" height="#{options[:height]}"></embed>
+        <embed src="http://vimeo.com/moogaloop.swf?clip_id=#{clip_id}&amp;server=vimeo.com&amp;show_title=#{options[:show_title] ? "1" : "0"}&amp;show_byline=#{options[:show_byline] ? "1" : "0"}&amp;show_portrait=#{options[:show_portrait] ? "1" : "0"}&amp;color=#{options[:color]}&amp;fullscreen=#{options[:allowfullscreen] ? "1" : "0"}" type="application/x-shockwave-flash" allowfullscreen="#{options[:allowfullscreen]}" allowscriptaccess="#{options[:allowscriptaccess]}" width="#{options[:width]}" height="#{options[:height]}" wmode="transparent"></embed>
       </object>
     EOS
   end
