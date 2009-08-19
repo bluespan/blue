@@ -41,11 +41,11 @@ class Navigation < ActiveRecord::Base
   end
   
   def self.bookmark(bookmark)
-    self.find(:first, :conditions => {:title => bookmark.to_s.gsub("_", " ")})
+    self.find(:first, :conditions => {:title => bookmark.to_s.downcase.gsub("_", " ")})
   end
   
   def self.bucket(title)
-    self.find(:first, :conditions => {:parent_id => nil, :title => title.to_s})
+    self.find(:first, :conditions => {:parent_id => nil, :title => title.downcase.to_s})
   end
   
   def self.buckets

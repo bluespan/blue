@@ -58,7 +58,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer input.error {border:1px solid #AF1010;color:#AF1010;}
 .modalContainer label.error {color:#AF1010;font-style:italic;}
 
-.modalContainer .buttons {text-align:center;background:#778EC1;padding:10px;width:580px;left:0;bottom:0;position:absolute;}
+.modalContainer .buttons {text-align:center;background:#778EC1;padding:10px;width:630px;left:0;bottom:0;position:absolute;}
 #modalContainerNavigation .buttons {width:360px;}
 #modalContainerAsset .buttons {width:400px;}
 .modalContainer .buttons input {display:inline;width:auto;margin:0;float:none;}
@@ -82,10 +82,10 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 
 .modalContainer {
   height:400px;
-  width:600px;
+  width:650px;
   left:50%;
   top:15%;
-  margin-left:-300px; /* half the width, to center */
+  margin-left:-325px; /* half the width, to center */
   background-color:#fff;
   border:3px solid #778EC1;
 	-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;

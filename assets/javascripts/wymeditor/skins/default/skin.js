@@ -4,7 +4,9 @@ WYMeditor.SKINS['default'] = {
 
         //render following sections as panels
         jQuery(wym._box).find(wym._options.classesSelector)
-          .addClass("wym_panel");
+          .addClass("wym_dropdown")
+          .find(WYMeditor.H2)
+          .append("<span>&nbsp;&gt;</span>");;
 
         //render following sections as buttons
         jQuery(wym._box).find(wym._options.toolsSelector)
