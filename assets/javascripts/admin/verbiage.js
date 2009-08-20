@@ -3,6 +3,8 @@ $(document).ready(function(){
 	bind_verbiage_dialog("#blue_toolbar .blue_context_toolbar .edit_verbiage");
 });
 
+var verbiage_updated_callback = function() {};
+
 // Page Dialogs
 var verbiage_dialog = {
 	open: function(dialog, link) {
