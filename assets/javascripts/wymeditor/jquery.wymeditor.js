@@ -748,12 +748,14 @@ WYMeditor.editor.prototype.init = function() {
       for (var prop in WymClass) { this[prop] = WymClass[prop]; }
 
       //load wymbox
-      this._box = jQuery(this._element).hide().after(this._options.boxHtml).next();
+      this._box = jQuery(this._element).hide().after(this._options.boxHtml).next().addClass('wym_box_' + this._index);
 
-      //store the instance index in the wymbox element
+      //store the instance index in wymbox and element replaced by editor instance
       //but keep it compatible with jQuery < 1.2.3, see #122
-      if( jQuery.isFunction( jQuery.fn.data ) )
+      if( jQuery.isFunction( jQuery.fn.data ) ) {
         jQuery.data(this._box.get(0), WYMeditor.WYM_INDEX, this._index);
+        jQuery.data(this._element.get(0), WYMeditor.WYM_INDEX, this._index);
+      }
       
       var h = WYMeditor.Helper;
 
@@ -847,7 +849,8 @@ WYMeditor.editor.prototype.bindEvents = function() {
   
   //handle click event on tools buttons
   jQuery(this._box).find(this._options.toolSelector).click(function() {
-    wym.exec(jQuery(this).attr(WYMeditor.NAME));
+    wym._iframe.contentWindow.focus(); //See #154
+    wym.exec(jQuery(this).attr(WYMeditor.NAME));    
     return(false);
   });
   
@@ -858,9 +861,11 @@ WYMeditor.editor.prototype.bindEvents = function() {
   });
   
   //handle keyup event on html value: set the editor value
-  jQuery(this._box).find(this._options.htmlValSelector).keyup(function() {
-    jQuery(wym._doc.body).html(jQuery(this).val());
-  });
+  //handle focus/blur events to check if the element has focus, see #147
+  jQuery(this._box).find(this._options.htmlValSelector)
+    .keyup(function() { jQuery(wym._doc.body).html(jQuery(this).val());})
+    .focus(function() { jQuery(this).toggleClass('hasfocus'); })
+    .blur(function() { jQuery(this).toggleClass('hasfocus'); });
   
   //handle click event on classes buttons
   jQuery(this._box).find(this._options.classSelector).click(function() {
@@ -873,6 +878,7 @@ WYMeditor.editor.prototype.bindEvents = function() {
     if(oClass) {
       var jqexpr = oClass.expr;
       wym.toggleClass(sName, jqexpr);
+			wym._iframe.contentWindow.focus(); //See #154
     }
     return(false);
   });
@@ -3603,7 +3609,7 @@ WYMeditor.WymCssLexer = function(parser, only_wym_blocks)
     this.addExitPattern("/\\\x2a[<\/\\s]*WYMeditor[>\\s]*\\\x2a/", 'WymCss');
   }
 
-  this.addSpecialPattern("\\\x2e[a-z-_0-9]+[\\sa-z1-6]*", 'WymCss', 'WymCssStyleDeclaration');
+  this.addSpecialPattern("[\\sa-z1-6]*\\\x2e[a-z-_0-9]+", 'WymCss', 'WymCssStyleDeclaration');
 
   this.addEntryPattern("/\\\x2a", 'WymCss', 'WymCssComment');
   this.addExitPattern("\\\x2a/", 'WymCssComment');
@@ -3611,8 +3617,8 @@ WYMeditor.WymCssLexer = function(parser, only_wym_blocks)
   this.addEntryPattern("\x7b", 'WymCss', 'WymCssStyle');
   this.addExitPattern("\x7d", 'WymCssStyle');
 
-  this.addEntryPattern("/\\\x2a", 'WymCssStyle', 'WymCssFeddbackStyle');
-  this.addExitPattern("\\\x2a/", 'WymCssFeddbackStyle');
+  this.addEntryPattern("/\\\x2a", 'WymCssStyle', 'WymCssFeedbackStyle');
+  this.addExitPattern("\\\x2a/", 'WymCssFeedbackStyle');
 
   return this;
 };
@@ -3676,7 +3682,7 @@ WYMeditor.WymCssParser.prototype.WymCssStyle = function(match, status)
   return true;
 };
 
-WYMeditor.WymCssParser.prototype.WymCssFeddbackStyle = function(match, status)
+WYMeditor.WymCssParser.prototype.WymCssFeedbackStyle = function(match, status)
 {
   if(status == WYMeditor.LEXER_UNMATCHED){
     this._current_item[this._current_element].feedback_style = match.replace(/^([\s\/\*]*)|([\s\/\*]*)$/gm,'');
@@ -3689,10 +3695,10 @@ WYMeditor.WymCssParser.prototype.WymCssStyleDeclaration = function(match)
   match = match.replace(/^([\s\.]*)|([\s\.*]*)$/gm, '');
 
   var tag = '';
-  if(match.indexOf(' ') > 0){
-    var parts = match.split(' ');
-    this._current_element = parts[0];
-    var tag = parts[1];
+  if(match.indexOf('.') > 0){
+    var parts = match.split('.');
+    this._current_element = parts[1];
+    var tag = parts[0];
   }else{
     this._current_element = match;
   }
@@ -4692,14 +4698,13 @@ WYMeditor.WymClassSafari.prototype.keyup = function(evt) {
   }
 };
 
-//TODO
 WYMeditor.WymClassSafari.prototype.setFocusToNode = function(node) {
-    /*var range = document.createRange();
+    var range = this._iframe.contentDocument.createRange();
     range.selectNode(node);
     var selected = this._iframe.contentWindow.getSelection();
     selected.addRange(range);
     selected.collapse(node, node.childNodes.length);
-    this._iframe.contentWindow.focus();*/
+    this._iframe.contentWindow.focus();
 };
 
 WYMeditor.WymClassSafari.prototype.openBlockTag = function(tag, attributes)

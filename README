@@ -7,19 +7,28 @@ Blue is a content management system foundation used to create adminable websites
 Install
 =======
 
-0. Pre-req, install rails engines if not already.
+0. Prerequisites:
+
+script/plugin install git://github.com/collectiveidea/awesome_nested_set.git
+script/plugin install git://github.com/thoughtbot/paperclip.git
+script/plugin install git://github.com/jackdempsey/acts_as_commentable.git
+script/plugin install git://github.com/rsl/stringex.git
 
 1. Add as a submodule
 git submodule add git@github.com:bluespan/blue.git vendor/plugins/blue
 git submodule init
 git submodule update
 
-2. Include routes in your applications config/routes.rb
-map.from_plugin :blue
+2. Bootstrap
+rake blue:bootstrap
 
-3. Copy over initializers/blue.rb to config/initializers
+3. Install gems
+rake gems:install
 
-4. Link plugin assets
-ln -s vendor/plugins/assets public/plugin_assets/blue
+4. Run Migrations
+rake db:migrate
+
+5. Create Admin
+rake blue:create:admin
 
 Copyright (c) 2009 Blue Span Associates, Inc.

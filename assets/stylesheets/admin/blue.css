@@ -24,18 +24,22 @@ body.admin #navigations .navigation {clear:both;padding:5px;border:1px solid #77
 body.admin #navigations .navigation h3 {font-size:14px;clear:both;margin-bottom:10px;color:#203B8F;}
 body.admin #navigations .preview {clear:left;height:auto;}
 body.admin #navigations .preview li {float:left;text-align:center;font-size:11px;padding:5px;width:55px;height:auto;}
-body.admin #navigations .preview .page {background:url("/plugin_assets/blue/images/page_32.png") top center no-repeat;padding-top:36px;}
-body.admin #navigations .preview .link {background:url("/plugin_assets/blue/images/page_link_32.png") top center no-repeat;padding-top:36px;}
+body.admin #navigations .preview .page {background:url("/images/blue/page_32.png") top center no-repeat;padding-top:36px;}
+body.admin #navigations .preview .link {background:url("/images/blue/page_link_32.png") top center no-repeat;padding-top:36px;}
+body.admin #navigations .preview .video_page {background:url("/images/blue/page_video_32.png") top center no-repeat;padding-top:36px;}
+
 
 body.admin #content {margin:20px;}
 
 body.admin div.placement {border:1px dashed #000;}
 
 body.admin #navigations .tree {clear:both;display:none;margin-left:11px;min-height:50px;}
-body.admin #navigations .tree li {background:#ddd;}
-body.admin #navigations .tree li li {padding-left:28px;background:#fff;}
-body.admin #navigations .tree li div.navigation_page {background:url("/plugin_assets/blue/images/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
-body.admin #navigations .tree li div.navigation_link {background:url("/plugin_assets/blue/images/page_link_24.png") top left no-repeat;}
+body.admin #navigations .tree li {}
+body.admin #navigations .tree li li {padding-left:28px;border-bottom-width:0;margin-bottom:0px;}
+body.admin #navigations .tree li div.navigation_page {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
+body.admin #navigations .tree li div.navigation_link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
+body.admin #navigations .tree li div.navigation_video_page {background:url("/images/blue/page_video_24.png") top left no-repeat;}
+
 body.admin #navigations .tree li span.tools {padding-left:10px;display:none;font-size:10px;line-height:12px;}
 body.admin #navigations .tree li span.tools a {color:#203B8F;}
 body.admin #navigations .tree li div.navigation_page:hover {background-color:#B4C6FF;}
@@ -49,8 +53,9 @@ body.admin #pages #search h3 {color:#B4C6FF;font-size:14px;margin-bottom:5px;}
 body.admin #pages #search label {color:#fff;font-size:12px;margin-left:0px;}
 body.admin #pages .list {border:1px solid #778EC1;padding:5px;}
 body.admin #pages .list {-moz-border-radius:0 0 6px 6px;-webkit-border-bottom-left-radius: 6px;-webkit-border-bottom-right-radius: 6px;border-radius:0 0 6px 6px;}
-body.admin #pages .list li {background:url("/plugin_assets/blue/images/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
-body.admin #pages .list li.link {background:url("/plugin_assets/blue/images/page_link_24.png") top left no-repeat;}
+body.admin #pages .list li {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
+body.admin #pages .list li.link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
+body.admin #pages .list li.video_page {background:url("/images/blue/page_video_24.png") top left no-repeat;}
 
 body.admin #pages .list li span.tools {font-size:10px;display:none;line-height:10px;padding-left:10px;}
 body.admin #pages .list li span.tools a {color:#203B8F;}
@@ -67,8 +72,9 @@ body.admin #admin_users li span.tools a {color:#203B8F;font-size:12px;}
 
 body.admin #pending_publish {float:left;width:400px;clear:both;padding:5px;border:1px solid #778EC1;overflow: auto;margin-bottom:10px;min-height:82px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
 body.admin #pending_publish h2 {margin-bottom:10px;font-size:16px;color:#203B8F;}
-body.admin #pending_publish li {background:url("/plugin_assets/blue/images/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
-body.admin #pending_publish li.link {background:url("/plugin_assets/blue/images/page_link_24.png") top left no-repeat;}
+body.admin #pending_publish li {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
+body.admin #pending_publish li.link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
+body.admin #pending_publish li.video_page {background:url("/images/blue/page_video_24.png") top left no-repeat;}
 body.admin #pending_publish li span.tools {font-size:11px;display:none;line-height:20px;padding-left:10px;}
 body.admin #pending_publish li span.tools a {color:#203B8F;}
 body.admin #pending_publish li:hover span.tools {display:inline;}
@@ -81,19 +87,20 @@ body.admin form.edit_member .buttons {float:none;}
 
 .buttons {font-size:12px;float:right;}
 .buttons a {margin-left:5px;color:#203B8F;}
-.buttons .new {background:url("/plugin_assets/blue/images/page_new.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
-.buttons .new_link {background:url("/plugin_assets/blue/images/link_new.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
-.buttons .new_folder {background:url("/plugin_assets/blue/images/folder_new.gif") no-repeat left center;}
-.buttons .new_user {background:url("/plugin_assets/blue/images/user_new.gif") no-repeat left center;}
-.buttons .pin {background:url("/plugin_assets/blue/images/pin_off.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
-.buttons .pinned {background:url("/plugin_assets/blue/images/pin_on.gif") no-repeat left center;}
-.buttons .publish_all {background:url("/plugin_assets/blue/images/icon_world_dynamic.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
-span.tools .delete {background:url("/plugin_assets/blue/images/trash.gif") top left no-repeat;padding-left:1.2em;}
-span.tools .publish {background:url("/plugin_assets/blue/images/icon_world.gif") left center no-repeat;padding-left:1.4em;line-height:24px;}
+.buttons .new {background:url("/images/blue/page_new.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
+.buttons .new_link {background:url("/images/blue/link_new.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
+.buttons .new_folder {background:url("/images/blue/folder_new.gif") no-repeat left center;}
+.buttons .new_user {background:url("/images/blue/user_new.gif") no-repeat left center;}
+.buttons .pin {background:url("/images/blue/pin_off.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
+.buttons .pinned {background:url("/images/blue/pin_on.gif") no-repeat left center;}
+.buttons .publish_all {background:url("/images/blue/icon_world_dynamic.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
+span.tools .delete {background:url("/images/blue/trash.gif") top left no-repeat;padding-left:1.2em;}
+span.tools .publish {background:url("/images/blue/icon_world.gif") left center no-repeat;padding-left:1.4em;line-height:24px;}
 
 
-#jTreeHelper li div.navigation_page {background:url("/plugin_assets/blue/images/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
-#jTreeHelper li div.navigation_link {background:url("/plugin_assets/blue/images/page_link_24.png") top left no-repeat;}
+#jTreeHelper li div.navigation_page {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
+#jTreeHelper li div.navigation_link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
+#jTreeHelper li div.navigation_video_page {background:url("/images/blue/page_video_24.png") top left no-repeat;}
 #jTreeHelper li span.tools {display:none;}
 
 #ajaxupload {display:none;}

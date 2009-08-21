@@ -107,7 +107,7 @@ class Page < ActiveRecord::Base
   
   def template
     sub_dir = self.class.to_s.split("::")[1].underscore
-    @template = TemplateFile.find(sub_dir + "/" + self[:template_file])
+    @template = TemplateFile.find("/" + sub_dir + "/" + self[:template_file])
   end
   
 
@@ -158,8 +158,8 @@ class Page < ActiveRecord::Base
 
       sub_dir = self.to_s.split("::")[1].underscore
 
-      Dir.new(BLUE_TEMPLATE_ROOT + sub_dir).each do |file|
-        templates << TemplateFile.new(BLUE_TEMPLATE_ROOT + sub_dir + "/" + file, "r") unless file[/^\..*$/]
+      Dir.new(BLUE_TEMPLATE_ROOT + "/" + sub_dir).each do |file|
+        templates << TemplateFile.new(BLUE_TEMPLATE_ROOT + "/" + sub_dir + "/" + file, "r") unless file[/^\..*$/]
       end
 
       return templates

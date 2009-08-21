@@ -131,7 +131,8 @@ function bind_buckets(selector) {
 	// Bind Delete
 	$(selector).find('.delete').click(function() {
 		if (confirm("Are you sure you want to DELETE the NAVIGATION: \""+$(this).parent().prev(".title").html()+"?\"")) {
-			$.post($(this).attr("href") + ".js", "_method=delete&authenticity_token="+form_authenticity_token, null, "script");
+			params = {"_method":"delete", "authenticity_token":form_authenticity_token}
+			$.post($(this).attr("href") + ".js", params, null, "script");
 		}
 		return false
 	})

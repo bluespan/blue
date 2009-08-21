@@ -24,6 +24,52 @@ module Span
   end  
     
   module Blue
+        
+    module ApplicationController
+      
+      def self.included(base)
+        base.send(:helper_method, :current_admin_user_session, :current_admin_user, 
+                          :current_member, :current_member_session, :member_logged_in?, :new_member_session_url, 
+                          :live_or_working, :current_engine)
+      end
+
+      protected  
+        def current_admin_user_session
+          return @current_admin_user_session if defined?(@current_admin_user_session)
+          @current_admin_user_session = AdminSession.find
+        end
+
+        def current_admin_user
+          return @current_admin_user if defined?(@current_admin_user)
+          @current_admin_user = current_admin_user_session && current_admin_user_session.admin_user
+        end
+
+        def logged_in?
+          not current_admin_user.nil?
+        end
+
+        def current_member_session
+          return @current_member_session if defined?(@current_member_session)
+          @current_member_session = MemberSession.find
+        end
+
+        def current_member
+          return @current_member if defined?(@current_member)
+          @current_member = current_member_session && current_member_session.member
+        end
+
+        def member_logged_in?
+          not current_member.nil?
+        end
+
+        def new_member_session_url
+          PageTypes::MemberSignInPage.find(:first).url
+        end
+
+        def live_or_working(page)
+          ((not logged_in?) || session[:view_live_site]) && page ? page.live : page
+        end
+    end
     
     module Routing
       
@@ -93,6 +139,8 @@ module Span
   end
 end
 
-module Blue
-  include Span::Blue  
+class BlueError < StandardError #:nodoc:
+end
+
+class BlueTempateFileNotFound < BlueError #:nodoc:
 end

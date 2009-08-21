@@ -3,6 +3,8 @@ $(document).ready(function(){
 	bind_verbiage_dialog("#blue_toolbar .blue_context_toolbar .edit_verbiage");
 });
 
+
+var wymeditor_config = {};
 var verbiage_updated_callback = function() {};
 
 // Page Dialogs
@@ -24,7 +26,7 @@ var verbiage_dialog = {
 						
 						dialog.data.find('.close').click(function () { $.modal.close(); return false; });
 										
-						$('.wymeditor').wymeditor({
+						$('.wymeditor').wymeditor($.extend({}, {
 								toolsItems: [
 							    {'name': 'Bold', 'title': 'Strong', 'css': 'wym_tools_strong'}, 
 							    {'name': 'Italic', 'title': 'Emphasis', 'css': 'wym_tools_emphasis'},
@@ -44,12 +46,15 @@ var verbiage_dialog = {
 							  ],
 								containersItems: [
 						        {'name': 'P', 'title': 'Paragraph', 'css': 'wym_containers_p'},
+						        {'name': 'H1', 'title': 'Heading_1', 'css': 'wym_containers_h1'},
 						        {'name': 'H2', 'title': 'Heading_2', 'css': 'wym_containers_h2'},
 						        {'name': 'H3', 'title': 'Heading_3', 'css': 'wym_containers_h3'}
 						    ],
+								stylesheet: "/stylesheets/editor.css",
 							 	boxHtml:   "<div class='wym_box'>"
 						              + "<div class='wym_area_top'>" 
 						              + WYMeditor.TOOLS
+						              + WYMeditor.CLASSES
 						              + WYMeditor.CONTAINERS
 						              + "</div>"
 						              + "<div class='wym_area_left'></div>"
@@ -74,7 +79,7 @@ var verbiage_dialog = {
 								dialog.data.find('.content').fadeIn(500);
 							}
 		
-						});
+						}, wymeditor_config));
 			
 						// Add Ajax Submit
 						dialog.data.find('form').submit(function(){

@@ -1,5 +1,5 @@
 <% if @page -%>
-$("#navigations .new_page_navigation").attr("id", "navigation_<%= @navigation.id %>")
+$("#navigations .new_page_navigation").attr("id", "navigation_<%= @navigation.id %>").removeClass("new_page_navigation")
 <% end -%>
 
 $("#navigation_<%= @navigation.id %>").html("<%= escape_javascript(render :partial => @navigation) %>");

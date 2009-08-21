@@ -41,7 +41,13 @@ class PagesController < BlueController
     unless @page.nil?
       render_instructions = {:template => @page.template.path}.merge(render_instructions)
     end
+    
     render render_instructions
+    
+    
+  rescue BlueTempateFileNotFound
+    render :template => "errors/blue_template_file_not_found", :layout => "blue_error"
+    
   end
 
 end
