@@ -4,9 +4,7 @@
 <head>
 	<%= stylesheet_link_tag "blue/reset" %>
 	<%= stylesheet_link_tag "blue/admin/blue" %>
-    <%= stylesheet_link_tag "blue/admin/blue_dialog" %>
-    <%= stylesheet_link_tag('blue/admin/jquery.jgrowl.css' )%>
-    <%= stylesheet_link_tag('blue/admin/shared' )%>
+	<%= stylesheet_link_admin %>
 	<%= stylesheet_link_tag('blue/smoothness/jquery-ui-1.7.1.custom.css')%>
 
 	<%= javascript_include_tag "blue/jquery/jquery-1.3.2.min.js" %>
@@ -30,7 +28,7 @@
 </head>
 <body class="admin admin_<%= current_engine %>">
 	
-	<%= render :partial => 'admin/blue_toolbar' %>
+	<%= render_admin_toolbars %>
 	
 	<div id="content">
 	<%= yield %>
