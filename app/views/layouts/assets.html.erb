@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<%= stylesheet_link_tag "blue/reset" %>
+	<%= stylesheet_link_tag "blue/admin/blue" %>
+	<%= stylesheet_link_tag "blue/admin/assets"%>
+    <%= stylesheet_link_tag('blue/admin/blue_dialog')%>
+    <%= stylesheet_link_tag('blue/admin/jquery.jgrowl')%>
+    <%= stylesheet_link_tag('blue/admin/shared')%>
+
+	<%= javascript_include_tag "blue/jquery/jquery-1.2.6" %>
+	<%= javascript_include_tag "blue/jquery/jquery.simplemodal-1.1.1" %>
+	<%= javascript_include_tag "blue/jquery/jquery.jtree.1.0.steve" %>
+	<%= javascript_include_tag "blue/jquery/jquery.easing.min" %>
+	<%= javascript_include_tag "blue/jquery/jquery.lavalamp.min" %>
+	<%= javascript_include_tag "blue/jquery/jquery.hoverIntent" %>
+	<%= javascript_include_tag 'blue/jquery/jquery.scrollTo-min' %>
+	<%= javascript_include_tag 'blue/jquery/jquery.jgrowl' %>
+
+	<%= javascript_include_tag "blue/admin" %>
+	<%= javascript_include_tag "blue/logged_in" %>
+	<%= javascript_include_tag "blue/admin/asset" %>
+</head>
+<body class="admin assets">
+	
+	<%= render :partial => 'admin/blue_toolbar'%>
+	
+	
+	<div id="content">
+		<h1>
+		<% if current_admin_user.has_role?(:editor) %>	
+		<span class="buttons">
+		<a href="/admin/assets/new" class="new" id="upload_asset_button">Upload Asset</a> | <a href="/admin/assets/new_folder" class="new new_folder" id="new_folder_button">Create Folder</a></span>
+		<% end %>
+		Assets
+		</h1>
+	
+	<div id="path_breadcrumb">
+		<em>Current Folder:</em> <% asset_breadcrumbs do |folder, url| %>
+		/ <%= link_to folder, url %>
+		<% end %>
+	</div>	
+	
+	<%= yield %>
+	</div>
+	
+	<div id="asset_dialog" class="dialog"></div>
+</body>
+</html>

@@ -1,4 +1,7 @@
 class Admin::SessionsController < BlueController
+  
+  helper :all
+  
   layout false
   
   def new

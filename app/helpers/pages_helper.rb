@@ -41,7 +41,7 @@ module PagesHelper
     output =  "<ul id=\"#{options[:id]}\""
     output += " class=\"#{options[:class]}\"" if options[:class] 
     output += ">"
-    output += navigation_tree(@top.children({:include => :page}).slice(0..(options[:top_levels]-1)), options, url) unless @top.nil?
+    output += navigation_tree(@top.children.slice(0..(options[:top_levels]-1)), options, url) unless @top.nil?
     output += "</ul>"
   end
   
@@ -54,7 +54,8 @@ module PagesHelper
   end
   
   def page_title
-    " - #{@page.title}" if @page
+    return "" if @page.nil?
+    " - #{@page.title}"
   end
   
   def working_page
@@ -63,6 +64,15 @@ module PagesHelper
   
   def search_highlite(result, field)
     (content = result.highlight(@search_query, :field => field, :num_excerpts => 2, :pre_tag => "<em>", :post_tag => "</em>")).blank? ? result.send(field).split(" ")[0..40].join(" ") : content
+  end
+  
+  def embed_video(video, options = {})
+    video.embed_html(options)
+  end
+  
+  def video_paginate(options = {})
+    options = {:page => 1, :include => {:page => :video}}.merge(options)
+    @navigation.children.paginate(options)
   end
   
   private 
@@ -97,7 +107,7 @@ module PagesHelper
       output += "<li class=\"#{classes.join(" ")}\">"
         output += link_to filter_page_title(page.title), link_url, link_options
         unless navigation.leaf? or level >= options[:levels] or (options[:collapsed] and classes.include?("active") == false)
-          output += "<ul>" + navigation_tree(navigation.children({:include => :page}), options, navigation_url, level + 1) + "</ul>"
+          output += "<ul>" + navigation_tree(navigation.children, options, navigation_url, level + 1) + "</ul>"
         end
       output += "</li>"
 

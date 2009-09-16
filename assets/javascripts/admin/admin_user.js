@@ -79,7 +79,8 @@ function bind_admin_users(admin_user) {
 	// Bind Delete
 	$(admin_user).find('.delete').click(function() {
 		if (confirm("Are you sure you want to delete this admin user: "+$(this).parents("li").find('.name').html()+"?")) {
-			$.post($(this).attr("href") + ".js", "_method=delete&authenticity_token="+form_authenticity_token, null, "script");
+			params = {"_method":"delete", "authenticity_token":form_authenticity_token}
+			$.post($(this).attr("href") + ".js", params, null, "script");
 			return false;
 		}
 		return false;

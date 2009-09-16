@@ -2,7 +2,7 @@ class AdminUser < ActiveRecord::Base
   acts_as_authentic :session_class => "AdminSession"
   
   has_attached_file :photo, :styles => { :thumb => "64x64#", :icon => "32x32#" }, 
-                            :default_style => :thumb, :default_url => "/assets/:class/:attachment/default/:style.jpg",
+                            :default_style => :thumb, :default_url => "/images/blue/default_admin_user/:style.jpg",
                             :path => ":rails_root/public/assets/:class/:attachment/:id/:style_:basename.:extension",
                             :url => "/assets/:class/:attachment/:id/:style_:basename.:extension"
   
