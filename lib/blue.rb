@@ -1,6 +1,28 @@
 # Blue
 module Span
     
+  module RenderAnywhere
+
+      class DummyController
+          def logger
+              RAILS_DEFAULT_LOGGER
+          end
+          def headers
+              {}
+          end
+      end
+
+      def render(options, assigns = {})
+          viewer = ActionView::Base.new(ActionController::Base.view_paths, assigns, DummyController.new)
+          viewer.render options
+      end
+
+      def template_exists?(path, assigns = {})
+          viewer = ActionView::Base.new(ActionController::Base.view_paths, assigns, DummyController.new)
+          viewer.pick_template_extension(path) rescue false
+      end
+  end  
+    
   module Blue
         
     module ApplicationController

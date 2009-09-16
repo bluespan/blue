@@ -8,6 +8,12 @@ class Comment < ActiveRecord::Base
   # NOTE: Comments belong to a user
   belongs_to :admin_user
   
+  def notify_with_email(params = {})
+    params = { :subject => title }.merge(params)
+    email = Notifier.create_comment_notification(self, params)
+    Notifier.deliver(email)
+  end
+
   # Helper class method to lookup all comments assigned
   # to all commentable types for a given user.
   def self.find_comments_by_user(admin_user)

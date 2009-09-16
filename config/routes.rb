@@ -8,9 +8,11 @@ ActionController::Routing::Routes.draw do |map|
       end
       pages.resources :comments
     end
+
     admin.resources :global_verbiage do |global_verbiage|
       global_verbiage.resources :comments
     end
+
     admin.resources :external_links
     admin.resources :navigations, :collection => { :move => :put }
   
@@ -28,6 +30,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.connect 'publish/:action/:id/.:format', :controller => 'publish'
     admin.connect ':controller', :action => :index
   
+
     admin.resources :videos
   end
 
