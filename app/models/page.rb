@@ -116,7 +116,7 @@ class Page < ActiveRecord::Base
   end
   
   def css_class
-    self.type.to_s.split("::")[1].underscore
+    self.class.to_s.split("::")[1].underscore
   end
   
   def open_new_window?
