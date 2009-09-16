@@ -20,9 +20,23 @@ class VideoType::Vimeo < Video
   
   
   def self.find_remote_by_username(username)
-    Vimeo::Simple::User.clips(username).collect do |video|
-      self.initialize_from_vimeo(video)
+    videos = []
+    page = []
+    page_number = 1
+    
+    until page == false
+      page = Vimeo::Simple::User.clips(username, :page => page_number)
+      
+      if page.is_a?(Array)
+        page = page.collect do |video|
+          self.initialize_from_vimeo(video)
+        end
+        videos = videos + page
+        page_number += 1
+      end
     end
+    
+    videos
   end
   
   def self.find_remote_by_clip_id(clip_id)
