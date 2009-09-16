@@ -45,6 +45,15 @@ module PagesHelper
     output += "</ul>"
   end
   
+  def breadcrumbs(options = {})
+    options = {:navigation => @navigation, :delimiter => " / ", :link_current_page => true}.update(options)
+    return if options[:navigation].nil?
+    
+    @navigation.self_and_ancestors.delete_if{|navigation| navigation.root? }.collect do |navigation|
+      link_to navigation.page.title, navigation.page.url, :class => (@page == navigation.page) ? "current" : ""
+    end.join(options[:delimiter])
+  end
+  
   def body_attributes
     if @page
      return "id=\"#{@page.body_id || @page.slug}\" class=\"#{@page.body_class || @page.template.css_class}\""

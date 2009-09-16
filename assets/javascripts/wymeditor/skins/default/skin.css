@@ -137,3 +137,7 @@
 .wym_skin_default .wym_containers {margin:4px 9px 0 0px;float:right;}
 .wym_skin_default .wym_containers h2 {padding:4px;width:84px;}
 .wym_skin_default .wym_containers ul {height:auto;width:79px;}
+
+.wym_skin_default .wym_classes {margin:4px 9px 0 0px;float:right;}
+.wym_skin_default .wym_classes h2 {padding:4px;width:84px;}
+.wym_skin_default .wym_classes ul {height:auto;margin-top:-1px;border-width:1px 1px 1px 1px;}

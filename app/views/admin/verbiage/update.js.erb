@@ -1,4 +1,5 @@
 $.modal.close();
 $('#verbiage_<%= @verbiage.title %> .content').html("<%= escape_javascript @verbiage.content %>");
+verbiage_updated_callback($('#verbiage_<%= @verbiage.title %> .content'));
 
 $.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });
