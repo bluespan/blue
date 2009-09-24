@@ -3,6 +3,7 @@
 <html>
 <head>
 	<%= stylesheet_link_tag "blue/reset" %>
+	<%= stylesheet_link_tag "blue/admin/blue" %>
 	<%= stylesheet_link_admin %>
 	<%= stylesheet_link_tag "blue/admin/assets"%>
 
@@ -22,8 +23,7 @@
 </head>
 <body class="admin assets">
 	
-	<%= render :partial => 'admin/blue_toolbar'%>
-	
+	<%= render_admin_toolbars %>
 	
 	<div id="content">
 		<h1>
