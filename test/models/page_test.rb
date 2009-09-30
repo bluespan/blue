@@ -18,7 +18,7 @@ class PageTest < ActiveSupport::TestCase
       @home_page = PageTypes::HomePage.create(:title => "Home Page")
     end
     
-    should "be assigned content" do
+    should "be able to be assigned content" do
       content = Content.create(:title => "main", :content => "This is my homepage copy")
       @home_page.content << content
       
