@@ -1,23 +1,43 @@
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
 
-desc 'Default: run unit tests.'
-task :default => :test
-
-desc 'Test the blue plugin.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+namespace :test do
+  Rake::TestTask.new(:basic => ["generator:cleanup", "generator:blue"]) do |task|
+    task.libs << "lib"
+    task.libs << "test"
+    task.pattern = "test/models|controllers/*_test.rb"
+    task.verbose = true
+  end
+  
+  Rake::TestTask.new(:models) do |task|
+    task.libs << "lib"
+    task.libs << "test"
+    task.pattern = "test/models/*_test.rb"
+    task.verbose = true
+  end
 end
 
-desc 'Generate documentation for the blue plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'Blue'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+generators = %w(blue)
+
+namespace :generator do
+  desc "Cleans up the test app before running the generator"
+  task :cleanup do
+
+    FileList["test/rails_root/db/**/*"].each do |each| 
+      FileUtils.rm_rf(each)
+    end
+
+    FileUtils.rm_rf("test/rails_root/vendor/plugins/blue")
+    FileUtils.mkdir_p("test/rails_root/vendor/plugins")
+    blue_root = File.expand_path(File.dirname(__FILE__))
+    system("ln -s #{blue_root} test/rails_root/vendor/plugins/blue")
+  end
+
+  desc "Run the blue generator"
+  task :blue do
+    system "cd test/rails_root && rake blue:bootstrap && rake db:migrate db:test:prepare"
+  end
 end
+
+desc "Run the test suite"
+task :default => ['test:basic']

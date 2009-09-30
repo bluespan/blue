@@ -1,6 +1,7 @@
 # Blue
 
 require 'blue/extensions/routes'
+require 'blue/acts_as_contentable'
 
 BLUE_TEMPLATE_ROOT = RAILS_ROOT+'/app/views/pages'
 BLUE_ASSETS_ROOT = RAILS_ROOT+'/public/assets/'

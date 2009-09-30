@@ -19,6 +19,7 @@ class Page < ActiveRecord::Base
   attr_accessor :body_id, :body_class
   cattr_accessor :types
   
+  
   # acts_as_ferret :fields => {
   #                              :title => {:store => :yes}, 
   #                              :url => {:store => :yes}, 
@@ -27,13 +28,14 @@ class Page < ActiveRecord::Base
   #                 :if => lambda { |page| page.published? && (not page.working.nil?) && page.working.live == page}
                   
   acts_as_commentable
+  acts_as_contentable     
                
-  def verbiage(key, options = {})
-    verbiage = content_hash[key] || Verbiage.new({:title => key, :page_id => id, :content => options[:default]})
-    verbiage.content = options[:value]  if options.include?(:value)
-    verbiage.save!                      if verbiage.content_changed?
-    content_hash[key] = verbiage
-  end
+  # def verbiage(key, options = {})
+  #   verbiage = content_hash[key] || Verbiage.new({:title => key, :page_id => id, :content => options[:default]})
+  #   verbiage.content = options[:value]  if options.include?(:value)
+  #   verbiage.save!                      if verbiage.content_changed?
+  #   content_hash[key] = verbiage
+  # end
   
   def navigation(path)
     @navigation ||= {}

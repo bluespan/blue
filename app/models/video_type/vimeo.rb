@@ -18,38 +18,39 @@ class VideoType::Vimeo < Video
     EOS
   end
   
+  class << self
   
-  def self.find_remote_by_username(username)
-    Vimeo::Simple::User.clips(username).collect do |video|
-      self.initialize_from_vimeo(video)
+    def find_remote_by_username(username)
+      Vimeo::Simple::User.clips(username).collect do |video|
+        self.initialize_from_vimeo(video)
+      end
+    end
+  
+    def find_remote_by_clip_id(clip_id)
+      Vimeo::Simple::Clip.info(clip_id).collect do |video|
+        self.initialize_from_vimeo(video)
+      end.first
+    end
+  
+    def find_remote(options)
+      if options.has_key?(:username)
+        self.find_remote_by_username(options[:username])
+      elsif options.has_key?(:clip_id)
+        self.find_remote_by_clip_id(options[:clip_id])
+      end
+    end
+  
+    private
+  
+    def initialize_from_vimeo(video)
+      VideoType::Vimeo.new({
+        :clip_id => video["clip_id"],
+        :title => video["title"],
+        :description => video["caption"],
+        :duration_in_seconds => video["duration"],
+        :thumbnail => video["thumbnail_medium"],
+        :url => video["url"]
+      })
     end
   end
-  
-  def self.find_remote_by_clip_id(clip_id)
-    Vimeo::Simple::Clip.info(clip_id).collect do |video|
-      self.initialize_from_vimeo(video)
-    end.first
-  end
-  
-  def self.find_remote(options)
-    if options.has_key?(:username)
-      self.find_remote_by_username(options[:username])
-    elsif options.has_key?(:clip_id)
-      self.find_remote_by_clip_id(options[:clip_id])
-    end
-  end
-  
-  private
-  
-  def self.initialize_from_vimeo(video)
-    VideoType::Vimeo.new({
-      :clip_id => video["clip_id"],
-      :title => video["title"],
-      :description => video["caption"],
-      :duration_in_seconds => video["duration"],
-      :thumbnail => video["thumbnail_medium"],
-      :url => video["url"]
-    })
-  end
-  
 end
