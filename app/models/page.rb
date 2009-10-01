@@ -28,15 +28,8 @@ class Page < ActiveRecord::Base
   #                 :if => lambda { |page| page.published? && (not page.working.nil?) && page.working.live == page}
                   
   acts_as_commentable
-  acts_as_contentable     
-               
-  # def verbiage(key, options = {})
-  #   verbiage = content_hash[key] || Verbiage.new({:title => key, :page_id => id, :content => options[:default]})
-  #   verbiage.content = options[:value]  if options.include?(:value)
-  #   verbiage.save!                      if verbiage.content_changed?
-  #   content_hash[key] = verbiage
-  # end
-  
+  acts_as_contentable
+     
   def navigation(path)
     @navigation ||= {}
     @navigation[path] ||= (published? ? working.navigations : navigations).select do |navigation|
@@ -45,29 +38,20 @@ class Page < ActiveRecord::Base
   end
 
   def publish
-    # Remove old published page if exists from Ferret Index
-    # live.ferret_destroy if live
-
     published_page = clone
+    published_page.working_id = id
+    published_page.save(false) # Don't run validations, we know it to be valid
+  
+    # Publish Content
+    content.each do |c|
+      c.publish!({:contentable_id => published_page.id})
+    end
     
-    # Disable Ferret while we save the page's content
-    # published_page.disable_ferret(:index_when_finished) do 
-    
-      published_page.working_id = id
-      published_page.save(false) # Don't run validations, we know it to be valid
-    
-      # Publish Content
-      content_hash.each_value do |content_obj|
-        content_obj.publish!({:page_id => published_page.id})
-      end
-      
-      # Publish Comments
-      comments.each do |comment|
-        comment.commentable_id = published_page.id
-      end
-    
-    # end
-    
+    # Publish Comments
+    comments.each do |comment|
+      comment.commentable_id = published_page.id
+    end
+
     published_page
   end
   
@@ -133,10 +117,6 @@ class Page < ActiveRecord::Base
     value.chop
   end
 
-  def content_hash
-    @content_hash ||= Hash[*content.collect { |c| [c.title, c] }.flatten]
-  end
-  
   class << self
     
     def search (keywords, options = {})

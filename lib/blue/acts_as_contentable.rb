@@ -10,29 +10,47 @@ module Blue
 
       module ClassMethods
         def acts_as_contentable
-          has_many :content, :as => :contentable, :dependent => :destroy
-          include Juixe::Acts::Commentable::InstanceMethods
-          extend Juixe::Acts::Commentable::SingletonMethods
+          has_many :content, :as => :contentable, :dependent => :destroy do
+            def to_hash(type)
+              hash = Hash[* self.select { |c| c.type == type.to_s }.collect { |c| [c.title.to_sym, c]}.flatten]
+              
+              def hash.contentable=(contentable)
+                @contentable = contentable
+              end
+              hash.contentable = proxy_owner
+              
+              hash
+            end              
+          end
+          
+          include Blue::Acts::Contentable::InstanceMethods
         end
       end
       
       # This module contains class methods
       module SingletonMethods
-
-        # This method is equivalent to obj.content.
-        def find_comments_for(obj)
-          contentable = ActiveRecord::Base.send(:class_name_of_active_record_descendant, self).to_s
-         
-          Comment.find(:all,
-            :conditions => ["contentable_id = ? and contentable_type = ?", obj.id, contentable],
-            :order => "type, title"
-          )
-        end
       end
       
       # This module contains instance methods
       module InstanceMethods
+        
+        def verbiage
+          @verbiage ||= content.to_hash(Verbiage)
 
+          def @verbiage.[]=(key, value)
+            if self.has_key?(key)
+              self[key].update_attributes({:content => value})
+            else
+              self.store(key, Verbiage.new({:title => key.to_s, :content => value}) )
+              @contentable.content << self[key]
+            end
+  
+            self
+          end
+
+          @verbiage
+        end
+        
       end
       
     end

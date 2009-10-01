@@ -1,13 +1,7 @@
 class Verbiage < Content
   
-  named_scope :published, :conditions => {:published => true}, :group => "page_id, title", :order => "created_at DESC"
-  named_scope :working,   :conditions => {:published => false}
-  
   acts_as_commentable
-  
-  belongs_to  :page
-  
-  after_save :touch_page
+  after_save :touch_contentable
   
   def publish!(options = {})
     published_content = clone
@@ -22,9 +16,8 @@ class Verbiage < Content
 
   private
   
-  def touch_page
-    page.updated_at = Time.now
-    page.save
+  def touch_contentable
+    contentable.touch
   end
   
 end
