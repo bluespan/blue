@@ -12,7 +12,21 @@ namespace :test do
   Rake::TestTask.new(:models) do |task|
     task.libs << "lib"
     task.libs << "test"
-    task.pattern = "test/models/*_test.rb"
+    task.pattern = "test/models/**/*_test.rb"
+    task.verbose = true
+  end
+  
+  Rake::TestTask.new(:controllers) do |task|
+    task.libs << "lib"
+    task.libs << "test"
+    task.pattern = "test/controllers/**/*_test.rb"
+    task.verbose = true
+  end
+  
+  Rake::TestTask.new(:helpers) do |task|
+    task.libs << "lib"
+    task.libs << "test"
+    task.pattern = "test/helpers/**/*_test.rb"
     task.verbose = true
   end
 end

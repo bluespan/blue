@@ -1,3 +1,3 @@
 module Admin::VerbiageHelper
-  include PagesHelper
+  #include PagesHelper
 end

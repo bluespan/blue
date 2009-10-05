@@ -24,6 +24,10 @@ module BlueHelper
     @current_admin_user_session = AdminSession.find
   end
 
+  def current_admin_user=(user)
+    @current_admin_user = user
+  end
+
   def current_admin_user
     return @current_admin_user if defined?(@current_admin_user)
     @current_admin_user = current_admin_user_session && current_admin_user_session.admin_user

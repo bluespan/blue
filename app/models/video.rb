@@ -28,7 +28,8 @@ class Video < ActiveRecord::Base
     
     def find_by_lookup(lookup)
       type, clip_id = lookup.split("_")
-      (VideoType.const_get(type.camelcase)).find_remote(:clip_id => clip_id)
+      video_class = Module.const_get("VideoType").const_get(type.camelcase)
+      video_class.find_remote(:clip_id => clip_id)
     end
     
     def sources

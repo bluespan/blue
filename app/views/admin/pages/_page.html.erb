@@ -1,5 +1,5 @@
 <li class="page <%= page.css_class %>" id="page_<%= page.id %>"><span class="title"><%= page.title %></span> <span class="tools">
-<% if current_admin_user.has_role?(:editor) %>	
+<% if current_admin_user.has_permission?(:admin_content) %>	
 	<%= link_to "Edit Content", "#{page.url}" %> | <%= link_to "Edit Attributes", edit_admin_page_path(page), :class => "edit_attributes" %> | <%= link_to "Delete", admin_page_path(page), :class => "delete" %>
 <% else %>
 	<%= link_to "Visit", "#{page.url}" %>

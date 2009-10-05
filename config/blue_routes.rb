@@ -3,10 +3,10 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root :controller => 'pages', :action => 'index'
     admin.resources :pages, :member => {:publish => :put, :typecast => :get}, :collection => {:publish_all => :put, :typecast => :get} do |pages|
-      pages.resources :verbiage do |verbiage|
-        verbiage.resources :comments
-      end
       pages.resources :comments
+    end
+    admin.resources :verbiage do |verbiage|
+      verbiage.resources :comments
     end
     admin.resources :global_verbiage do |global_verbiage|
       global_verbiage.resources :comments

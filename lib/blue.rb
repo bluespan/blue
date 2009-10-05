@@ -70,7 +70,7 @@ module Span
 
           # Show the live version if not logged in
           @page = live_or_working @page
-
+  
           unless @page.nil?
             # Is the url valid?
             path = "#{ancestors}/#{slug}"

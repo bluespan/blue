@@ -1,18 +1,15 @@
 class Admin::VerbiageController < Admin::BlueAdminController
   
-  before_filter :verify_editor
+  before_filter :verify_permission_to_admin_content, :find_verbiage
   layout false
   
   helper :pages
   
   def edit
-    @page = Page.working.find(params[:page_id])
-    @verbiage = @page.verbiage(params[:id])
   end
   
   def update
-    @page = Page.working.find(params[:page_id])
-    @verbiage = @page.verbiage(params[:id], :value => params[:verbiage][:content])
+    @verbiage.update_attributes(params[:verbiage])
     
     respond_to do |wants|
       flash.now[:notice] = "#{@verbiage.class.to_s.underscore.titleize} <em>#{@verbiage.title}</em> was successfully <em>updated.</em>"
@@ -22,8 +19,12 @@ class Admin::VerbiageController < Admin::BlueAdminController
   
   private
   
-  def verify_editor
-    head :forbidden unless current_admin_user.has_role?(:editor)
+  def verify_permission_to_admin_content
+    head :forbidden unless current_admin_user.has_permission?(:admin_content)
+  end
+  
+  def find_verbiage
+    @verbiage = Verbiage.find(params[:id])
   end
   
 end

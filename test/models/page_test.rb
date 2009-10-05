@@ -55,6 +55,18 @@ class PageTest < ActiveSupport::TestCase
     
   end
   
+  context "An existing page" do
+    setup do
+      @page = Page.create(:title => "Page")
+      @page.verbiage[:main] = "this is my default content"
+    end
+    
+    should "load verbiate already associated with it" do
+      page = Page.find_by_slug("page")
+      assert_equal "this is my default content", page.verbiage[:main].content
+    end
+  end
+  
   # context "Video Page" do
   #    
   #    setup do

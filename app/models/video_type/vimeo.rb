@@ -17,22 +17,20 @@ class VideoType::Vimeo < Video
       </object>
     EOS
   end
-  
-  class << self
-  
-    def find_remote_by_username(username)
+
+    def self.find_remote_by_username(username)
       Vimeo::Simple::User.clips(username).collect do |video|
         self.initialize_from_vimeo(video)
       end
     end
   
-    def find_remote_by_clip_id(clip_id)
+    def self.find_remote_by_clip_id(clip_id)
       Vimeo::Simple::Clip.info(clip_id).collect do |video|
         self.initialize_from_vimeo(video)
       end.first
     end
   
-    def find_remote(options)
+    def self.find_remote(options)
       if options.has_key?(:username)
         self.find_remote_by_username(options[:username])
       elsif options.has_key?(:clip_id)
@@ -42,7 +40,7 @@ class VideoType::Vimeo < Video
   
     private
   
-    def initialize_from_vimeo(video)
+    def self.initialize_from_vimeo(video)
       VideoType::Vimeo.new({
         :clip_id => video["clip_id"],
         :title => video["title"],
@@ -52,5 +50,4 @@ class VideoType::Vimeo < Video
         :url => video["url"]
       })
     end
-  end
 end

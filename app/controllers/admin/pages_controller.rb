@@ -1,7 +1,7 @@
 class Admin::PagesController < Admin::BlueAdminController
   layout "admin", :only => :index
   before_filter :verify_publisher, :only => [:publish, :publish_all]
-  before_filter :verify_editor, :only => [:new, :edit, :create, :update, :destroy]
+  before_filter :verify_permission_to_admin_content, :only => [:new, :edit, :create, :update, :destroy]
   before_filter :find_model, :except => [:index, :publish_all]
   
   def index
@@ -101,11 +101,11 @@ class Admin::PagesController < Admin::BlueAdminController
   private
   
   def verify_publisher
-    head :forbidden unless current_admin_user.has_role?(:publisher)
+    head :forbidden unless current_admin_user.has_permission?(:publish)
   end
   
-  def verify_editor
-    head :forbidden unless current_admin_user.has_role?(:editor)
+  def verify_permission_to_admin_content
+    head :forbidden unless current_admin_user.has_permission?(:admin_content)
   end
   
   def find_model
