@@ -17,7 +17,8 @@ class Page < ActiveRecord::Base
   before_validation :generate_unique_slug!
    
   attr_accessor :body_id, :body_class
-  cattr_accessor :types
+  cattr_accessor :types, :allow_ssl
+  
   
   
   # acts_as_ferret :fields => {

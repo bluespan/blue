@@ -13,8 +13,9 @@ class PagesController < BlueController
     end
   end
   
-  def show    
-    render handle_request
+  def show   
+    render_instructions = handle_request 
+    render render_instructions unless render_instructions.nil?
         
     rescue BlueTempateFileNotFound
       render :template => "errors/blue_template_file_not_found", :layout => "blue_error"
@@ -33,6 +34,14 @@ class PagesController < BlueController
       @slug_index = index
       
       @page = load_page(slug, ancestors)
+      
+      if Page.allow_ssl and @page.require_ssl? 
+        unless request.ssl?
+          redirect_to "https://" + request.host + request.request_uri 
+          return nil
+        end
+      end
+      
       if not @page.nil? 
         instructions = route
         if instructions.is_a?(Hash)
