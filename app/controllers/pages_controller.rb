@@ -14,7 +14,7 @@ class PagesController < BlueController
   end
   
   def show    
-    @slugs = request.path.split("/").delete_if {|slug| slug == ""}
+    @slugs ||= request.path.split("/").delete_if {|slug| slug == ""}
 
     render_instructions = {}
     ancestors = ""
