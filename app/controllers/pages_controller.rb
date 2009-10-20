@@ -14,6 +14,15 @@ class PagesController < BlueController
   end
   
   def show    
+    render handle_request
+        
+    rescue BlueTempateFileNotFound
+      render :template => "errors/blue_template_file_not_found", :layout => "blue_error"
+  end
+  
+  protected
+  
+  def handle_request
     @slugs ||= request.path.split("/").delete_if {|slug| slug == ""}
 
     render_instructions = {}
@@ -31,23 +40,14 @@ class PagesController < BlueController
           break
         end
       else
-        render_instructions = {:status => 404, :template => "pages/404.html.erb"}
-        break
+        return {:status => 404, :template => "pages/404.html.erb"}
       end
       
       ancestors += "/#{slug}"
     end
     
-    unless @page.nil?
-      render_instructions = {:template => @page.template.path}.merge(render_instructions)
-    end
-    
-    render render_instructions
-    
-    
-  rescue BlueTempateFileNotFound
-    render :template => "errors/blue_template_file_not_found", :layout => "blue_error"
-    
+    return {:template => @page.template.path}.merge(render_instructions)
   end
+  
 
 end

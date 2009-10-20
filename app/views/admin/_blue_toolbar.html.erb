@@ -32,7 +32,7 @@
 				<li><strong class="title">Edit Verbiage</strong>
 					<ul>
 						<% @page.content.each do |content| %>
-							<li><a href="/admin/pages/<%= @page.id %>/<%= content.class.to_s.downcase %>/<%= content.title %>/edit" class="edit edit_<%= content.class.to_s.downcase %>"><%= content.title.humanize %> <%= content.class.to_s %></a></li>
+							<li><a href="/admin/verbiage/<%= content.id %>/edit" class="edit edit_<%= content.class.to_s.downcase %>"><%= content.title.humanize %> <%= content.class.to_s %></a></li>
 						<% end %>
 					</ul>
 				</li>
