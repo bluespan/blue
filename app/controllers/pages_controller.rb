@@ -35,7 +35,7 @@ class PagesController < BlueController
       
       @page = load_page(slug, ancestors)
       
-      if Page.allow_ssl and @page.require_ssl? 
+      if @page.respond_to? :require_ssl? and @page.require_ssl? 
         unless request.ssl?
           redirect_to "https://" + request.host + request.request_uri 
           return nil
