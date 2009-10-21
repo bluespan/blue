@@ -12,7 +12,8 @@ class Page < ActiveRecord::Base
   belongs_to  :working,   :class_name => "Page", :foreign_key => :working_id
     
   validates_presence_of   :title, :message => "can't be blank"
-  validates_uniqueness_of :slug,  :message => "must be unique", :scope => :working_id
+  validates_uniqueness_of :slug,  :message => "must be unique", :scope => :working_id, :if => Proc.new { |page| page.working_id.nil? }
+
   
   before_validation :generate_unique_slug!
    
