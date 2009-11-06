@@ -65,14 +65,7 @@ class VideoType::Vimeo < Video
     elsif options.has_key?(:clip_id)
       self.find_remote_by_clip_id(options[:clip_id])
     end
-  
-    def self.find_remote(options)
-      if options.has_key?(:username)
-        self.find_remote_by_username(options[:username])
-      elsif options.has_key?(:clip_id)
-        self.find_remote_by_clip_id(options[:clip_id])
-      end
-    end
+  end
   
     private
   
