@@ -153,9 +153,8 @@ class Page < ActiveRecord::Base
       "Page"
     end
     
-    
-    def live(slug)
-      self.published(slug).first
+    def live(slug = nil)
+      slug.nil? ? self.workings.find(:all, :include => :live).collect{|p| p.live}.compact : self.published(slug).first
     end
 
     def working(slug = nil)

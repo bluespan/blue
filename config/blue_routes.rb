@@ -5,12 +5,15 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages, :member => {:publish => :put, :typecast => :get}, :collection => {:publish_all => :put, :typecast => :get} do |pages|
       pages.resources :comments
     end
+
     admin.resources :verbiage do |verbiage|
       verbiage.resources :comments
     end
+
     admin.resources :global_verbiage do |global_verbiage|
       global_verbiage.resources :comments
     end
+
     admin.resources :external_links
     admin.resources :navigations, :collection => { :move => :put }
   
@@ -27,11 +30,13 @@ ActionController::Routing::Routes.draw do |map|
     admin.connect 'publish/:action/:id/', :controller => 'publish'
     admin.connect 'publish/:action/:id/.:format', :controller => 'publish'
     admin.connect ':controller', :action => :index
-  
+
     admin.resources :videos
   end
 
   map.resource :member_session, :member => {:signout => :get}
+
+  map.connect 'sitemap.:format', :controller => 'sitemap', :action => 'show'
 
   map.connect ':ancestors/:slug', :controller => 'pages', :action => 'show', :ancestors => /[A-Za-z0-9\-\/_]*/
   map.connect ':slug', :controller => 'pages', :action => 'show'

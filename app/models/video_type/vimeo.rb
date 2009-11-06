@@ -18,16 +18,52 @@ class VideoType::Vimeo < Video
     EOS
   end
 
-    def self.find_remote_by_username(username)
-      Vimeo::Simple::User.clips(username).collect do |video|
-        self.initialize_from_vimeo(video)
+   def self.find_remote_by_tag(options)
+    vimeo_video = Vimeo::Advanced::Video.new(options[:api_key], options[:secret])
+    
+    request_options = {}
+    request_options[:user_id] = options[:username] if options.has_key?(:username)
+    request_options[:per_page] = 50
+    
+    videos = vimeo_video.get_list_by_tag(options[:tag], request_options)
+    videos.collect do |video|
+      self.initialize_from_vimeo(video)
+    end
+  end
+  
+  def self.find_remote_by_username(username)
+    videos = []
+    page = []
+    page_number = 1
+    
+    until page == false
+      page = Vimeo::Simple::User.clips(username, :page => page_number)
+      
+      if page.is_a?(Array)
+        page = page.collect do |video|
+          self.initialize_from_vimeo(video)
+        end
+        videos = videos + page
+        page_number += 1
       end
     end
+    
+    videos
+  end
   
-    def self.find_remote_by_clip_id(clip_id)
-      Vimeo::Simple::Clip.info(clip_id).collect do |video|
-        self.initialize_from_vimeo(video)
-      end.first
+  def self.find_remote_by_clip_id(clip_id)
+    Vimeo::Simple::Clip.info(clip_id).collect do |video|
+      self.initialize_from_vimeo(video)
+    end.first
+  end
+  
+  def self.find_remote(options)
+    if options.has_key?(:tag)
+      self.find_remote_by_tag(options)
+    elsif options.has_key?(:username)
+      self.find_remote_by_username(options[:username])
+    elsif options.has_key?(:clip_id)
+      self.find_remote_by_clip_id(options[:clip_id])
     end
   
     def self.find_remote(options)
