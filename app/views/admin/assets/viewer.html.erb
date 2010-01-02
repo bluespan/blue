@@ -5,6 +5,10 @@
 </script>
 <ul class="assets">
 	<% @assets.each do |asset| %>
-		<li><div class="thumbnail <%= asset.extension %>" style="background-image:url('<%= asset.thumbnail_url %>')"><%= link_to(asset.filename, asset) %></div></li>
+		<li><div class="thumbnail <%= asset.extension %>" style="background-image:url('<%= asset.thumbnail_url %>')"><%= link_to(asset.filename, asset, {:class => "asset"}) %>
+		<% if asset.protected? == false %>
+			<a href="/admin/assets/<%= asset.assetpath %>/destroy" class="delete">Delete</a>
+		<% end %>
+		</div></li>
 	<% end %>
 </ul>

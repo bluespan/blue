@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	bind_asset_dialog("#upload_asset_button");
 	bind_asset_dialog("#new_folder_button");
+	bind_asset_delete(".assets .delete")
 });
 
 
@@ -61,3 +62,12 @@ function bind_asset_dialog(selector) {
 	});
 }
 
+function bind_asset_delete(selector) {
+	$(selector).click(function() {
+		if (confirm("Are you sure you want to delete asset: '"+$(this).prev("a").text()+"'")) {
+			$(this).parents("li").addClass("destroy_asset");
+			$.post($(this).attr('href') + ".js", {_method:"delete"}, null, "script");
+		}
+		return false;
+	})
+}

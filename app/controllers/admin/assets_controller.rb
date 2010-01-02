@@ -65,6 +65,22 @@ class Admin::AssetsController < Admin::BlueAdminController
     end
   end
   
+  def destroy
+    @asset = Asset.find(params[:path], :dir => BLUE_ASSETS_ROOT)
+    @asset.destroy
+    
+    flash.now[:notice] = "Asset <em>#{params[:path]}</em> was successfully <em>deleted.</em>"
+    respond_to do |wants|
+      wants.html { redirect_to :action => "index "}
+      wants.js
+    end
+  rescue e
+    respond_to do |wants|
+      flash.now[:error] = "Asset <em>#{params[:path]}</em> was failed to <em>deleted.</em> #{e}"
+      wants.js { render :template => "admin/error", :locals => {:object => @page} }
+    end
+  end
+  
   private
 
   def verify_editor

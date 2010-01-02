@@ -15,6 +15,14 @@ class Asset < File
     path.gsub(@options[:dir], "")
   end
   
+  def protected?
+    (assetpath == "/documents") or (assetpath == "/images") 
+  end
+  
+  def assetpath
+    path.gsub(BLUE_ASSETS_ROOT, "")
+  end
+  
   def relative_filepath
     filepath.gsub(/^\//, "")
   end
@@ -32,6 +40,18 @@ class Asset < File
     return '/images/blue/page_pdf.png' if extension == "pdf"
     return '/images/blue/page_word.png' if extension == "doc" || extension == "docx"
     return '/images/blue/page.png'
+  end
+  
+  def destroy
+    if protected? == false      
+      if File.directory?(path)
+        FileUtils.remove_dir(path)
+      else
+        File.delete(path)
+      end
+    else
+      raise Exception, "Asset '#{assetpath}' is protected"
+    end
   end
   
   def self.find(file, options = {})
@@ -59,6 +79,7 @@ class Asset < File
       Asset.new(path, options)
     end
   end
+ 
   
 end
 
@@ -86,6 +107,11 @@ class Asset::Image < Asset
   
   def close
     @thumbnail.close unless @thumbnail.nil? || @thumbnail == self
+    super
+  end
+  
+  def destory
+    File.delete(thumbnail.path)
     super
   end
   
