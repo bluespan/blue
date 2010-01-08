@@ -4,7 +4,14 @@
 <% unless @navigation.bucket? %>
 <fieldset>
 	<legend>Page</legend>
-	<strong><%= @navigation.page.title %></strong>
+	<p><strong><%= @navigation.page.title %></strong></p>
+	
+	<p>
+	<label for="navigation_title" style="width:75px;">Rename Title</label>
+	<%= f.text_field :title, :name => "navigation[title]", :id => "navigation_title" %>
+	<br />Rename page title in navigation, leave blank to use original page title.
+	</p>
+	
 </fieldset>
 <% end %>
 
@@ -13,6 +20,7 @@
 <ul class="checkbox">
 	<li><%= f.check_box :display?  %> <label for="navigtion_display">Display in Navigation</label></li>
 	<li><%= f.check_box :display_to_members_only?  %> <label for="navigation_display_to_members_only">Display in Navigation To Members Only</label></li>
+	<li><%= f.check_box :collapsed?  %> <label for="navigation_collapsed">Start Collapsed</label></li>
 </ul>
 </fieldset>
 

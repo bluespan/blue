@@ -97,14 +97,13 @@ class Page < ActiveRecord::Base
     sub_dir = self.class.to_s.split("::")[1].underscore
     @template = TemplateFile.find("/" + sub_dir + "/" + self[:template_file])
   end
-  
 
   def display_name
     self.class.display_name
   end
   
   def css_class
-    self.class.to_s.split("::")[1].underscore
+    self.class.css_class
   end
   
   def open_new_window?
@@ -120,6 +119,10 @@ class Page < ActiveRecord::Base
   end
 
   class << self
+    
+    def css_class
+      self.to_s.split("::")[1].underscore
+    end
     
     def search (keywords, options = {})
       options = {:limit => 10, :page => 1, :lazy => [:title, :page_contents, :url]}.merge(options)

@@ -1,5 +1,7 @@
 $.modal.close();
 <% if @navigation.bucket? %>
 $('#navigation_<%= @navigation.id %> h3').html("<%= escape_javascript(@navigation.title) %>")	
+<% else %>
+$('#navigation_<%= @navigation.id %> > div >.title').html("<%= escape_javascript(@navigation.title.blank? ? @navigation.page.title : @navigation.title) %>")	
 <% end %>
 $.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

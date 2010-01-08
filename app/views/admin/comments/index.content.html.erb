@@ -13,7 +13,7 @@
 <p>No comments have been made yet.</p>
 <% end %>
 
-<% form_for @comment, :url => admin_page_verbiage_comments_path(@commentable.page, @commentable) do |f| %>
+<% form_for @comment, :url => admin_page_comments_path(@commentable.contentable, @commentable) do |f| %>
 	
 	<label for="comment_comment">Comment</label>
 	<%= f.text_area :comment %>

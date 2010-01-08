@@ -30,7 +30,10 @@ module PagesHelper
   end
   
   def navigation(top, options = {})
-    options = {:levels => 9999, :top_levels => 9999, :id => "#{top.to_s}_navigation", :collapsed => false}.update(options)
+    options = {:levels => 9999, :top_levels => 9999, :id => "#{top.to_s}_navigation",
+                :exclude => nil, :include => nil,
+                :collapsed => false, :force_display => false}.update(options)
+    
     if top.is_a?(Navigation)
       @top = top
       url = "/#{top.page.slug}"
@@ -88,11 +91,14 @@ module PagesHelper
   def navigation_tree(navigations, options = {}, url = "", level = 1)
     output = ""
     
+    navigations = navigations.delete_if { |n| options[:exclude].call(n) } unless options[:exclude].nil?
+    navigations = navigations.delete_if { |n| not options[:include].call(n) } unless options[:include].nil?
+    
     navigations.each do |navigation|
       
       page = live_or_working navigation.page
       
-      next unless navigation.display? && (not page.nil?)
+      next if (navigation.display? == false && options[:force_display] == false) || page.nil?
       next if navigation.display_to_members_only? && member_logged_in? == false
       next if page.class == PageTypes::MemberSignInPage && member_logged_in? == true
       next if page.class == PageTypes::MemberSignInPage && @page.class == PageTypes::MemberSignInPage
@@ -108,13 +114,17 @@ module PagesHelper
       end  
       classes << "first"  if navigation == navigations.first
       classes << "last"   if navigation == navigations.last
+      classes << "collapsed"   if navigation.collapsed?
       classes << page.slug.underscore
     
       link_url = page.respond_to?(:link) ? page.link : navigation_url
       link_options = page.open_new_window? ? {:target => "_blank"} : {}
       
+      navigation_title = navigation.title
+      navigation_title = page.title if navigation_title.blank?
+      
       output += "<li class=\"#{classes.join(" ")}\">"
-        output += link_to filter_page_title(page.title), link_url, link_options
+        output += link_to filter_page_title(navigation_title), link_url, link_options
         unless navigation.leaf? or level >= options[:levels] or (options[:collapsed] and classes.include?("active") == false)
           output += "<ul>" + navigation_tree(navigation.children, options, navigation_url, level + 1) + "</ul>"
         end

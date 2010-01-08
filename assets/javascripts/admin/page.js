@@ -6,25 +6,54 @@ $(document).ready(function(){
 	
 	// Page List
 	$("#search input").keyup(function() {
-		var search = $(this);
-
-		$("#pages .list li").each(function(){
-			var page = $(this);
-			var hit = 0;
-			$(page.find(".title").html().split(" ")).each(function(){
-				if (this.toLowerCase().indexOf(search.val().toLowerCase()) == 0)
-					hit++;
-			});
-			
-			if (hit)
-				$(this).css({"display":"block"});
-			else
-				$(this).css({"display":"none"});
-
-		});
+		filter_pages();		
 	});
 	
+	$("#filter_type li").click(function() {
+		$(this).toggleClass("checked");
+		filter_pages();
+	})
+	
+	filter_pages();
 });
+
+function filter_pages() {
+	
+	var search = $("#search input");
+	var types = $("#filter_type li.checked");
+	
+	if (search == "" && types.length == 0) return false;
+	
+	$("#pages .list li").each(function(){
+			var page = $(this);
+			var hit = 0;
+			
+			
+			if (search != "") { 
+				$(page.find(".title").html().split(" ")).each(function(){
+					if (this.toLowerCase().indexOf(search.val().toLowerCase()) == 0)
+						hit = 1;
+				});
+			}
+			
+			var typematch = 0;
+			types.each(function() {
+				var type = $.trim($(this).attr("class").replace("checked", ""));
+				if (page.hasClass(type)) {
+					typematch = 1;
+				}
+			});
+			
+			if (types.length > 0 && typematch == 0) hit--;
+			
+			if (hit > 0) 
+				$(this).css({"display":"block"});
+			else 
+				$(this).css({"display":"none"});
+	
+
+		});
+}
 
 
 // Page Dialogs

@@ -12,6 +12,8 @@
 			<li <%= (controller.class.to_s =~ /.*membership.*/i ? "class=\"current\"" : "") %>><a href="/admin/membership">Membership</a></li>
 			<% end %>
 			<li <%= (controller.class.to_s =~ /.*adminusers.*/i ? "class=\"current\"" : "") %>><a href="/admin/admin_users">Admin Users</a></li>
+		
+			<%= render :partial => "admin/blue_toolbar_extended_navigation"%>
 		</ul>
 	
 		<div id="blue_account" class="blue_account">

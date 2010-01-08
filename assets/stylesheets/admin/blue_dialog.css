@@ -44,8 +44,8 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .dialog select {padding:0;}
 .modalContainer input.text, .modalContainer select {border-width:1px;border-style:solid;}
 .modalContainer input.button {display:inline;width:auto;}
-.modalContainer form .checkbox label {padding:2px 0 0 0;display:inline;}
-.modalContainer form .checkbox input {margin:0px 5px 0 0;}
+.modalContainer form .checkbox label {padding:2px 0 0 0;display:inline;float:none;}
+.modalContainer form .checkbox input {margin:0px 5px 0 0;float:none;}
 .modalContainer form .checkbox {clear:both;float:none;}
 .modalContainer form .checkbox  li {float:none;clear:both;margin-bottom:10px;}
 .modalContainer textarea {width:250px;height:48px;}
@@ -91,11 +91,11 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 	-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;
 }
 
-#modalContainerNavigation {height:240px;width:380px;margin-left:-190px;top:30%;}
+#modalContainerNavigation {height:340px;width:380px;margin-left:-190px;top:20%;}
 #modalContainerAsset {height:240px;width:420px;margin-left:-220px;top:30%;}
 
 .modalContainer .modalData {overflow:auto;height:360px;background:#fff;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;}
-#modalContainerNavigation .modalData {overflow:auto;height:200px;}
+#modalContainerNavigation .modalData {overflow:auto;height:300px;}
 #modalContainerAsset .modalData {overflow:auto;height:200px;}
 
 .modalContainer a.modalCloseImg {
