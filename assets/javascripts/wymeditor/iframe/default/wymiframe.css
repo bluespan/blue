@@ -64,6 +64,8 @@
   blockquote{ background-image: url(lbl-blockquote.png); }
   pre       { background-image: url(lbl-pre.png); }
 
+  p.gallery  { background-color:#FFF3D0;background-image: url(lbl-p-gallery.png);border:1px solid #FFC4A0; }
+
 /* specific HTML elements */
   caption   { text-align: left; }
   img       { margin-right: 5px;

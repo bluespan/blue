@@ -8,7 +8,7 @@
 
 <ul class="assets">
 	<% @assets.each do |asset| %>
-		<li><% link_to asset, :class => asset_css_class(asset) do %>
+		<li><% link_to (asset.is_a?(Asset::Image) ? asset.thumbnail_url : asset), :class => asset_css_class(asset) do %>
 			<div class="thumbnail"><%= image_tag asset.thumbnail_url %></div><span><%= asset.filename %></span>
 			<% end %>
 		</li>

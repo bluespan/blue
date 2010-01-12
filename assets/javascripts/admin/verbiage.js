@@ -22,8 +22,12 @@ var verbiage_dialog = {
 				success: function (html) {
 					
 					dialog.data.find('.loading').fadeOut(150, function() {
-						dialog.data.html('<div class="content">' + html + '</div>');
 						
+						// Replace asset images with their thumbnails
+						html = html.replace(/src=&quot;\/assets\/images/gi, 'src=&quot;/assets/images/.thumbnails');
+				
+						dialog.data.html('<div class="content">' + html + '</div>');
+
 						dialog.data.find('.close').click(function () { $.modal.close(); return false; });
 										
 						$('.wymeditor').wymeditor($.extend({}, {
@@ -76,6 +80,7 @@ var verbiage_dialog = {
 						  	page_verbiage_comments_dialog.init();
 							},
 							postInitDialog: function() {
+								
 								dialog.data.find('.content').fadeIn(500);
 							}
 		
@@ -83,6 +88,10 @@ var verbiage_dialog = {
 			
 						// Add Ajax Submit
 						dialog.data.find('form').submit(function(){
+							
+							// Replace asset thumbnails with their full images
+							$("#verbiage_content").val($("#verbiage_content").val().replace(/src="\/assets\/images\/\.thumbnails/gi, 'src="/assets/images'));
+
 							$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
 							return false;
 						});

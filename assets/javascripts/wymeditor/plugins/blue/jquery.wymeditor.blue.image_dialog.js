@@ -52,7 +52,7 @@ BlueImageDialog.prototype.open = function() {
 		if (wym._selected_image) {
 			src = "/images"
 			if (jQuery(wym._selected_image).attr("src").indexOf("http") < 0)
-				src = jQuery(wym._selected_image).attr("src").replace("/assets", "").replace(/\/[^\/]*$/, "");
+				src = jQuery(wym._selected_image).attr("src").replace(".thumbnails/", "").replace("/assets", "").replace(/\/[^\/]*$/, "");
 				
 			path = "/admin/assets/selector" + src
 			
@@ -74,7 +74,7 @@ BlueImageDialog.prototype.bindImages = function() {
 
 		
 		sUrl = $(this).attr("href").replace(/^.*selector/, "");
-		sUrl = "/assets" + sUrl;
+		//sUrl = "/assets" + sUrl;
 
 		if (!$.browser.msie) {
 			wym._exec(WYMeditor.INSERT_IMAGE, sUrl);
