@@ -66,7 +66,7 @@ module Span
       end
       
       def load_page(slug, ancestors)
-        if @page = Page.working(slug)
+        if @page = Page.working(slug, ancestors)
 
           # Show the live version if not logged in
           @page = live_or_working @page

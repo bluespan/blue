@@ -160,8 +160,19 @@ class Page < ActiveRecord::Base
       slug.nil? ? self.workings.find(:all, :include => :live).collect{|p| p.live}.compact : self.published(slug).first
     end
 
-    def working(slug = nil)
-      slug.nil? ? self.workings : self.workings(slug).first
+    def working(slug = nil, ancestors = "")
+      return self.workings if slug.nil?
+      
+      pages = self.workings(slug)
+      return pages.first if pages.length == 0 || ancestors.blank?
+      
+      pages.each do |page|
+        page.urls.each do |url|
+          return page if ancestors+"/"+slug == url
+        end
+      end
+      
+      return pages.first
     end
 
     def pending_publish
