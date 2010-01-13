@@ -18,12 +18,14 @@
 		<label for="search_box">Title</label>
 		<input type="text" name="search" id="search_box" />
 		
+		<div>
 		<label>Filter</label>
 		<ul id="filter_type">
 		<% Page.types.each do |page_type| -%>
 			<li class="<%= page_type.css_class %>"><%= page_type.type_name %></li>
 		<% end -%>
 		</ul>
+		</div>
 	</div>
 	<ul class="list" id="page_list">
 		<%= render :partial => "page", :collection => @pages %>

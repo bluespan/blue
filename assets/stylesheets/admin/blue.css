@@ -124,7 +124,7 @@ span.tools .publish {background:url("/images/blue/icon_world.gif") left center n
 
 #ajaxupload {display:none;}
 
-#filter_type {}
+#filter_type {float:left;}
 #filter_type li {float:left;padding-left:24px;line-height:26px;font-size:11px;margin-right:5px;padding-right:3px;cursor:pointer;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px;margin-bottom:2px;color:#B4C6FF;}
 #filter_type li:hover {background-color:#B4C6FF;color:#203B8F;}
 #filter_type li.checked {background-color:#B4C6FF;color:#203B8F;border:1px solid #203B8F;margin-bottom:0;}
