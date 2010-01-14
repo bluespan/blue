@@ -89,9 +89,16 @@ var verbiage_dialog = {
 						// Add Ajax Submit
 						dialog.data.find('form').submit(function(){
 							
+							// Make absolute paths that point to our server relative
+							html = $("#verbiage_content").val()
+							var re = new RegExp('(src|href)="?https?:\/\/' + document.location.host + '([^"]+)', 'gi');
+							html = html.replace(re, '$1=\"$2')
+							
 							// Replace asset thumbnails with their full images
-							$("#verbiage_content").val($("#verbiage_content").val().replace(/src="\/assets\/images\/\.thumbnails/gi, 'src="/assets/images'));
-
+							html = html.replace(/src="\/assets\/images\/\.thumbnails/gi, 'src="/assets/images');
+							
+							$("#verbiage_content").val(html);
+					
 							$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
 							return false;
 						});

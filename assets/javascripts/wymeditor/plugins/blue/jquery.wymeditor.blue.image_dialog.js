@@ -59,6 +59,7 @@ BlueImageDialog.prototype.open = function() {
 		}
 		
 		this.selectedPos = wym.selectedPosition();
+
 		this.loadDirectory(path);
 	}
 };
@@ -80,10 +81,9 @@ BlueImageDialog.prototype.bindImages = function() {
 			wym._exec(WYMeditor.INSERT_IMAGE, sUrl);
 		}
 		else {
-			thisBlueImageDialog.selectedPos.execCommand(WYMeditor.INSERT_IMAGE, false, sUrl);
+			wym._doc.caretPos.execCommand(WYMeditor.INSERT_IMAGE, false, sUrl);
 		}
 
-		
   	jQuery("img[src='" + sUrl + "']", wym._doc.body)
       .attr(WYMeditor.TITLE, "")
       .attr(WYMeditor.ALT, "");
