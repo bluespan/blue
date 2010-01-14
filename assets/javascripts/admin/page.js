@@ -30,7 +30,6 @@ function size_page_list(obj, top) {
 
 	var height = $(window).height() - top - list.position().top - 20
 	list.height(height);
-	console.log(height)
 }
 
 function scroll_page_list(obj) {
