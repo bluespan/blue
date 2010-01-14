@@ -53,6 +53,8 @@ body.admin #navigations .tree li div.navigation_page:hover {background-color:#B4
 body.admin #navigations .tree li div.navigation_page:hover span.tools {display:inline;}
 body.admin #navigations .tree li li.jTreePlacement {margin-left:28px;}
 
+body.admin #pages {position:fixed;top:75px;}
+
 body.admin #pages h2 {margin-bottom:10px;font-size:16px;color:#203B8F;}
 body.admin #pages #search {border:1px solid #778EC1;padding:5px;background:#778EC1;overflow:auto;}
 body.admin #pages #search {-moz-border-radius: 6px 6px 0 0;-webkit-border-top-left-radius: 6px;-webkit-border-top-right-radius: 6px;border-radius: 6px 6px 0 0;}
@@ -60,7 +62,7 @@ body.admin #pages #search h3 {color:#B4C6FF;font-size:14px;margin-bottom:5px;}
 
 body.admin #pages #search label {color:#fff;font-size:12px;margin-left:0px;float:left;clear:left;line-height:26px;margin-right:5px;width:30px;}
 body.admin #pages #search input {float:left;}
-body.admin #pages .list {border:1px solid #778EC1;padding:5px;}
+body.admin #pages .list {border:1px solid #778EC1;padding:5px;overflow:auto;height:400px;position:relative;}
 body.admin #pages .list {-moz-border-radius:0 0 6px 6px;-webkit-border-bottom-left-radius: 6px;-webkit-border-bottom-right-radius: 6px;border-radius:0 0 6px 6px;}
 body.admin #pages .list li {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
 body.admin #pages .list li.link {background:url("/images/blue/page_link_24.png") top left no-repeat;}

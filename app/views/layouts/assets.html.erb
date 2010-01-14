@@ -7,6 +7,9 @@
 	<%= stylesheet_link_admin %>
 	<%= stylesheet_link_tag "blue/admin/assets"%>
 
+	<!--[if IE]>
+	    <%= stylesheet_link_tag('blue/admin/blue_ie', :media => "all") %>
+	<![endif]-->
 
 	<%= javascript_include_tag "blue/jquery/jquery-1.2.6" %>
 	<%= javascript_include_tag "blue/jquery/jquery.simplemodal-1.1.1" %>

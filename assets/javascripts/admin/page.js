@@ -17,6 +17,38 @@ $(document).ready(function(){
 	filter_pages();
 });
 
+$(window).load(function() {
+	scroll_page_list();
+})
+$(window).resize(scroll_page_list);
+$(window).scroll(scroll_page_list);
+
+function size_page_list(obj, top) {
+
+	var pages = $("#pages");
+	var list = $("#pages .list:first");
+
+	var height = $(window).height() - top - list.position().top - 20
+	list.height(height);
+	console.log(height)
+}
+
+function scroll_page_list(obj) {
+	var pages = $("#pages");
+	var scrollTop = $(window).scrollTop();
+	
+	if (scrollTop > 0 && scrollTop < 65) {
+		pages.css("top", 75 - scrollTop);
+		size_page_list(obj, 75 - scrollTop);
+	} else if (scrollTop >= 65 ){
+		pages.css("top", 10);
+		size_page_list(obj, 10);
+	} else {
+		pages.css("top", 75);
+		size_page_list(obj, 75);
+	}
+}
+
 function filter_pages() {
 	
 	var search = $("#search input");

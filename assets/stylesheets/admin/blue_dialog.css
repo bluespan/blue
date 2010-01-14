@@ -51,8 +51,8 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer textarea {width:250px;height:48px;}
 .modalContainer fieldset {border:0px solid #B4C6FF;border-top:1px solid #778EC1;margin:0px 0 10px 0px;padding:10px 10px 10px 5px;width:auto;}
  
-.modalContainer fieldset legend {font-size:14px;font-weight:bold;color:#203B8F;margin-left:-10px;padding:0 10px 0 10px;}
-.modalContainer fieldset legend em {font-style:normal;background:#203B8F;color:#fff;font-size:14px;padding:2px 6px;margin-right:5px;-moz-border-radius:9px;-webkit-border-radius: 9px;border-radius:9px;}
+.modalContainer fieldset legend {font-size:14px;font-weight:bold;color:#203B8F;margin-left:-10px;padding:0px 10px 0 10px;margin-top:0px;line-height:18px;}
+.modalContainer fieldset legend em {font-style:normal;background:#203B8F;color:#fff;font-size:14px;padding:2px 6px;float:left;line-height:16px;margin-right:5px;-moz-border-radius:9px;-webkit-border-radius: 9px;border-radius:9px;}
 .modalContainer fieldset p {margin:0px 0 10px;line-height:130%;}
 .modalContainer fieldset strong {font-weight:bold;float:left;margin-top:5px;}
 .modalContainer input.error {border:1px solid #AF1010;color:#AF1010;}
