@@ -115,9 +115,17 @@ module PagesHelper
       classes << "first"  if navigation == navigations.first
       classes << "last"   if navigation == navigations.last
       classes << "collapsed"   if navigation.collapsed?
+      classes << "placeholder"   if navigation.placeholder?
       classes << page.slug.underscore
     
-      link_url = page.respond_to?(:link) ? page.link : navigation_url
+      if page.respond_to?(:link) 
+        link_url =  page.link 
+      elsif navigation.placeholder?
+        link_url = "#"
+      else
+        link_url =  navigation_url
+      end
+      
       link_options = page.open_new_window? ? {:target => "_blank"} : {}
       
       navigation_title = navigation.title
