@@ -90,14 +90,14 @@ var verbiage_dialog = {
 						dialog.data.find('form').submit(function(){
 							
 							// Make absolute paths that point to our server relative
-							html = $("#verbiage_content").val()
+							html = $(".wymeditor").first().val()
 							var re = new RegExp('(src|href)="?https?:\/\/' + document.location.host + '([^"]+)', 'gi');
 							html = html.replace(re, '$1=\"$2')
 							
 							// Replace asset thumbnails with their full images
 							html = html.replace(/src="\/assets\/images\/\.thumbnails/gi, 'src="/assets/images');
 							
-							$("#verbiage_content").val(html);
+							$(".wymeditor").first().val(html);
 					
 							$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
 							return false;
