@@ -5,8 +5,8 @@ class PagesController < BlueController
 
   def home
     @page = PageTypes::HomePage.working.find(:first)
-    if live_or_working(@page).nil?
-      @page = live_or_working @page
+    @page = live_or_working @page
+    if @page.nil?
       render :template => "pages/coming_soon.html.erb"
     else
       show
