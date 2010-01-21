@@ -89,15 +89,17 @@ var verbiage_dialog = {
 						// Add Ajax Submit
 						dialog.data.find('form').submit(function(){
 							
+							var editor = $(".wymeditor");
+							
 							// Make absolute paths that point to our server relative
-							html = $(".wymeditor").first().val()
+							html = editor.val()
 							var re = new RegExp('(src|href)="?https?:\/\/' + document.location.host + '([^"]+)', 'gi');
 							html = html.replace(re, '$1=\"$2')
 							
 							// Replace asset thumbnails with their full images
 							html = html.replace(/src="\/assets\/images\/\.thumbnails/gi, 'src="/assets/images');
 							
-							$(".wymeditor").first().val(html);
+							editor.val(html);
 					
 							$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
 							return false;

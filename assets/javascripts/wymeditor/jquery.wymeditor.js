@@ -1108,8 +1108,8 @@ WYMeditor.editor.prototype.switchTo = function(node,sType) {
   var newNode = this._doc.createElement(sType);
   var html = jQuery(node).html();
   node.parentNode.replaceChild(newNode,node);
-  jQuery(newNode).html(html);
-  this.setFocusToNode(newNode);
+  newNode = jQuery(newNode).html(html);
+ // this.setFocusToNode(newNode);
 };
 
 WYMeditor.editor.prototype.replaceStrings = function(sVal) {
