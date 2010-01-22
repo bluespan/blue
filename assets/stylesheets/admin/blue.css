@@ -87,7 +87,8 @@ body.admin #admin_users li span.tools a {color:#203B8F;font-size:12px;}
 body.admin #pending_publish {float:left;width:400px;clear:both;padding:5px;border:1px solid #778EC1;overflow: auto;margin-bottom:10px;min-height:82px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
 body.admin #pending_publish h2 {margin-bottom:10px;font-size:16px;color:#203B8F;}
 body.admin #pending_publish li {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
-body.admin li.sub_page {background:url("/images/blue/page_24.png") top left no-repeat;}
+body.admin li.sub_page,
+body.admin li.page {background:url("/images/blue/page_24.png") top left no-repeat;}
 body.admin li.link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
 body.admin li.video_page {background:url("/images/blue/page_video_24.png") top left no-repeat;}
 body.admin li.category {background:url("/images/blue/page_category_24.png") top left no-repeat;}

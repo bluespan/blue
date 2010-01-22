@@ -22,7 +22,7 @@
 		<label>Filter</label>
 		<ul id="filter_type">
 		<% Page.types.each do |page_type| -%>
-			<li class="<%= page_type.css_class %>"><%= page_type.type_name %></li>
+			<li class="<%= page_type.css_class %> page"><%= page_type.type_name %></li>
 		<% end -%>
 		</ul>
 		</div>

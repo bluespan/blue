@@ -69,7 +69,7 @@ function filter_pages() {
 			
 			var typematch = 0;
 			types.each(function() {
-				var type = $.trim($(this).attr("class").replace("checked", ""));
+				var type = $.trim($(this).attr("class").replace("checked", "").replace(" page", ""));
 				if (page.hasClass(type)) {
 					typematch = 1;
 				}
