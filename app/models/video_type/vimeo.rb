@@ -1,4 +1,10 @@
+require 'rubygems'
+require 'httparty'
+
 class VideoType::Vimeo < Video
+
+  include HTTParty
+  base_uri 'vimeo.com/api'
   
   def lookup
     "vimeo_#{self.clip_id}"
@@ -33,20 +39,24 @@ class VideoType::Vimeo < Video
   
   def self.find_remote_by_username(username)
     videos = []
-    page = []
     page_number = 1
     
-    until page == false
-      page = Vimeo::Simple::User.clips(username, :page => page_number)
+    page = []
       
-      if page.is_a?(Array)
-        page = page.collect do |video|
-          self.initialize_from_vimeo(video)
-        end
-        videos = videos + page
-        page_number += 1
-      end
-    end
+    begin
+      #page = Vimeo::Simple::User.clips(username, :page => page_number)
+      page = get("/#{username}/clips.json?page=#{page_number}")
+            
+       if page.is_a?(Array)
+         page = page.collect do |video|
+           self.initialize_from_vimeo(video)
+         end
+         videos = videos + page
+         
+         
+         page_number += 1
+       end
+    end while page.is_a?(Array) and not page.blank?
     
     videos
   end
