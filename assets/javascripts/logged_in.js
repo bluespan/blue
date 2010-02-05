@@ -12,11 +12,11 @@ $(function() {
 							$(this).animate({top:"-45px", opacity:0.25});
 						}
 	});
-	$("body:not(.admin) #blue_toolbar input:checkbox").change(function() {
+	$("body:not(.admin) #blue_toolbar input:checkbox").click(function() {
 		$.post("/admin/session/view_live_site", "_method=put&authenticity_token="+form_authenticity_token+"&view_live_site="+(this.checked ? 1 : 0), function(){
 			window.location.reload();
 		});
-	})
+	});
 	
 	// Change Admin Menus
 	$("ul.blue_logo").bind("mouseenter", function(){
