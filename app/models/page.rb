@@ -57,6 +57,44 @@ class Page < ActiveRecord::Base
     published_page
   end
   
+  def revert_to_live 
+    
+    # Revert Content
+    live.content.each do |live_content|
+      content.each do |content|
+        if content.title == live_content.title
+          content.content = live_content.content
+          content.save_force_updated_at live_content.updated_at, false
+        end
+      end
+    end
+    
+    self[:title] = live.title
+    self[:slug] = live.slug
+    self[:template_file] = live.template_file
+    self[:meta_description] = live.meta_description
+    self[:meta_keywords] = live.meta_keywords
+    self[:type] = live.type
+    self[:url] = live.url
+    self[:members_only] = live.members_only
+    self[:open_new_window] = live.open_new_window
+    self[:video_id] = live.video_id
+    self[:require_ssl] = live.require_ssl
+
+    save_force_updated_at live.updated_at, false
+  end
+  
+  def save_force_updated_at(updated_at, validations = true)
+    class << self
+      def record_timestamps; false; end
+    end
+    self[:updated_at] = updated_at
+    save(validations)
+    class << self
+      remove_method :record_timestamps
+    end
+  end
+  
   def published?
     working_id != nil
   end

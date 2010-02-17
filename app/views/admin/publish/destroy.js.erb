@@ -1,0 +1,2 @@
+$("#pending_publish #page_<%= @page.id %>").fadeOut(function(){ $(this).remove() })
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

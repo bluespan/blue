@@ -4,4 +4,15 @@ class Content < ActiveRecord::Base
   
   
   belongs_to :contentable, :polymorphic => true
+  
+  def save_force_updated_at(updated_at, validations)
+    class << self
+      def record_timestamps; false; end
+    end
+    self[:updated_at] = updated_at
+    save(validations)
+    class << self
+      remove_method :record_timestamps
+    end
+  end
 end

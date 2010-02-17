@@ -19,6 +19,7 @@
 				<span class="tools"><%= link_to "View", "#{page.url}" %> 
 					<% if current_admin_user.has_role?(:publisher) %>
 					| <%= link_to "Publish", publish_admin_page_url(page), :class => "publish" %>
+					| <%= link_to "Revert", admin_publish_url(page), :class => "revert" %>
 					<% end %>
 				</span></li>
 		<% end %>

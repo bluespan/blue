@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages, :member => {:publish => :put, :typecast => :get}, :collection => {:publish_all => :put, :typecast => :get} do |pages|
       pages.resources :comments
     end
-
+    admin.resources :publish, :controller => 'publish'
     admin.resources :verbiage do |verbiage|
       verbiage.resources :comments
     end

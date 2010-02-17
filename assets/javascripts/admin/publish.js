@@ -18,4 +18,14 @@ function bind_pages(page) {
 		$.post($(this).attr("href") + ".js", params, null, "script");
 		return false
 	})
+	
+	// Bind Revert
+	$(page).find('.revert').click(function() {
+		if (confirm("Are you sure you want to revert page: '"+$(this).parents("li").find(".title").text()+"' and lose all changes?"))
+		{
+			params = {"_method":"delete", "authenticity_token":form_authenticity_token}
+			$.post($(this).attr("href") + ".js", params, null, "script");
+		}
+		return false
+	})
 }

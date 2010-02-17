@@ -95,7 +95,7 @@ body.admin li.category {background:url("/images/blue/page_category_24.png") top 
 body.admin li.event {background:url("/images/blue/page_event_24.png") top left no-repeat;}
 body.admin li.home_page {background:url("/images/blue/page_home_24.png") top left no-repeat;}
 body.admin #pending_publish li span.tools {font-size:11px;display:none;line-height:20px;padding-left:10px;}
-body.admin #pending_publish li span.tools a {color:#203B8F;}
+body.admin #pending_publish li span.tools a {color:#203B8F;padding-top:3px;padding-bottom:3px;padding-left:18px;}
 body.admin #pending_publish li:hover span.tools {display:inline;}
 body.admin #pending_publish li:hover {background-color:#B4C6FF;}
 
@@ -115,6 +115,7 @@ body.admin form.edit_member .buttons {float:none;}
 .buttons .publish_all {background:url("/images/blue/icon_world_dynamic.gif") no-repeat left center;line-height:20px;padding:1px 0 1px 20px;}
 span.tools .delete {background:url("/images/blue/trash.gif") top left no-repeat;padding-left:1.2em;}
 span.tools .publish {background:url("/images/blue/icon_world.gif") left center no-repeat;padding-left:1.4em;line-height:24px;}
+span.tools .revert {background:url("/images/blue/icon_history.gif") left center no-repeat;padding-left:1.4em;line-height:24px;}
 
 
 #jTreeHelper li div.navigation_page {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
