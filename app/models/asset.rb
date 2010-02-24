@@ -32,7 +32,7 @@ class Asset < File
   end
   
   def extension
-    File.extname(path).gsub(/^\./, "")
+    File.extname(path).gsub(/^\./, "").downcase
   end
 
   def thumbnail_url
