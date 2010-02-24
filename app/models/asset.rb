@@ -72,7 +72,7 @@ class Asset < File
   end
   
   def self.initialize_asset_type(path, options)
-    case self.extname(path)
+    case self.extname(path).downcase
     when ".gif", ".jpg", ".jpeg", ".tiff", ".bmp", ".png"
       Asset::Image.new(path, options)
     else
