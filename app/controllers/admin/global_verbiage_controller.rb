@@ -7,6 +7,7 @@ class Admin::GlobalVerbiageController < Admin::BlueAdminController
   
   def edit
     @verbiage = GlobalVerbiage.find(params[:id])
+    render :template => "admin/global_verbiage/edit_#{params[:editor]}.html.erb"
   end
   
   def update

@@ -89,7 +89,7 @@ var verbiage_dialog = {
 						// Add Ajax Submit
 						dialog.data.find('form').submit(function(){
 							
-							var editor = $(".wymeditor");
+							var editor = $(".wymeditor, .tinymce");
 							
 							// Make absolute paths that point to our server relative
 							html = editor.val()

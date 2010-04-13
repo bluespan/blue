@@ -6,6 +6,7 @@ class Admin::VerbiageController < Admin::BlueAdminController
   helper :pages
   
   def edit
+    render :template => "admin/verbiage/edit_#{params[:editor]}.html.erb"
   end
   
   def update

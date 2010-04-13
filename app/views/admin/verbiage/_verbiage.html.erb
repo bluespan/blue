@@ -1,7 +1,7 @@
 <div class="admin_content" id="verbiage_<%= verbiage.title %>">
 	<div class="tools"><strong><%= verbiage.title.humanize %> Verbiage</strong>
 		<% if current_admin_user.has_role?(:editor) %>	
-		<a href="/admin/verbiage/<%= verbiage.id %>/edit" class="edit">Edit</a>
+		<a href="/admin/verbiage/<%= verbiage.id %>/edit?editor=<%= options[:editor] %>" class="edit">Edit</a>
 		<% end %>
 	</div>
 	<div class="content">

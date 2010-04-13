@@ -1,3 +1,4 @@
 <div id="asset">
-<%= image_tag "/assets" + @asset.filepath %>
+<%= image_tag "/assets" + @asset.filepath if @asset.is_a?(Asset::Image)%>
 </div>
+<p><br /><strong>url:</strong> <%= link_to @asset.fileurl.gsub("//", "/"), @asset.fileurl.gsub("//", "/") %></p>
