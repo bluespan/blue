@@ -104,14 +104,18 @@ module PagesHelper
       next if page.class == PageTypes::MemberSignInPage && @page.class == PageTypes::MemberSignInPage
       next if page.class == PageTypes::MemberSignOutPage && member_logged_in? == false
       
-      navigation_url = "#{url}/#{page.slug}"
+      if page.class == PageTypes::HomePage
+        navigation_url = "/"
+      else
+        navigation_url = "#{url}/#{page.slug}"
+      end
     
       classes = []
       classes << cycle(*options[:classes][level]) if options[:classes] && options[:classes][level]
       if @navigation
         classes << "active"   if @navigation.self_and_ancestors_cached.include?(navigation)
-        classes << "current"  if page == @page
       end  
+      classes << "current"  if page.id == @page.id
       classes << "first"  if navigation == navigations.first
       classes << "last"   if navigation == navigations.last
       classes << "collapsed"   if navigation.collapsed?
