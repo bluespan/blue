@@ -1,9 +1,7 @@
 $(document).ready(function(){
 	bind_page_dialog("#new_page_button");
 	bind_pages("#pages .list li");
-
-	$('#navigations .navigation .tree, #pages .list').jTree({onChangeCallback:navigationChange});
-	
+  bind_tree()
 	// Page List
 	$("#search input").keyup(function() {
 		filter_pages();		
@@ -86,6 +84,10 @@ function filter_pages() {
 		});
 }
 
+function bind_tree(){
+	$('#navigations .navigation .tree, #pages .list').jTree({onChangeCallback:navigationChange, pWidth:"200px", pHeight:"0", pBorder:"1px solid #000"});
+	
+}
 
 // Page Dialogs
 var page_dialog = {

@@ -5,7 +5,5 @@
 		<li class="page <%= navigation.page.css_class %>"><span class="title"><%= navigation.page.title %></span></li>
 		<% end %>
 	</ul>
-	<ul class="tree"><% bucket_tree bucket.children do |navigation| -%>
-		<%= render :partial => navigation %>
-	<% end -%></ul>
+	<ul class="tree"><%= render :partial => "admin/navigations/navigation", :locals => {:navigation => bucket.children} %></ul>
 </div>

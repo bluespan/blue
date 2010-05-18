@@ -34,7 +34,7 @@ body.admin #navigations .preview .home_page {background:url("/images/blue/page_h
 
 body.admin #content {margin:20px;}
 
-body.admin div.placement {border:1px dashed #000;}
+body.admin div.placement {border:1px solid #000;}
 
 body.admin #navigations .tree {clear:both;display:none;margin-left:11px;min-height:50px;}
 body.admin #navigations .tree li {background-image:url("#");}
@@ -46,11 +46,11 @@ body.admin #navigations .tree li div.navigation_category {background:url("/image
 body.admin #navigations .tree li div.navigation_event {background:url("/images/blue/page_event_24.png") top left no-repeat;}
 body.admin #navigations .tree li div.navigation_home_page {background:url("/images/blue/page_home_24.png") top left no-repeat;}
 
-
 body.admin #navigations .tree li span.tools {padding-left:10px;display:none;font-size:10px;line-height:12px;}
 body.admin #navigations .tree li span.tools a {color:#203B8F;}
 body.admin #navigations .tree li div.navigation_page:hover {background-color:#B4C6FF;}
 body.admin #navigations .tree li div.navigation_page:hover span.tools {display:inline;}
+body.admin #navigations .tree .jTreePlacement {position:absolute;width:500px;}
 body.admin #navigations .tree li li.jTreePlacement {margin-left:28px;}
 
 body.admin #pages {position:fixed;top:75px;}
@@ -118,14 +118,14 @@ span.tools .publish {background:url("/images/blue/icon_world.gif") left center n
 span.tools .revert {background:url("/images/blue/icon_history.gif") left center no-repeat;padding-left:1.4em;line-height:24px;}
 
 
-#jTreeHelper li div.navigation_page {background:url("/images/blue/page_24.png") top left no-repeat;padding-left:28px;line-height:28px;font-size:12px;}
+#jTreeHelper li div.navigation_page {background:url("/images/blue/page_24.png") top left no-repeat;margin-left:-28px;padding-left:28px;line-height:28px;font-size:12px;}
 #jTreeHelper li div.navigation_link {background:url("/images/blue/page_link_24.png") top left no-repeat;}
 #jTreeHelper li div.navigation_video_page {background:url("/images/blue/page_video_24.png") top left no-repeat;}
 #jTreeHelper li div.navigation_category {background:url("/images/blue/page_category_24.png") top left no-repeat;}
 #jTreeHelper li div.navigation_event {background:url("/images/blue/page_event_24.png") top left no-repeat;}
 #jTreeHelper li div.navigation_home_page {background:url("/images/blue/page_home_24.png") top left no-repeat;}
 #jTreeHelper li span.tools {display:none;}
-
+#jTreeHelper li {font-size:12px;line-height:28px;padding-left:28px;}
 #ajaxupload {display:none;}
 
 #filter_type {float:left;}

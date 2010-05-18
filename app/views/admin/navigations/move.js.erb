@@ -2,8 +2,8 @@
 $("#navigations .new_page_navigation").attr("id", "navigation_<%= @navigation.id %>").removeClass("new_page_navigation")
 <% end -%>
 
-$("#navigation_<%= @navigation.id %>").html("<%= escape_javascript(render :partial => @navigation) %>");
-
+$("#navigation_<%= @navigation.id %>").replaceWith("<%= escape_javascript(render :partial => "admin/navigations/navigation", :locals => {:navigation => @navigation}) %>");
+bind_tree();
 bind_buckets("#navigation_<%= @navigation.id %>");
 
 updateBucketPreviews();

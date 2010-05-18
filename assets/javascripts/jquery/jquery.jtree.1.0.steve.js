@@ -215,7 +215,7 @@
 				}
 			}	else {
 				
-						//console.log(hover, h,w,e.pageX,off);
+					//	console.log(hover, h,w,e.pageX,off);
 				
 			 	 insertBeforeVertical = e.pageY >= hotspotOff.top && e.pageY <= (hotspotOff.top + (h * .10));
 				 //insertBeforeHorizontal = e.pageX >= off.left && e.pageX < (off.left + w/2 - 1);
@@ -229,8 +229,11 @@
 				 insertAfterAsChildVertical = e.pageX >= hotspotOff.left + parseInt($(hotspot).css("paddingLeft"))//+ opts.childOff;
 				 //insertAfterAsChildHorizontal = e.pageY > off.top + opts.childOff;
 		
+		    insertAfterAsUncleVertical = e.pageX < hotspotOff.left //+ opts.childOff;
+			
+				
 				//inserting before
-				if ( insertBeforeVertical ) {
+				if ( insertBeforeVertical && insertAfterAsUncleVertical == false) {
 					if (!$(this).prev().hasClass("jTreePlacement")) {
 						$(".jTreePlacement").remove();
 						$(this).before(jTreePlacement);
@@ -239,8 +242,15 @@
 				//inserting after
 				else if ( insertAfterVertical ) {
 					
+					// as an uncle
+					if ( insertAfterAsUncleVertical ) {
+						$(".jTreePlacement").remove();
+						if (!$(this).parents("li").next().hasClass("jTreePlacement")) {
+						   $(this).parents("li:first").after(jTreePlacement);
+						}
+					}
 					// as a sibling
-					if ( insertAfterAsSiblingVertical ) {
+					else if ( insertAfterAsSiblingVertical ) {
 						//console.log("hi")
 						if (!$(this).next().hasClass("jTreePlacement")) {
 							$(".jTreePlacement").remove();
@@ -249,11 +259,25 @@
 					}
 					// as a child
 					else if ( insertAfterAsChildVertical ) {
-						$(".jTreePlacement").remove();
-						if ($(this).find("ul").length == 0)
-							$(this).append('<ul>'+jTreePlacement+'</ul>');
-						else
-							$(this).find("ul").prepend(jTreePlacement);
+					  
+					  if (this == cur) {
+					    // Add as parent of previous last child
+					    if ($(this).prev()) {
+					      $(".jTreePlacement").remove();
+					      if ($(this).find("ul").length == 0)
+  							  $(this).prev().append('<ul>'+jTreePlacement+'</ul>');
+  					    else
+  							  $(this).prev().find("ul").prepend(jTreePlacement);
+				
+					    }
+					  } else {
+					  	$(".jTreePlacement").remove();
+  						if ($(this).find("ul").length == 0)
+  							$(this).append('<ul>'+jTreePlacement+'</ul>');
+  						else
+  							$(this).find("ul").prepend(jTreePlacement);
+					  }
+					  
 					}
 				}
 			}
