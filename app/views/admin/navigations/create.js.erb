@@ -2,5 +2,5 @@ $.modal.close();
 $("#navigations").append("<%= escape_javascript(render :partial => 'bucket', :object => @bucket) %>")
 $("#navigation_<%= @bucket.slug %>").fadeIn();
 bind_buckets("#navigation_<%= @bucket.slug %>");
-$('#navigations .navigation .tree, #pages .list').jTree({onChangeCallback:navigationChange});
+$('#navigations .navigation .tree, #pages .list').jTree({onChangeCallback:navigationChange, pWidth:"200px", pHeight:"0", pBorder:"1px solid #000"});
 $.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

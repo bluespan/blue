@@ -2,5 +2,5 @@ $.modal.close();
 $("#page_list").prepend("<%= escape_javascript(render :partial => 'page', :locals => {:page => @page}) %>")
 bind_pages("#page_<%= @page.id %>");
 $("#page_<%= @page.id %>").fadeIn();
-$('#navigations .navigation .tree, #pages .list').jTree({onChangeCallback:navigationChange});
+$('#navigations .navigation .tree, #pages .list').jTree({onChangeCallback:navigationChange, pWidth:"200px", pHeight:"0", pBorder:"1px solid #000"});
 $.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });
