@@ -100,7 +100,7 @@ var verbiage_dialog = {
 							
 							// Replace asset thumbnails with their full images
 							html = html.replace(/src="([^"]*)\/\.thumbnails\/([^"]*)"/gi, 'src="$1/$2"');
-							console.log(html)
+	
 							editor.val(html);
 					
 							$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
