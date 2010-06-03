@@ -1,0 +1,7 @@
+<li id="member_<%= member.id %>">
+	<span class="tools">
+		<%= link_to "Edit", edit_admin_member_url(member), :class => "edit" %> |
+		<%= link_to "Delete", admin_member_url(member), :class => "delete" %>
+	</span>
+	<span class="name"><%= member.lastname %>, <%= member.firstname%></span>
+</li>

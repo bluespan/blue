@@ -26,6 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   
     admin.resource :session, :member => {:view_live_site => :put}
     admin.resource :account, :controller => "admin_users"
+    admin.resources :members, :controller => "members"
     admin.resource :membership, :controller => "membership"
     admin.resources :admin_users
   

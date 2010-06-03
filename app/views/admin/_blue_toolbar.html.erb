@@ -8,7 +8,7 @@
 			<li <%= (controller.class.to_s =~ /.*pages.*/i ? "class=\"current\"" : "") %>><a href="/admin/pages">Pages &amp; Navigation</a></li>
 			<li <%= (controller.class.to_s =~ /.*publish.*/i ? "class=\"current\"" : "") %>><a href="/admin/publish">Publish</a></li>
 			<li <%= (controller.class.to_s =~ /.*assets.*/i ? "class=\"current\"" : "") %>><a href="/admin/assets">Assets</a></li>
-			<% if current_admin_user.has_permission?(:admin_membership) %>
+			<% if blue_features.include?(:membership) and current_admin_user.has_permission?(:admin_membership) %>
 			<li <%= (controller.class.to_s =~ /.*membership.*/i ? "class=\"current\"" : "") %>><a href="/admin/membership">Membership</a></li>
 			<% end %>
 			<li <%= (controller.class.to_s =~ /.*adminusers.*/i ? "class=\"current\"" : "") %>><a href="/admin/admin_users">Admin Users</a></li>

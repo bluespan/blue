@@ -51,6 +51,13 @@ module Span
     
     Span::admin_stylesheets[:blue] = ["blue_dialog", "content", "jquery.jgrowl.css", "shared"]
     
+    @@features = []
+    mattr_accessor :features
+    
+    def @@features.method_missing(method)
+      has_key?(method)
+    end
+    
     module Routing
       
       protected

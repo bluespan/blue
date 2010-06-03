@@ -1,0 +1,6 @@
+$.modal.close();
+$("#member_<%= @member.id %>").replaceWith("<%= escape_javascript(render :partial => 'member', :locals => {:member => @member}) %>")
+bind_members("#member_<%= @member.id %>");
+$("#member_<%= @member.id %>").hide();
+$("#member_<%= @member.id %>").fadeIn();
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

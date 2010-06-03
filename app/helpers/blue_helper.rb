@@ -1,5 +1,9 @@
 module BlueHelper
 
+  def blue_features
+    Span::Blue.features
+  end
+
   def stylesheet_link_admin
     return unless logged_in?
     stylesheets = []

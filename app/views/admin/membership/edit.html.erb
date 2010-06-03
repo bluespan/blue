@@ -1,24 +1,47 @@
+<%= javascript_include_tag 'blue/admin/membership', :cache => false %>
+
+<script type="text/javascript" charset="utf-8">
+	var form_authenticity_token = "<%= form_authenticity_token %>";
+</script>
+
 <% if flash[:notice] %>
 <script>
 $.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });
 </script>
 <% end %>
 
-<h1>Membership</h1>
+<div id="membership">
+	<div class="left">
+	<h1><span class="buttons"><a href="/admin/members/new" class="new" id="new_member_button">Create Member</a></span>Members</h1>
+	<ul id="members">
+		<% @members.each do |member| %>
+			<%= render :partial => "admin/members/member", :locals => {:member => member} %>
+		<% end %>
+	</ul>
 
-<% form_for @member, :url => admin_membership_url do |f| %>
-	<%= f.error_messages %>
-
-	<label for="member_login">Login</label>
-	<%= f.text_field :login %>
-
-	<label for="member_password">Password</label>
-	<%= f.password_field :password %>
-
-	<label for="member_password_confirmation">Password Confirmation</label>
-	<%= f.password_field :password_confirmation %>
-	
-	<div class="buttons">
-		<input type="submit" value="Update" class="button submit" />
 	</div>
-<% end %>
+
+	<div class="right">
+	<h1>Membership Login</h1>
+
+	<% form_for @member, :url => admin_membership_url do |f| %>
+		<%= f.error_messages %>
+
+		<label for="member_login">Login</label>
+		<%= f.text_field :login %>
+
+		<label for="member_password">Password</label>
+		<%= f.password_field :password %>
+
+		<label for="member_password_confirmation">Password Confirmation</label>
+		<%= f.password_field :password_confirmation %>
+	
+		<div class="buttons">
+			<input type="submit" value="Update" class="button submit" />
+		</div>
+	<% end %>
+	</div>
+</div>
+
+
+<div class="dialog" id="member_dialog"></div>
