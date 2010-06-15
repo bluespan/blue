@@ -41,7 +41,7 @@ module Blue
             if self.has_key?(key)
               self[key].update_attributes({:content => value})
             else
-              self.store(key, Verbiage.new({:title => key.to_s, :content => value}) )
+              self.store(key, Verbiage.new( {:title => key.to_s, :content => value} ) )
               @contentable.content << self[key]
             end
   

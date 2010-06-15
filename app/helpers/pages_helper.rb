@@ -8,24 +8,31 @@ module PagesHelper
   end
   
   def global_verbiage(key, options = {}, &default_block)    
-      options = {:partial => "global_verbiage", :admin => true, :editor => "wymeditor"}.merge(options)
+      options = {:partial => "global_verbiage", :admin => true, :editor => "wymeditor", :members_only => false}.merge(options)
       default_content = block_given? ? capture(&default_block) : nil
       
       if (options[:contentable].nil?)
         verbiage = GlobalVerbiage[key]
         if verbiage.new_record?
           verbiage.content = default_content
+          verbiage.members_only = options[:members_only]
           verbiage.save!
         end
       else
-        options[:contentable].verbiage[key] = default_content unless options[:contentable].verbiage.has_key?(key)
+        unless options[:contentable].verbiage.has_key?(key)
+          options[:contentable].verbiage[key] = default_content
+            if options[:members_only]
+              options[:contentable].verbiage[key].members_only = options[:members_only] 
+              options[:contentable].verbiage[key].save!
+            end
+        end
         verbiage = options[:contentable].verbiage[key]
       end
       
       if logged_in? && options[:admin]
         concat render(:partial => "admin/verbiage/#{options[:partial]}", :object => verbiage, :locals => {:options => options})
       else
-        concat verbiage.content
+        concat verbiage.content unless verbiage.members_only? and member_logged_in? == false and logged_in? == false
       end
   end
   
