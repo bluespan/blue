@@ -9,15 +9,12 @@ $(document).ready(function(){
 
 	// Track current mouse position
 	
-	$().mousemove(function(e)
+	$(window).mousemove(function(e)
 	{
 		mouse.x = e.pageX;
 		mouse.y = e.pageY;
 	});
 
-  
-	
-	
 });
 
 var navigation_dialog = {
@@ -61,6 +58,7 @@ function bucket_open(bucket)
 }
 
 function bucket_mouseover(e) {
+
 		var preview = $(this).find(".preview");
 		var tree = $(this).find(".tree");
 		var navigation = $(this);
@@ -75,12 +73,11 @@ function bucket_mouseover(e) {
 			
 			preview.stop();
 			tree.stop();
-			
 			preview.css("position", "absolute").animate({opacity:0}, function(){$(this).css("display", "none")})
 			tree.animate({opacity:1, height:tree_height+"px"}, function(){$(this).css({height: "auto"})})
 			
 			mouseOver[this.id] = window.setInterval(function() {
-				if ( navigation.find(".pin").hasClass("pinned") == false &&
+			 if ( navigation.find(".pin").hasClass("pinned") == false &&
 						 ((mouse.x < navigation.offset().left || mouse.x > navigation.offset().left + navigation.outerWidth() ) ||
 					    (mouse.y < navigation.offset().top  || mouse.y > navigation.offset().top + navigation.outerHeight() )) ) 
 				{
@@ -98,11 +95,11 @@ function bucket_mouseover(e) {
 }
 
 function bucket_pin(e) {
-	bucket = $(this).parent('.navigation')
+	bucket = $(this).parents('.navigation')
 	if ($(this).hasClass("pinned")) {
-		$.cookie('unpin_bucket_'+bucket.id, true);
+		$.cookie('unpin_bucket_'+bucket.attr('id'), true);
 	} else {
-		$.cookie('unpin_bucket_'+bucket.id, null);
+		$.cookie('unpin_bucket_'+bucket.attr('id'), null);
 	}
 	$(this).toggleClass("pinned");
 	return false;
@@ -142,9 +139,10 @@ function bind_buckets(selector) {
 	$("#navigations .pin").bind("click", bucket_pin);
 	
 	// Open state automatically
-	$("#navigations .navigation").each(function(bucket){
-		var pin = $(bucket).find(".pin");
-		if ($.cookie('unpin_bucket_'+bucket.id) == null && pin.hasClass("pinned") == false) {
+	$("#navigations .navigation").each(function(){
+	  bucket = $(this)
+		var pin = bucket.find(".pin");
+		if ($.cookie('unpin_bucket_'+this.id) == null && pin.hasClass("pinned") == false) {
 			bucket_open(bucket)
 			pin.trigger("click")
 		}

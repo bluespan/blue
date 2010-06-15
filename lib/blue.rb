@@ -72,7 +72,7 @@ module Span
         send(@@page_type_mappings[@page.class.to_s]) if @@page_type_mappings.has_key?(@page.class.to_s)
       end
       
-      def load_page(slug, ancestors)
+      def load_page(slug, ancestors, leaf)
         if @page = Page.working(slug, ancestors)
 
           # Show the live version if not logged in
@@ -89,7 +89,8 @@ module Span
         end
 
         # Require member log in?
-        if @page.nil? == false && @page.members_only? && member_logged_in? == false && logged_in? == false
+       
+        if leaf == true && @page.nil? == false && @page.members_only? && member_logged_in? == false && logged_in? == false
           session[:member_requested_page] = request.path
           redirect_to new_member_session_url
         else  

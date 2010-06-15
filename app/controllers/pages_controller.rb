@@ -15,7 +15,13 @@ class PagesController < BlueController
   
   def show   
     render_instructions = handle_request 
-    render render_instructions unless render_instructions.nil?
+    unless render_instructions.nil?
+      if (render_instructions.has_key?(:redirect_to))
+        redirect_to render_instructions[:redirect_to]
+      else
+        render render_instructions 
+      end
+    end
         
     rescue BlueTempateFileNotFound
       render :template => "errors/blue_template_file_not_found", :layout => "blue_error"
@@ -32,8 +38,11 @@ class PagesController < BlueController
     @slugs.each_index do |index|
       slug = @slugs[index]
       @slug_index = index
+      leaf = index == @slugs.length - 1
       
-      @page = load_page(slug, ancestors)
+      @page = load_page(slug, ancestors, leaf)
+      
+      return nil unless @page.is_a?(Page)
       
       if @page.respond_to? :require_ssl? and @page.require_ssl? 
         unless request.ssl?
