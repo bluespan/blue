@@ -112,20 +112,14 @@ var page_dialog = {
 			
 			// Add typecast
 			$("#page_type").bind("change", function(){
-				form = dialog.data.find('form');
-				
+				var form_data = dialog.data.find('form').serialize();
 				dialog.data.html('<div class="loading"></div>').fadeIn(100, function(){
-					$.ajax({
-									url: link.attr("href"),
-									type: 'get',
-									data: form.serialize(),
-									cache: false,
-									dataType: 'html',
-									success: function (html) {
+	
+					$.get(link.attr("href"), form_data, function (html) {
 										page_dialog.display(dialog, link, html);
 									
 									}
-							});
+							);
 					});
 				});
 				
