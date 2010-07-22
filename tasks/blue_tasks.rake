@@ -122,7 +122,7 @@ namespace :blue do
     
     desc "Create user admin roles"
     task (:admin_roles => :environment) do
-      AdminUserRole.create({:name => "Administrator", :admin_admin_users => true})
+      AdminUserRole.create({:name => "Administrator", :admin_admin_users => true, :admin_membership => true})
       AdminUserRole.create({:name => "Publisher", :publish => true})
       AdminUserRole.create({:name => "Editor", :admin_content => true, :admin_assets => true})
       AdminUserRole.create({:name => "Commentator", :comment => true})

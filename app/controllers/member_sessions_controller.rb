@@ -10,7 +10,10 @@ class MemberSessionsController < BlueController
   def create
     @member_session = MemberSession.new(params[:member_session])
     if @member_session.save
-      member_requested_page = session[:member_requested_page] || Navigation.bucket(:main).children.select {|navigation| live_or_working(navigation.page).members_only? }[0].url
+      flash[:notice] = "You have successfully signed in."
+     
+      member_requested_page = session[:member_requested_page] || request.referer
+
       session[:member_requested_page] = nil
       redirect_to member_requested_page
     else

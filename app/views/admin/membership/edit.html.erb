@@ -11,17 +11,8 @@ $.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:
 <% end %>
 
 <div id="membership">
+
 	<div class="left">
-	<h1><span class="buttons"><a href="/admin/members/new" class="new" id="new_member_button">Create Member</a></span>Members</h1>
-	<ul id="members">
-		<% @members.each do |member| %>
-			<%= render :partial => "admin/members/member", :locals => {:member => member} %>
-		<% end %>
-	</ul>
-
-	</div>
-
-	<div class="right">
 	<h1>Membership Login</h1>
 
 	<% form_for @member, :url => admin_membership_url do |f| %>

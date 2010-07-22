@@ -1,6 +1,6 @@
 class Admin::MembershipController < Admin::BlueAdminController
   
-  before_filter :check_permissions, :create_or_load_member, :load_members
+  before_filter :check_permissions, :create_or_load_member
   
   def show
     render :action => :edit
@@ -27,7 +27,4 @@ class Admin::MembershipController < Admin::BlueAdminController
     redirect_to "/admin" unless current_admin_user.has_permission?(:admin_membership)
   end
   
-  def load_members
-    @members = Member.find(:all, :conditions => ["id != ?", @member.id], :order => "lastname, firstname")
-  end
 end
