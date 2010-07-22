@@ -45,7 +45,7 @@ class PagesController < BlueController
       return nil unless @page.is_a?(Page)
       
       if @page.respond_to? :require_ssl? and @page.require_ssl? 
-        unless request.ssl?
+        if !request.ssl? && RAILS_ENV == "production"
           redirect_to "https://" + request.host + request.request_uri 
           return nil
         end
