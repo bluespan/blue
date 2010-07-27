@@ -15,7 +15,7 @@
 	</h2>
 	<ul class="list">
 		<% Page.pending_publish.each do |page| %>
-			<li class="<%= page.css_class %>" id="page_<%= page.id %>"><span class="title"><%= page.title %></span> 
+			<li class="page <%= page.css_class %>" id="page_<%= page.id %>"><span class="title"><%= page.title %></span> 
 				<span class="tools"><%= link_to "View", "#{page.url}" %> 
 					<% if current_admin_user.has_role?(:publisher) %>
 					| <%= link_to "Publish", publish_admin_page_url(page), :class => "publish" %>
