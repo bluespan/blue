@@ -113,7 +113,9 @@ namespace :blue do
         
         admin = AdminUser.create!({:login => "admin", :password => newpass, :password_confirmation => newpass, :firstname => "Admin", :lastname => "User", :email => "admin@localhost.com"})        
         adminstrator_role = AdminUserRole.find_by_name("Administrator")
+        blue_admin = AdminUserRole.find_by_name("Blue Admin")
         admin.admin_user_roles << adminstrator_role
+        admin.admin_user_roles << blue_admin
         puts "Admin Created - u: admin, p: #{newpass}"
       else
         puts "Admin already exists"
@@ -126,6 +128,7 @@ namespace :blue do
       AdminUserRole.create({:name => "Publisher", :publish => true})
       AdminUserRole.create({:name => "Editor", :admin_content => true, :admin_assets => true})
       AdminUserRole.create({:name => "Commentator", :comment => true})
+      AdminUserRole.create({:name => "Blue Admin", :blue_admin => true})
     end
   end
   
