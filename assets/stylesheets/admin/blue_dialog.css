@@ -69,6 +69,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer ul.tags li.use {background:#B4C6FF;color:#203B8F;}
 .modalContainer ul.tags {clear:both;overflow:auto;margin-bottom:10px;}
 .modalContainer input {display:block;margin-bottom:10px;}
+.modalContainer input.checkbox {display:inline;}
 .modalContainer input#new_tags {width:200px;margin-right:10px;}
 .modalContainer input#new_tags_button {width:40px;}
 
@@ -93,11 +94,11 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 	-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;
 }
 
-#modalContainerNavigation {height:340px;width:380px;margin-left:-190px;top:20%;}
+#modalContainerNavigation {height:380px;width:380px;margin-left:-190px;top:20%;}
 #modalContainerAsset {height:240px;width:420px;margin-left:-220px;top:30%;}
 
 .modalContainer .modalData {overflow:auto;height:360px;background:#fff;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;}
-#modalContainerNavigation .modalData {overflow:auto;height:300px;}
+#modalContainerNavigation .modalData {overflow:auto;height:360px;}
 #modalContainerAsset .modalData {overflow:auto;height:200px;}
 
 .modalContainer a.modalCloseImg {

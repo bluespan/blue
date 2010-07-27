@@ -1,5 +1,5 @@
 <h1>
-	<span class="tools"><a href="<%= admin_verbiage_comments_url(@verbiage)%>" class="view_comments" id="view_page_verbiage_comments_button">View Comments</a></span>
+	<span class="tools"><% if blue_features.include?(:comments) %><a href="<%= admin_verbiage_comments_url(@verbiage)%>" class="view_comments" id="view_page_verbiage_comments_button">View Comments</a><% end %></span>
 	Edit Verbiage
 </h1>
 

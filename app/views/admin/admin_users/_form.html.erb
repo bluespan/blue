@@ -52,7 +52,7 @@
 	
 	<ul class="roles">
 		<% roles.each do |role| %>
-			<li><input type="checkbox" name="admin_user[admin_user_roles][<%= role.name %>]" value="1" <%= "checked" if @admin_user.has_role?(role.name) %> /> <%= role.name %></li>
+			<li><input class="checkbox" type="checkbox" name="admin_user[admin_user_roles][<%= role.name %>]" value="1" <%= "checked" if @admin_user.has_role?(role.name) %> /> <%= role.name %></li>
 		<% end %>
 	</ul>	
 </fieldset>
