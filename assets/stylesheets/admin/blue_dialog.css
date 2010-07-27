@@ -68,7 +68,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer ul.tags li {float:left;padding:4px;margin-right:5px;cursor:pointer;color:#203B8F;}
 .modalContainer ul.tags li.use {background:#B4C6FF;color:#203B8F;}
 .modalContainer ul.tags {clear:both;overflow:auto;margin-bottom:10px;}
-.modalContainer input {display:inline;margin-bottom:10px;}
+.modalContainer input {display:block;margin-bottom:10px;}
 .modalContainer input#new_tags {width:200px;margin-right:10px;}
 .modalContainer input#new_tags_button {width:40px;}
 
