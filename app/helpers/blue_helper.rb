@@ -56,7 +56,7 @@ module BlueHelper
   end
 
   def new_member_session_url
-    PageTypes::MemberSignInPage.find(:first).url
+     (live_or_working PageTypes::MemberSignInPage.find(:first, :order => "created_at DESC")).url
   end
 
   def live_or_working(page)

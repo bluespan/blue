@@ -35,7 +35,7 @@ class MemberSessionsController < BlueController
   
   private
   def load_page
-      @page = PageTypes::MemberSignInPage.find(:first)
+      @page = live_or_working PageTypes::MemberSignInPage.find(:first, :order => "created_at DESC")
 
       if @page
         @navigation = @page.navigation(@page.url)
