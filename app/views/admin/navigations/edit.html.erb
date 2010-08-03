@@ -20,7 +20,7 @@
 <ul class="checkbox">
 	<li><%= f.check_box :display?, :class => "checkbox"  %> <label for="navigtion_display">Display in Navigation</label></li>
 	
-	<% if Span::Blue.features.include?(:members) %>
+	<% if Span::Blue.features.include?(:membership) %>
 	<li><%= f.check_box :display_to_members_only?, :class => "checkbox"  %> <label for="navigation_display_to_members_only">Display in Navigation To Members Only</label></li>
 	<% end %>
 	<li><%= f.check_box :placeholder?, :class => "checkbox"  %> <label for="navigation_placeholder">Place Holder</label></li>
