@@ -134,12 +134,13 @@ class Asset::Image::Thumbnail < Asset::Image
   end
   
  def create(path)
-   FileUtils.mkdir_p(path.gsub(/\/[^\/]*$/, "")) 
-   ImageScience.with_image(path.gsub("/" + THUMBNAIL_DIR, "")) do |img|
-     img.thumbnail("100>") do |thumb|
-       thumb.save path
-     end
-   end
+   FileUtils.mkdir_p(BLUE_ASSETS_ROOT + "images/" + THUMBNAIL_DIR) 
+   system("convert #{path.gsub("/" + THUMBNAIL_DIR, "")} -resize 100x100\\>  #{path}")
+   # ImageScience.with_image(path.gsub("/" + THUMBNAIL_DIR, "")) do |img|
+   #   img.thumbnail("100>") do |thumb|
+   #     thumb.save path
+   #   end
+   # end
  end
 
 end
