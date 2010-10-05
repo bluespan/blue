@@ -123,7 +123,7 @@ class Admin::PagesController < Admin::BlueAdminController
       
       if params[:page]
         @page.send(:attributes=, params[:page], false)
-        @page.type = page_type
+        @page.class_type = page_type
       end
     else
       @page = page_class.new(params[:page])

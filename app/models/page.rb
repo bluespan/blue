@@ -160,6 +160,14 @@ class Page < ActiveRecord::Base
     value.chop
   end
 
+  def class_type=(value)
+    self[:type] = value
+  end
+
+  def class_type
+    return self[:type]
+  end 
+
   class << self
     
     def css_class
@@ -230,6 +238,8 @@ class Page < ActiveRecord::Base
       end
       published_pages
     end
+    
+
         
   end
   
