@@ -32,4 +32,11 @@ rake db:migrate
 5. Create Admin
 rake blue:create:admin
 
+6. Remove default routes
+map.connect ':controller/:action/:id'
+map.connect ':controller/:action/:id.:format'
+
+7. Launch server
+script/server
+
 Copyright (c) 2009 Blue Span Associates, Inc.

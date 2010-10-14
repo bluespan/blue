@@ -5,9 +5,6 @@ class PageTypes::Link < Page
     page.type_name = "Link"
   end
   
-  def generate_unique_slug!
-    self[:slug] = self[:url]
-  end
   
   def url
     self[:url]
