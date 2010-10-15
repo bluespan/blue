@@ -209,7 +209,7 @@ jQuery.extend(WYMeditor, {
     BLOCKS : new Array("address", "blockquote", "div", "dl",
 	   "fieldset", "form", "h1", "h2", "h3", "h4", "h5", "h6", "hr",
 	   "noscript", "ol", "p", "pre", "table", "ul", "dd", "dt",
-	   "li", "tbody", "td", "tfoot", "th", "thead", "tr"),
+	   "li", "tbody", "td", "tfoot", "th", "thead", "tr", "iframe"),
 
     KEY : {
       BACKSPACE: 8,
@@ -1156,6 +1156,7 @@ WYMeditor.editor.prototype.status = function(sMessage) {
 WYMeditor.editor.prototype.update = function() {
 
   var html = this.xhtml();
+
   jQuery(this._element).val(html);
   jQuery(this._box).find(this._options.htmlValSelector).val(html);
 };
@@ -1233,7 +1234,7 @@ WYMeditor.editor.prototype.paste = function(sData) {
 
   var sTmp;
   var container = this.selected();
-	
+  
   //split the data, using double newlines as the separator
   var aP = sData.split(this._newLine + this._newLine);
   var rExp = new RegExp(this._newLine, "g");
@@ -2350,7 +2351,19 @@ WYMeditor.XhtmlValidator = {
     },
     "38":"tt",
     "39":"ul",
-    "40":"var"
+    "40":"var",
+    "iframe":
+    {
+      "attributes":
+      {
+        "0":"style",
+        "1":"src",
+        "2":"marginwidth",
+        "3":"marginheight",
+        "4":"frameborder",
+        "5":"scrolling"
+      }
+    }
   },
 
   // Temporary skiped attributes
@@ -3398,7 +3411,7 @@ WYMeditor.XhtmlSaxListener = function()
     "base", "bdo", "big", "blockquote", "body", "button",
     "caption", "cite", "code", "col", "colgroup", "dd", "del", "div",
     "dfn", "dl", "dt", "em", "fieldset", "form", "head", "h1", "h2",
-    "h3", "h4", "h5", "h6", "html", "i", "ins",
+    "h3", "h4", "h5", "h6", "html", "i", "ins", "iframe",
     "kbd", "label", "legend", "li", "map", "noscript",
     "object", "ol", "optgroup", "option", "p", "param", "pre", "q",
     "samp", "script", "select", "small", "span", "strong", "style",

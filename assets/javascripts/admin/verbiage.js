@@ -33,6 +33,7 @@ var verbiage_dialog = {
 						dialog.data.find('.close').click(function () { $.modal.close(); return false; });
 										
 						$('.wymeditor').wymeditor($.extend({}, {
+						    jQueryPath:"/javascripts/blue/jquery.js",
 								toolsItems: [
 							    {'name': 'Bold', 'title': 'Strong', 'css': 'wym_tools_strong'}, 
 							    {'name': 'Italic', 'title': 'Emphasis', 'css': 'wym_tools_emphasis'},
@@ -48,7 +49,6 @@ var verbiage_dialog = {
 							    {'name': 'InsertTable', 'title': 'Table', 'css': 'wym_tools_table'},
 							    {'name': 'Paste', 'title': 'Paste_From_Word', 'css': 'wym_tools_paste'},
 							    {'name': 'ToggleHtml', 'title': 'HTML', 'css': 'wym_tools_html'},
-							    {'name': 'Preview', 'title': 'Preview', 'css': 'wym_tools_preview'}
 							  ],
 								containersItems: [
 						        {'name': 'P', 'title': 'Paragraph', 'css': 'wym_containers_p'},
@@ -95,6 +95,7 @@ var verbiage_dialog = {
 							
 							// Make absolute paths that point to our server relative
 							html = editor.val()
+							
 							var re = new RegExp('(src|href)="?https?:\/\/' + document.location.host + '([^"]+)', 'gi');
 							html = html.replace(re, '$1=\"$2')
 							
