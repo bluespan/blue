@@ -2354,35 +2354,35 @@ WYMeditor.XhtmlValidator = {
     "40":"var",
     "iframe":
     {
-      "attributes":
-      {
-        "0":"style",
-        "1":"src",
-        "2":"marginwidth",
-        "3":"marginheight",
-        "4":"frameborder",
-        "5":"scrolling"
-      }
+      "attributes":"*"
+      // {
+      //   "0":"style",
+      //   "1":"src",
+      //   "2":"marginwidth",
+      //   "3":"marginheight",
+      //   "4":"frameborder",
+      //   "5":"scrolling"
+      // }
     },
     "embed":
      {
-      "attributes":
-      {
-        "0":"width",
-        "1":"height",
-        "2":"id",
-        "3":"frameborder",
-        "4":"scrolling",
-        "5":"name",
-        "6":"pluginspace",
-        "7":"swliveconnet",
-        "8":"type",
-        "9":"bgcolor",
-        "10":"src",
-        "11":"base",
-        "12":"seamlesstabbing",
-        "13":"flashvars"
-      }
+      "attributes":"*"
+      // {
+      //         "0":"width",
+      //         "1":"height",
+      //         "2":"id",
+      //         "3":"frameborder",
+      //         "4":"scrolling",
+      //         "5":"name",
+      //         "6":"pluginspace",
+      //         "7":"swliveconnet",
+      //         "8":"type",
+      //         "9":"bgcolor",
+      //         "10":"src",
+      //         "11":"base",
+      //         "12":"seamlesstabbing",
+      //         "13":"flashvars"
+      //       }
     }
 
   },
@@ -2399,7 +2399,7 @@ WYMeditor.XhtmlValidator = {
       var value = attributes[attribute];
       var h = WYMeditor.Helper;
       if(!h.contains(this.skiped_attributes, attribute) && !h.contains(this.skiped_attribute_values, value)){
-        if (typeof value != 'function' && h.contains(possible_attributes, attribute)) {
+        if (typeof value != 'function' && (h.contains(possible_attributes, attribute) || this._tags[tag]['attributes'] == "*")) {
           if (this.doesAttributeNeedsValidation(tag, attribute)) {
             if(this.validateAttribute(tag, attribute, value)){
               valid_attributes[attribute] = value;
@@ -2471,12 +2471,12 @@ WYMeditor.XhtmlValidator = {
   },
   doesAttributeNeedsValidation: function(tag, attribute)
   {
-    return this._tags[tag] && ((this._tags[tag]['attributes'] && this._tags[tag]['attributes'][attribute]) || (this._tags[tag]['required'] &&
+    return this._tags[tag] && ((this._tags[tag]['attributes'] && this._tags[tag]['attributes'] != "*" && this._tags[tag]['attributes'][attribute]) || (this._tags[tag]['required'] &&
      WYMeditor.Helper.contains(this._tags[tag]['required'], attribute)));
   },
   validateAttribute : function(tag, attribute, value)
   {
-    if ( this._tags[tag] &&
+    if ( this._tags[tag] && this._tags[tag]['attributes'] != "*" &&
       (this._tags[tag]['attributes'] && this._tags[tag]['attributes'][attribute] && value.length > 0 && !value.match(this._tags[tag]['attributes'][attribute])) || // invalid format
       (this._tags[tag] && this._tags[tag]['required'] && WYMeditor.Helper.contains(this._tags[tag]['required'], attribute) && value.length == 0) // required attribute
     ) {
@@ -3437,10 +3437,10 @@ WYMeditor.XhtmlSaxListener = function()
     "object", "ol", "optgroup", "option", "p", "param", "pre", "q",
     "samp", "script", "select", "small", "span", "strong", "style",
     "sub", "sup", "table", "tbody", "td", "textarea", "tfoot", "th",
-    "thead", "title", "tr", "tt", "ul", "var", "extends", "embed"];
+    "thead", "title", "tr", "tt", "ul", "var", "extends"];
 
 
-    this.inline_tags = ["br", "hr", "img", "input"];
+    this.inline_tags = ["br", "hr", "img", "input", "embed"];
 
     return this;
 };
@@ -4172,7 +4172,8 @@ WYMeditor.WymClassMozilla.prototype.html = function(html) {
     
     //replace em by i and strong by bold
     //(designMode issue)
-    html = html.replace(/<em([^>]*)>/gi, "<i$1>")
+    html = html.replace(/<em ([^>]*)>/gi, "<i $1>")
+    .replace(/<em>/gi, "<i>")
       .replace(/<\/em>/gi, "</i>")
       .replace(/<strong([^>]*)>/gi, "<b$1>")
       .replace(/<\/strong>/gi, "</b>");
