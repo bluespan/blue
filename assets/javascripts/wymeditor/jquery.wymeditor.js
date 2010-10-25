@@ -2363,7 +2363,28 @@ WYMeditor.XhtmlValidator = {
         "4":"frameborder",
         "5":"scrolling"
       }
+    },
+    "embed":
+     {
+      "attributes":
+      {
+        "0":"width",
+        "1":"height",
+        "2":"id",
+        "3":"frameborder",
+        "4":"scrolling",
+        "5":"name",
+        "6":"pluginspace",
+        "7":"swliveconnet",
+        "8":"type",
+        "9":"bgcolor",
+        "10":"src",
+        "11":"base",
+        "12":"seamlesstabbing",
+        "13":"flashvars"
+      }
     }
+
   },
 
   // Temporary skiped attributes
@@ -3416,7 +3437,7 @@ WYMeditor.XhtmlSaxListener = function()
     "object", "ol", "optgroup", "option", "p", "param", "pre", "q",
     "samp", "script", "select", "small", "span", "strong", "style",
     "sub", "sup", "table", "tbody", "td", "textarea", "tfoot", "th",
-    "thead", "title", "tr", "tt", "ul", "var", "extends"];
+    "thead", "title", "tr", "tt", "ul", "var", "extends", "embed"];
 
 
     this.inline_tags = ["br", "hr", "img", "input"];
@@ -4155,6 +4176,7 @@ WYMeditor.WymClassMozilla.prototype.html = function(html) {
       .replace(/<\/em>/gi, "</i>")
       .replace(/<strong([^>]*)>/gi, "<b$1>")
       .replace(/<\/strong>/gi, "</b>");
+    
     
     //update the html body
     jQuery(this._doc.body).html(html);
