@@ -48,7 +48,7 @@ var verbiage_dialog = {
 							    {'name': 'Unlink', 'title': 'Unlink', 'css': 'wym_tools_unlink'},
 							    {'name': 'InsertTable', 'title': 'Table', 'css': 'wym_tools_table'},
 							    {'name': 'Paste', 'title': 'Paste_From_Word', 'css': 'wym_tools_paste'},
-							    {'name': 'ToggleHtml', 'title': 'HTML', 'css': 'wym_tools_html'},
+							    {'name': 'ToggleHtml', 'title': 'HTML', 'css': 'wym_tools_html'}
 							  ],
 								containersItems: [
 						        {'name': 'P', 'title': 'Paragraph', 'css': 'wym_containers_p'},
