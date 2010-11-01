@@ -1234,7 +1234,7 @@ WYMeditor.editor.prototype.paste = function(sData) {
 
   var sTmp;
   var container = this.selected();
-  
+
   //split the data, using double newlines as the separator
   var aP = sData.split(this._newLine + this._newLine);
   var rExp = new RegExp(this._newLine, "g");
@@ -3894,7 +3894,7 @@ WYMeditor.WymClassExplorer = function(wym) {
 
     this._wym = wym;
     this._class = "className";
-    this._newLine = "\r\n";
+    this._newLine = "\n";
 };
 
 WYMeditor.WymClassExplorer.prototype.initIframe = function(iframe) {
