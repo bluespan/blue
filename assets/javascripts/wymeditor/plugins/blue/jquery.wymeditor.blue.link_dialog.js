@@ -129,7 +129,7 @@ BlueLinkDialog.prototype.bindFiles = function() {
 	var sStamp = wym.uniqueStamp();
 
 	current_dialog.dialog.topTray.find("a.file").click(function() {
-		sUrl = $(this).attr("href").replace(/^.*selector/, "");
+		sUrl = $(this).attr("href").replace(/^.*selector/, "").replace("/.thumbnails", "").replace("/assets", "");
 		sUrl = "/assets" + sUrl;
 		
 		$("input[name='href']").val(sUrl);
