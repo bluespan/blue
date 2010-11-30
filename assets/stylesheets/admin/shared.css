@@ -19,7 +19,7 @@ background:#B4C6FF;
 -moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
 
 .blue_toolbar ul.blue_admin_navigation li {float:left;line-height:50px;font-size:13px;font-weight:bold;z-index:10;margin-left:14px;padding:2px 0 2px 4px;margin-right:6px;}
-.blue_toolbar ul.blue_admin_navigation li a {color:#000;}
+.blue_toolbar ul.blue_admin_navigation li a {color:#000;text-decoration:none;}
 .blue_toolbar ul.blue_admin_navigation li.current a {color:#203B8F;}
 
 .blue_toolbar ul.blue_admin_navigation {
@@ -27,6 +27,8 @@ background:#B4C6FF;
     height: 37px; 
     overflow: hidden;
 	float:left;
+        list-style:none;
+        margin:0;
 }
 
 	/* Represents the background of the highlighted menu-item. */
@@ -60,10 +62,10 @@ background:#B4C6FF;
 .blue_toolbar .blue_context_toolbar {position:relative;margin:7px auto 0 10px;float:left;}
 .blue_toolbar .blue_context_toolbar legend {font-weight:normal;color:#000;font-size:10px;margin-left:2px;padding:2px;}
 
-.blue_toolbar .blue_context_toolbar ul.dropdown {position:relative;cursor:pointer;background:#778EC1;border:1px solid #203B8F;padding:0;float:left;}
+.blue_toolbar .blue_context_toolbar ul.dropdown {margin:0;list-style:none;position:relative;cursor:pointer;background:#778EC1;border:1px solid #203B8F;padding:0;float:left;}
 .blue_toolbar .blue_context_toolbar ul.dropdown strong.title {background:url('/images/blue/dropdown_arrow.gif')  left center no-repeat;font-weight:normal;padding:3px 30px 3px 22px;display:block;font-size:11px;}
 .blue_toolbar .blue_context_toolbar ul.dropdown li {position:relative;}
-.blue_toolbar .blue_context_toolbar ul.dropdown ul {padding-top:0px;left:-1px;display:none;position:absolute;z-index:20000;background:#778EC1;width:100%;border:1px solid #203B8F;border-top-width:0;opacity:0.9;}
+.blue_toolbar .blue_context_toolbar ul.dropdown ul {margin:0;padding-top:0px;left:-1px;display:none;position:absolute;z-index:20000;background:#778EC1;width:100%;border:1px solid #203B8F;border-top-width:0;opacity:0.9;}
 .blue_toolbar .blue_context_toolbar ul.dropdown ul li a {font-size:11px;padding-top:6px;}
 .blue_toolbar .blue_context_toolbar ul.dropdown:hover ul {display:block;position:absolute;}
 .blue_toolbar .blue_context_toolbar ul.dropdown:hover strong.title {background-color:#B4C6FF;}
