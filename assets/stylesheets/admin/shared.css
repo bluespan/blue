@@ -74,7 +74,8 @@ background:#B4C6FF;
 .blue_toolbar .blue_context_toolbar a:hover {background-color:#B4C6FF;}
 .blue_toolbar .blue_context_toolbar .edit {background:url('/images/blue/page_edit.gif') no-repeat 2px center;padding-left:22px;line-height:16px;}
 
-div.jGrowl div.success { background:#338F26;line-height:130%; }
+div.jGrowl div.success { background:#338F26;line-height:130%;color:#fff; }
+div.jGrowl div.success * {color:#fff;}
 div.jGrowl div.success em {color:#97EF3F;font-style:normal;}
 div.jGrowl div.success div.header {margin-bottom:8px;font-size:14px;color:#97EF3F;}
 

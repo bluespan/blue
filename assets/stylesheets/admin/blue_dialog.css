@@ -46,7 +46,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer input.button {display:inline;width:auto;}
 .modalContainer form .checkbox label {padding:2px 0 0 0;display:inline;float:none;}
 .modalContainer form .checkbox input {margin:0px 5px 0 0;float:none;}
-.modalContainer form .checkbox {clear:both;float:none;}
+.modalContainer form .checkbox {clear:both;float:none;list-style:none;margin-left:0;}
 .modalContainer form .checkbox  li {float:none;clear:both;margin-bottom:10px;}
 .modalContainer textarea {width:250px;height:48px;}
 .modalContainer fieldset {border:0px solid #B4C6FF;border-top:1px solid #778EC1;margin:0px 0 10px 0px;padding:10px 10px 10px 5px;width:auto;}
@@ -63,6 +63,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer .buttons {text-align:center;background:#778EC1;padding:10px;width:630px;left:0;bottom:0;position:absolute;}
 #modalContainerNavigation .buttons {width:360px;}
 #modalContainerAsset .buttons {width:400px;}
+#modalContainerContentPlacement .buttons {width:360px;}
 .modalContainer .buttons input {display:inline;width:auto;margin:0;float:none;}
 .modalContainer .buttons a {color:#203B8F;}
 .modalContainer ul.tags li {float:left;padding:4px;margin-right:5px;cursor:pointer;color:#203B8F;}
@@ -96,10 +97,12 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 
 #modalContainerNavigation {height:380px;width:380px;margin-left:-190px;top:20%;}
 #modalContainerAsset {height:240px;width:420px;margin-left:-220px;top:30%;}
+#modalContainerContentPlacement {height:380px;width:380px;margin-left:-190px;top:20%;}
 
 .modalContainer .modalData {overflow:auto;height:360px;background:#fff;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;}
 #modalContainerNavigation .modalData {overflow:auto;height:360px;}
 #modalContainerAsset .modalData {overflow:auto;height:200px;}
+#modalContainerContentPlacement .modalData {overflow:auto;height:360px;}
 
 .modalContainer a.modalCloseImg {
   background:url(/images/blue/x.png) no-repeat;

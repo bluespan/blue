@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	bind_verbiage_dialog(".admin_content .tools .edit");
+	bind_verbiage_dialog(".admin_content .tools .edit_verbiage");
 	bind_verbiage_dialog("#blue_toolbar .blue_context_toolbar .edit_verbiage");
 });
 
@@ -130,7 +130,9 @@ function bind_verbiage_dialog(selector) {
 		$("body").append('<div id="verbiage_dialog" class="dialog"></div>');
 	}
 	
-	$(selector).click(function() {
+	var unbound_selectors = $(selector).filter(function(){  return !($(this).attr("verbiage_dialog_bound") == "true") })
+	$(unbound_selectors).attr("verbiage_dialog_bound", "true")
+	$(unbound_selectors).click(function() {
 		var link = $(this);
 		current_dialog = $("#verbiage_dialog").modal({
 			onOpen: function(dialog){ verbiage_dialog.open(dialog, link)	},

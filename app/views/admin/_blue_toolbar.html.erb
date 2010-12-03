@@ -7,6 +7,9 @@
 		<ul id="blue_admin_navigation" class="blue_admin_navigation">
 			<li <%= (controller.class.to_s =~ /.*pages.*/i ? "class=\"current\"" : "") %>><a href="/admin/pages">Pages &amp; Navigation</a></li>
 			<li <%= (controller.class.to_s =~ /.*publish.*/i ? "class=\"current\"" : "") %>><a href="/admin/publish">Publish</a></li>
+			<% if blue_features.include?(:content_modules) and current_admin_user.has_role?(:editor) %>
+			<li <%= (controller.class.to_s =~ /.*contentmodules.*/i ? "class=\"current\"" : "") %>><a href="/admin/content_modules">Content Modules</a></li>
+			<% end %>
 			<li <%= (controller.class.to_s =~ /.*assets.*/i ? "class=\"current\"" : "") %>><a href="/admin/assets">Assets</a></li>
 			<% if blue_features.include?(:membership) and current_admin_user.has_permission?(:admin_membership) %>
 			<li <%= (controller.class.to_s =~ /.*membership.*/i ? "class=\"current\"" : "") %>><a href="/admin/membership">Membership</a></li>

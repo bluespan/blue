@@ -1,0 +1,5 @@
+$.modal.close();
+$("#content_modules ul").prepend("<%= escape_javascript(render(:partial => 'content_module', :locals => {:member => @content_module})) %>")
+bind_content_modules("#content_module_<%= @content_module.id %>");
+$("#content_module_<%= @content_module.id %>").fadeIn();
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

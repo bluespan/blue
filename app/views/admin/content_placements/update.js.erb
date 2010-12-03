@@ -1,0 +1,5 @@
+$.modal.close();
+$('#placement_<%= @content_placement.title.underscore %>').replaceWith("<%= escape_javascript(render :partial => 'placement', :locals => {:placement => @content_placement}) %>")
+
+bind_content_modules(".admin_placement .tools");
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

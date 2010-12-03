@@ -1,0 +1,13 @@
+$.modal.close();
+
+// Render List Item
+$("#content_module_<%= @content_module.id %>").replaceWith("<%= escape_javascript(render :partial => 'content_module', :locals => {:content_module => @content_module}) %>")
+bind_content_modules("#content_module_<%= @content_module.id %>");
+$("#content_module_<%= @content_module.id %>").hide();
+$("#content_module_<%= @content_module.id %>").fadeIn();
+
+// Render Placement
+$(".content_module_<%= @content_module.id %> .blue_content").html("<%= escape_javascript @content_module.content %>")
+
+
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

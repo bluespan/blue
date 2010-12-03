@@ -7,6 +7,9 @@ class Page < ActiveRecord::Base
   has_many    :navigations, :dependent => :destroy
   has_many    :content, :dependent => :destroy
   
+  has_many    :content_placements
+  has_many    :content_modules, :through => :content_placements
+  
   has_many    :published, :class_name => "Page", :foreign_key => :working_id, :order => "id DESC"
   has_one     :live,      :class_name => "Page", :foreign_key => :working_id, :order => "id DESC"
   belongs_to  :working,   :class_name => "Page", :foreign_key => :working_id
@@ -47,6 +50,11 @@ class Page < ActiveRecord::Base
     # Publish Content
     content.each do |c|
       c.publish!({:contentable_id => published_page.id})
+    end
+    
+    # Publish Content Placements
+    content_placements.each do |p|
+      p.publish!({:page_id => published_page.id})
     end
     
     # Publish Comments

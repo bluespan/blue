@@ -1,0 +1,23 @@
+<%= javascript_include_tag "blue/wymeditor/jquery.wymeditor.js" %>
+<%= javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.image_dialog.js" %>
+<%= javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.link_dialog.js" %>
+<%= javascript_include_tag 'blue/admin/verbiage' %>
+<%= javascript_include_tag 'blue/admin/content_modules' %>
+
+<script type="text/javascript" charset="utf-8">
+	var form_authenticity_token = "<%= form_authenticity_token %>";
+</script>
+
+<h1>
+    <% if current_admin_user.has_role?(:editor)%>
+		<span class="buttons"><a href="/admin/content_modules/new" class="new" id="new_content_module_button">Create Content Module</a></span>
+		<% end %>Content Modules
+</h1>
+
+<div class="report" id="content_modules">
+	<ul class="list">
+	  <%= render :partial => "content_module", :collection => @content_modules %>
+	</ul>
+</div>
+
+<div class="dialog" id="admin_content_module_dialog"></div>

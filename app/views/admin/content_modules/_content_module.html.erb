@@ -1,0 +1,7 @@
+<li id="content_module_<%= content_module.id %>" class="content_module content_module_<%= content_module.id %>">
+	<span class="tools">
+		<%= link_to "Edit", edit_admin_content_module_url(content_module), :class => "edit edit_verbiage" %> |
+		<%= link_to "Delete", admin_content_module_url(content_module), :class => "delete" %>
+	</span>
+	<span class="title"><%= content_module.title %></span>
+</li>

@@ -1,0 +1,13 @@
+<div class="admin_content admin_placement<%= " content_module_#{placement.content.id}" unless placement.content.nil? %>" id="placement_<%= placement.title.underscore %>">
+	<div class="tools"><strong><%= placement.title.humanize %> Placement</strong>
+		<% if current_admin_user.has_role?(:editor) %>	
+		<a href="/admin/pages/<%= @page.id %>/content_placements/<%= placement.title.underscore %>/edit" class="edit choose_module">Choose</a> 
+		<%= link_to "Edit", edit_admin_content_module_url(placement.content), :class => "edit edit_verbiage" unless placement.content.nil? %>
+		<% end %>
+	</div>
+	<div class="blue_content">
+	<% unless placement.content.nil? %>
+	<%= placement.content.content %>
+	<% end %>
+	</div>
+</div>

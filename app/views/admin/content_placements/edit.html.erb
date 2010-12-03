@@ -1,0 +1,19 @@
+<h1>Choose Content Module</h1>
+
+<% form_for @content_placement, :url => "/admin/pages/#{@page.id}/content_placements/#{@content_placement.title.underscore}", :method => :put do |f| %>
+
+<fieldset>
+	<legend>Available Modules</legend>
+<ul class="checkbox">
+	<li><%= f.radio_button :content_id, "", :class => "checkbox"  %> <label for="content_placement_content_id_">None</label></li>
+	<% @content_modules.each do |content_module| %>
+		<li><%= f.radio_button :content_id, content_module.id, :class => "checkbox"  %> <label for="content_placement_content_id_<%= content_module.id %>"><%= content_module.title %></label></li>
+	<% end %>
+</ul>
+</fieldset>
+  
+<div class="buttons">
+<input type="submit" value="Update" class="button submit wymupdate" /> | <a href="#cancel" class="close">Cancel</a>
+</div>
+
+<% end %>

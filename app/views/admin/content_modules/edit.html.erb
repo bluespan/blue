@@ -1,0 +1,15 @@
+<h1>
+	Edit Content Module
+</h1>
+
+<% form_for @content_module, :url => "/admin/content_modules/#{@content_module.id}", :method => :put do |f| %>
+
+
+  <%= render :partial => "edit_standard", :locals => {:f => f} %>
+
+
+<div class="buttons">
+<input type="submit" value="Update" class="button submit wymupdate" /> | <a href="#cancel" class="close">Cancel</a>
+</div>
+
+<% end %>

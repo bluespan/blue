@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => 'pages', :action => 'index'
     admin.resources :pages, :member => {:publish => :put, :typecast => :get}, :collection => {:publish_all => :put, :typecast => :get} do |pages|
       pages.resources :comments
+      pages.resources :content_placements
     end
     admin.resources :publish, :controller => 'publish'
     admin.resources :verbiage do |verbiage|
@@ -13,6 +14,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :global_verbiage do |global_verbiage|
       global_verbiage.resources :comments
     end
+    
+    admin.resources :content_modules
 
     admin.resources :external_links
     admin.resources :navigations, :collection => { :move => :put }

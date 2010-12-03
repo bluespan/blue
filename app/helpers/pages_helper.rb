@@ -36,6 +36,16 @@ module PagesHelper
       end
   end
   
+  def content_placement(title, options = {}, &default_block)
+    # options = {}.merge(options)
+    default_content = block_given? ? capture(&default_block) : nil
+    options[:default_content] = default_content
+    
+    placement = ContentPlacement.find_by_title_and_page_id(title.to_s.underscore, @page.id) || ContentPlacement.new({:title => title.to_s.underscore, :page_id => @page.id })
+
+    concat render(:partial => "content/placement", :object => placement, :locals => {:options => options}) # unless verbiage.members_only? and member_logged_in? == false and logged_in? == false
+  end
+  
   def navigation(top, options = {})
     options = {:levels => 9999, :top_levels => 9999, :id => "#{top.to_s}_navigation",
                 :exclude => nil, :include => nil,

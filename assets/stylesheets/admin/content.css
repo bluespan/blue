@@ -5,3 +5,5 @@ body .admin_content .tools a {margin-top:0 !important;text-transform:normal;widt
 
 .admin_content:hover {background:#eeeeff;}
 .admin_content:hover .tools {display:block;}
+
+.admin_placement {min-height:50px;}

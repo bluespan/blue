@@ -1,0 +1,11 @@
+<% if logged_in? %>
+<div class="placement <%= options[:class] %>">
+   <%= render :partial => "admin/content_placements/placement", :object => placement, :locals => {:options => options} %>
+</div>
+<% else %>
+  <% unless placement.content.nil? %>
+	<div class="placement <%= options[:class] %>">
+	<%= placement.content.content %>
+	</div>
+  <% end %>
+<% end %>
