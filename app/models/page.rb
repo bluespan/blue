@@ -77,6 +77,14 @@ class Page < ActiveRecord::Base
           end
         end
       end
+      
+      # Revert Placements
+      content_placements.each do |p|
+        p.destroy
+      end
+      live.content_placements.each do |p|
+        p.publish!({:page_id => id, :published => false})
+      end
     
       self[:title] = live.title
       self[:slug] = live.slug
