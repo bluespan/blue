@@ -3,6 +3,7 @@ class Page < ActiveRecord::Base
   
   named_scope :published, lambda { |slug|  { :conditions => ["working_id is not ? and slug like ?", nil, slug], :order => "id DESC" } }
   named_scope :workings,  lambda { |*slug| { :conditions => ["working_id is ? and slug like ?", nil, slug.first || "%"] } }
+  named_scope :live,  :conditions => {:is_live => true}
 
   has_many    :navigations, :dependent => :destroy
   has_many    :content, :dependent => :destroy
@@ -43,8 +44,10 @@ class Page < ActiveRecord::Base
   end
 
   def publish
+    published.live.each {|p| p.update_attribute("is_live", false)}
     published_page = clone
     published_page.working_id = id
+    published_page.is_live = true
     published_page.save(false) # Don't run validations, we know it to be valid
   
     # Publish Content
@@ -222,9 +225,9 @@ class Page < ActiveRecord::Base
       "Page"
     end
     
-    def live(slug = nil)
-      slug.nil? ? self.workings.find(:all, :include => :live).collect{|p| p.live}.compact : self.published(slug).first
-    end
+    # def live(slug = nil)
+    #   slug.nil? ? self.workings.find(:all, :include => :live).collect{|p| p.live}.compact : self.published(slug).first
+    # end
 
     def working(slug = nil, ancestors = "")
       return self.workings if slug.nil?
