@@ -144,7 +144,18 @@ module PagesHelper
       elsif navigation.placeholder?
         link_url = "#"
       else
-        link_url =  navigation_url
+        if options[:use_alternate_urls] and (page_urls = page.urls).length > 1
+          page_urls = page_urls.select { |url| url != navigation_url }
+          page_urls = page_urls.select { |url| page.navigation(url).bucket.title == options[:use_alternate_urls][:bucket].to_s.downcase.gsub("_", " ") } if options[:use_alternate_urls][:bucket]
+
+          if page_urls.length > 0 
+            link_url = page_urls.first
+          else
+            link_url =  navigation_url
+          end
+        else
+          link_url =  navigation_url
+        end
       end
       
       link_options = page.open_new_window? ? {:target => "_blank"} : {}
