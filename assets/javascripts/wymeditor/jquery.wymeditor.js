@@ -1047,14 +1047,24 @@ WYMeditor.editor.prototype.container = function(sType) {
  */
 WYMeditor.editor.prototype.toggleClass = function(sClass, jqexpr) {
 
-  var container = (this._selected_image
+    var container = (this._selected_image
                     ? this._selected_image
                     : jQuery(this.selected()));
-  container = jQuery(container).parentsOrSelf(jqexpr);
+   container = jQuery(container).parentsOrSelf(jqexpr);
+   
+   if (this._iframe.contentWindow.getSelection().focusNode != null && jqexpr == "span") {
+       if (container.context.nodeName != "SPAN") {
+         this.wrap("<span>", "</span>");
+         container = jQuery(this.selected())
+         container = jQuery(container).parentsOrSelf(jqexpr);
+       }       
+   }
   jQuery(container).toggleClass(sClass);
+ console.log(container.context.className)
 
   if(!jQuery(container).attr(WYMeditor.CLASS)) jQuery(container).removeAttr(this._class);
 
+  if (jQuery(container).context.nodeName == "SPAN" && jQuery(container).context.className == "") { container.replaceWith(container.html()) }
 };
 
 /* @name findUp
