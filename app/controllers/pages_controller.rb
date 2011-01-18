@@ -34,6 +34,19 @@ class PagesController < BlueController
 
     render_instructions = {}
     ancestors = ""
+    
+    # Set Locale
+    if params[:locale].nil?
+      Span::Blue.locales.each do |locale|
+        if @slugs.length > 0 && @slugs[0] == locale.to_s
+          I18n.locale = locale
+          @slugs.shift
+          break
+        end
+      end
+    else
+      I18n.locale = params[:locale]
+    end
 
     @slugs.each_index do |index|
       slug = @slugs[index]

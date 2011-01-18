@@ -10,111 +10,122 @@ var verbiage_updated_callback = function() {};
 // Page Dialogs
 var verbiage_dialog = {
 	open: function(dialog, link) {
+	  dialog.link = link;
 		dialog.overlay.fadeIn('normal')
     dialog.container.slideDown('normal');
 		dialog.data.html('<div class="loading"></div>').show();
-
-		$.ajax({
-				url: $(link).attr("href"),
-				type: 'get',
-				cache: false,
-				dataType: 'html',
-				success: function (html) {
-					
-					dialog.data.find('.loading').fadeOut(150, function() {
-						
-						// Replace asset images with their thumbnails
-						//html = html.replace(/src=&quot;\/assets\/images\/([^\.])/gi, 'src=&quot;/assets/images/.thumbnails/$1');
-						//html = html.replace(/src=&quot;(.*)\/assets\/images\/([^\.].*)&quot;/gi, 'src=&quot;$1/assets/images/.thumbnails/$2&quot;');
-						//html = html.replace(/src="(.*)\/assets\/images\/([^\.].*)"/gi, 'src="$1/assets/images/.thumbnails/$2"');
-				    html = html.replace(/assets\/images/gi, "assets/images/.thumbnails").replace(/\.thumbnails\/\.thumbnails/gi, "/.thumbnails")
-						dialog.data.html('<div class="content">' + html + '</div>');
-
-						dialog.data.find('.close').click(function () { $.modal.close(); return false; });
-										
-						$('.wymeditor').wymeditor($.extend({}, {
-						    jQueryPath:"/javascripts/blue/jquery.js",
-								toolsItems: [
-							    {'name': 'Bold', 'title': 'Strong', 'css': 'wym_tools_strong'}, 
-							    {'name': 'Italic', 'title': 'Emphasis', 'css': 'wym_tools_emphasis'},
-							    {'name': 'Superscript', 'title': 'Superscript', 'css': 'wym_tools_superscript'},
-							    {'name': 'Subscript', 'title': 'Subscript', 'css': 'wym_tools_subscript'},
-							    {'name': 'InsertOrderedList', 'title': 'Ordered_List', 'css': 'wym_tools_ordered_list'},
-							    {'name': 'InsertUnorderedList', 'title': 'Unordered_List', 'css': 'wym_tools_unordered_list'},
-							    {'name': 'Indent', 'title': 'Indent', 'css': 'wym_tools_indent'},
-							    {'name': 'Outdent', 'title': 'Outdent', 'css': 'wym_tools_outdent'},
-							    {'name': 'Undo', 'title': 'Undo', 'css': 'wym_tools_undo'},
-							    {'name': 'Redo', 'title': 'Redo', 'css': 'wym_tools_redo'},
-							    {'name': 'Unlink', 'title': 'Unlink', 'css': 'wym_tools_unlink'},
-							    {'name': 'InsertTable', 'title': 'Table', 'css': 'wym_tools_table'},
-							    {'name': 'Paste', 'title': 'Paste_From_Word', 'css': 'wym_tools_paste'},
-							    {'name': 'ToggleHtml', 'title': 'HTML', 'css': 'wym_tools_html'}
-							  ],
-								containersItems: [
-						        {'name': 'P', 'title': 'Paragraph', 'css': 'wym_containers_p'},
-						        {'name': 'H1', 'title': 'Heading_1', 'css': 'wym_containers_h1'},
-						        {'name': 'H2', 'title': 'Heading_2', 'css': 'wym_containers_h2'},
-						        {'name': 'H3', 'title': 'Heading_3', 'css': 'wym_containers_h3'}
-						    ],
-								stylesheet: "/stylesheets/editor.css",
-							 	boxHtml:   "<div class='wym_box'>"
-						              + "<div class='wym_area_top'>" 
-						              + WYMeditor.TOOLS
-						              + WYMeditor.CLASSES
-						              + WYMeditor.CONTAINERS
-						              + "</div>"
-						              + "<div class='wym_area_left'></div>"
-						              + "<div class='wym_area_right'></div>"
-						              + "<div class='wym_area_main'>"
-						              + WYMeditor.HTML
-						              + WYMeditor.IFRAME
-						              + WYMeditor.STATUS
-						              + "</div>"
-						              + "<div class='wym_area_bottom'>"
-						              + "</div>"
-						              + "</div>",
-						 postInit: function(wym) {
-						    var blue_image_dialog = wym.blue_image_dialog({current_dialog: current_dialog});
-						    blue_image_dialog.init();
-						    var blue_link_dialog = wym.blue_link_dialog({current_dialog: current_dialog});
-						    blue_link_dialog.init();
-								var page_verbiage_comments_dialog = blue_page_verbiage_comments_dialog({current_dialog: current_dialog});
-						  	page_verbiage_comments_dialog.init();
-							},
-							postInitDialog: function() {
-								
-								dialog.data.find('.content').fadeIn(500);
-							}
-		
-						}, wymeditor_config));
-			
-						// Add Ajax Submit
-						dialog.data.find('form').submit(function(){
-							
-							var editor = $(".wymeditor, .tinymce");
-							
-							// Make absolute paths that point to our server relative
-							html = editor.val()
-							
-							var re = new RegExp('(src|href)="?https?:\/\/' + document.location.host + '([^"]+)', 'gi');
-							html = html.replace(re, '$1=\"$2')
-							
-							// Replace asset thumbnails with their full images
-							html = html.replace(/src="([^"]*)\/\.thumbnails\/([^"]*)"/gi, 'src="$1/$2"');
-	
-							editor.val(html);
-					
-							$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
-							return false;
-						});
-						
-						
-					});
-					
-				}
-		});
+    verbiage_dialog.show(dialog);
+	  
 	},
-	show: function(dialog) {
+	show: function(dialog, locale) {
+	  var url = $(dialog.link).attr("href");
+	  if (locale != null) {
+	    url += "&verbiage[locale]="+locale
+	  }
+	  	$.ajax({
+  				url: url,
+  				type: 'get',
+  				cache: false,
+  				dataType: 'html',
+  				success: function (html) {
+  					dialog.data.find('.loading').fadeOut(150, function() {
+
+  						// Replace asset images with their thumbnails
+  						//html = html.replace(/src=&quot;\/assets\/images\/([^\.])/gi, 'src=&quot;/assets/images/.thumbnails/$1');
+  						//html = html.replace(/src=&quot;(.*)\/assets\/images\/([^\.].*)&quot;/gi, 'src=&quot;$1/assets/images/.thumbnails/$2&quot;');
+  						//html = html.replace(/src="(.*)\/assets\/images\/([^\.].*)"/gi, 'src="$1/assets/images/.thumbnails/$2"');
+  				    html = html.replace(/assets\/images/gi, "assets/images/.thumbnails").replace(/\.thumbnails\/\.thumbnails/gi, "/.thumbnails")
+  						dialog.data.html('<div class="content">' + html + '</div>');
+
+  						dialog.data.find('.close').click(function () { $.modal.close(); return false; });
+
+  						$('.wymeditor').wymeditor($.extend({}, {
+  						    jQueryPath:"/javascripts/blue/jquery.js",
+  								toolsItems: [
+  							    {'name': 'Bold', 'title': 'Strong', 'css': 'wym_tools_strong'}, 
+  							    {'name': 'Italic', 'title': 'Emphasis', 'css': 'wym_tools_emphasis'},
+  							    {'name': 'Superscript', 'title': 'Superscript', 'css': 'wym_tools_superscript'},
+  							    {'name': 'Subscript', 'title': 'Subscript', 'css': 'wym_tools_subscript'},
+  							    {'name': 'InsertOrderedList', 'title': 'Ordered_List', 'css': 'wym_tools_ordered_list'},
+  							    {'name': 'InsertUnorderedList', 'title': 'Unordered_List', 'css': 'wym_tools_unordered_list'},
+  							    {'name': 'Indent', 'title': 'Indent', 'css': 'wym_tools_indent'},
+  							    {'name': 'Outdent', 'title': 'Outdent', 'css': 'wym_tools_outdent'},
+  							    {'name': 'Undo', 'title': 'Undo', 'css': 'wym_tools_undo'},
+  							    {'name': 'Redo', 'title': 'Redo', 'css': 'wym_tools_redo'},
+  							    {'name': 'Unlink', 'title': 'Unlink', 'css': 'wym_tools_unlink'},
+  							    {'name': 'InsertTable', 'title': 'Table', 'css': 'wym_tools_table'},
+  							    {'name': 'Paste', 'title': 'Paste_From_Word', 'css': 'wym_tools_paste'},
+  							    {'name': 'ToggleHtml', 'title': 'HTML', 'css': 'wym_tools_html'}
+  							  ],
+  								containersItems: [
+  						        {'name': 'P', 'title': 'Paragraph', 'css': 'wym_containers_p'},
+  						        {'name': 'H1', 'title': 'Heading_1', 'css': 'wym_containers_h1'},
+  						        {'name': 'H2', 'title': 'Heading_2', 'css': 'wym_containers_h2'},
+  						        {'name': 'H3', 'title': 'Heading_3', 'css': 'wym_containers_h3'}
+  						    ],
+  								stylesheet: "/stylesheets/editor.css",
+  							 	boxHtml:   "<div class='wym_box'>"
+  						              + "<div class='wym_area_top'>" 
+  						              + WYMeditor.TOOLS
+  						              + WYMeditor.CLASSES
+  						              + WYMeditor.CONTAINERS
+  						              + "</div>"
+  						              + "<div class='wym_area_left'></div>"
+  						              + "<div class='wym_area_right'></div>"
+  						              + "<div class='wym_area_main'>"
+  						              + WYMeditor.HTML
+  						              + WYMeditor.IFRAME
+  						              + WYMeditor.STATUS
+  						              + "</div>"
+  						              + "<div class='wym_area_bottom'>"
+  						              + "</div>"
+  						              + "</div>",
+  						 postInit: function(wym) {
+  						    var blue_image_dialog = wym.blue_image_dialog({current_dialog: current_dialog});
+  						    blue_image_dialog.init();
+  						    var blue_link_dialog = wym.blue_link_dialog({current_dialog: current_dialog});
+  						    blue_link_dialog.init();
+  								var page_verbiage_comments_dialog = blue_page_verbiage_comments_dialog({current_dialog: current_dialog});
+  						  	page_verbiage_comments_dialog.init();
+  							},
+  							postInitDialog: function() {
+
+  								dialog.data.find('.content').fadeIn(500);
+  							}
+
+  						}, wymeditor_config));
+
+  						// Add Ajax Submit
+  						dialog.data.find('form').submit(function(){
+
+  							var editor = $(".wymeditor, .tinymce");
+
+  							// Make absolute paths that point to our server relative
+  							html = editor.val()
+
+  							var re = new RegExp('(src|href)="?https?:\/\/' + document.location.host + '([^"]+)', 'gi');
+  							html = html.replace(re, '$1=\"$2')
+
+  							// Replace asset thumbnails with their full images
+  							html = html.replace(/src="([^"]*)\/\.thumbnails\/([^"]*)"/gi, 'src="$1/$2"');
+
+  							editor.val(html);
+
+  							$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
+  							return false;
+  						});
+
+  						// Add Change Locales
+  						dialog.data.find("#verbiage_locale").change(function(){
+  						  dialog.data.html('<div class="loading"></div>').show();
+  						  verbiage_dialog.show(dialog, $(this).val());
+  						});
+
+
+  					});
+
+  				}
+  		});
 	},
 	close: function(dialog) {
 		dialog.overlay.fadeOut('normal');

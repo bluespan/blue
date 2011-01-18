@@ -8,6 +8,7 @@ class Page < ActiveRecord::Base
   has_many    :navigations, :dependent => :destroy
   has_many    :content, :dependent => :destroy
   
+  
   has_many    :content_placements
   has_many    :content_modules, :through => :content_placements
   

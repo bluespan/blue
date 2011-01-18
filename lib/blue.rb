@@ -54,6 +54,8 @@ module Span
     
     @@features = []
     mattr_accessor :features
+    @@locales = ['en']
+    mattr_accessor :locales
     
     def @@features.method_missing(method)
       has_key?(method)

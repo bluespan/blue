@@ -12,21 +12,18 @@ module PagesHelper
       default_content = block_given? ? capture(&default_block) : nil
       
       if (options[:contentable].nil?)
-        verbiage = GlobalVerbiage[key]
-        if verbiage.new_record?
-          verbiage.content = default_content
-          verbiage.members_only = options[:members_only]
-          verbiage.save!
+        Span::Blue.locales.each do |locale|
+          if GlobalVerbiage[key][locale.to_s].new_record?
+            GlobalVerbiage[key][locale.to_s].content = default_content
+            GlobalVerbiage[key][locale.to_s].members_only = options[:members_only]
+            GlobalVerbiage[key][locale.to_s].save!
+          end
         end
+        verbiage = GlobalVerbiage[key][I18n.locale.to_s]
       else
-        unless options[:contentable].verbiage.has_key?(key)
-          options[:contentable].verbiage[key] = default_content
-            if options[:members_only]
-              options[:contentable].verbiage[key].members_only = options[:members_only] 
-              options[:contentable].verbiage[key].save!
-            end
-        end
-        verbiage = options[:contentable].verbiage[key]
+        init_verbiage(key, options, default_content)
+        verbiage = options[:contentable].verbiage[key.to_sym][I18n.locale.to_s]
+        verbiage = options[:contentable].verbiage[key.to_sym][Span::Blue.locales.first.to_s] if verbiage.nil?
       end
       
       if logged_in? && options[:admin]
@@ -35,6 +32,7 @@ module PagesHelper
         concat verbiage.content unless verbiage.members_only? and member_logged_in? == false and logged_in? == false
       end
   end
+  
   
   def content_placement(title, options = {}, &default_block)
     # options = {}.merge(options)
@@ -105,6 +103,31 @@ module PagesHelper
   end
   
   private 
+  
+  def init_verbiage(key, options, default_content)
+    unless options[:contentable].verbiage.has_key?(key)
+      init_locale_verbaige(key, Span::Blue.locales.first.to_s, options, default_content)
+    end
+    
+    # Span::Blue.locales.each do |locale|
+    #   unless options[:contentable].verbiage[key].has_key?(locale.to_s)
+    #     init_locale_verbaige(key, locale.to_s, options, default_content)
+    #   end
+    # end  
+      
+    options[:contentable]
+  end
+  
+  def init_locale_verbaige(key, locale, options, default_content)
+    options[:contentable].verbiage.set_verbiage(key, locale.to_s, default_content)
+    if options[:members_only]
+      options[:contentable].verbiage[key][locale].members_only = options[:members_only] 
+      options[:contentable].verbiage[key][locale].save!
+    end
+    
+    options[:contentable]
+  end
+  
   def navigation_tree(navigations, options = {}, url = "", level = 1)
     output = ""
     
