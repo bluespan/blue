@@ -156,7 +156,7 @@ class Page < ActiveRecord::Base
   
   def template
     sub_dir = self.class.to_s.split("::")[1].underscore
-    @template = TemplateFile.find("/" + sub_dir + "/" + self[:template_file])
+    @template = TemplateFile.find("/" + sub_dir + "/" + self[:template_file]) unless self[:template_file].blank?
   end
 
   def display_name

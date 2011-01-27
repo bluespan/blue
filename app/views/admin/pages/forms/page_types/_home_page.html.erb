@@ -10,7 +10,11 @@
 	<%= f.text_field :slug, :size => 20, :name => "page[slug]", :id => "page_slug" %>
 
 	<label for="page_template_file">Template</label>
-	<strong>Home</strong>
+	<select name="page[template_file]" id="page_template_file">
+		<% PageTypes::HomePage.templates.each do |template| -%>
+		<option value="<%= template.name %>" <%= @page.template_file == template.name ? "selected" : "" %>><%= template.humanize.gsub("_", " ") %></option>
+		<% end -%>
+	</select>
 </fieldset>
 
 <fieldset>
