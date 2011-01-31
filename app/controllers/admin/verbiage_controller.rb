@@ -1,6 +1,6 @@
 class Admin::VerbiageController < Admin::BlueAdminController
   
-  before_filter :verify_permission_to_admin_content, :find_verbiage
+  before_filter :verify_permission_to_admin_content, :default_wysiwyg_editor, :find_verbiage
   layout false
   
   helper :pages
@@ -26,6 +26,10 @@ class Admin::VerbiageController < Admin::BlueAdminController
   
   def find_verbiage
     @verbiage = Verbiage.find(params[:id])
+  end
+  
+  def default_wysiwyg_editor
+    params[:editor] = "wymeditor" if params[:editor].nil?
   end
   
 end
