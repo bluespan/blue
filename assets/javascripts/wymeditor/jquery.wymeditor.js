@@ -2072,7 +2072,8 @@ WYMeditor.XhtmlValidator = {
       "ismap",
       "longdesc",
       "usemap",
-      "width"
+      "width",
+      "style"
       ],
       "required":[
       "alt",

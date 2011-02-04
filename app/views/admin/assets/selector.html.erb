@@ -1,4 +1,12 @@
-<h2>Images</h2>
+<h2><div class="tools"><a href="#" class="close">x close</a></div>Images</h2>
+
+<div id="properties">
+	<label for="align">Align: </label><select name="align" class="align">
+		<option value="">None</option>
+		<option value="left">Left</option>
+		<option value="right">Right</option>
+	</select>
+</div>
 
 <div id="path_breadcrumb">
 	<em>Current Folder:</em> <% asset_breadcrumbs "selector" do |folder, url| %>
@@ -14,3 +22,4 @@
 		</li>
 	<% end %>
 </ul>
+

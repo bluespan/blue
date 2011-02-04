@@ -129,9 +129,14 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer .trayDialog .assets li a {color:#203B8F;}
 .modalContainer .trayDialog .assets li .thumbnail {margin-bottom:5px;}
 .modalContainer .trayDialog .assets li .thumbnail img {max-height:100px;max-width:100px;}
-.modalContainer .trayDialog #path_breadcrumb {margin-bottom:10px;font-size:11px;line-height:15px;}
+.modalContainer .trayDialog #path_breadcrumb {clear:both;margin-bottom:10px;font-size:11px;line-height:15px;}
 .modalContainer .trayDialog #path_breadcrumb a {color:#203B8F;background:url("/images/blue/folder_16.png") no-repeat 0 -3px;padding-left:18px;}
+.modalContainer .trayDialog #properties {margin-bottom:5px;}
+.modalContainer .trayDialog #properties label {margin-top:0;}
+
 .modalContainer .trayDialog h2 {font-size:16px;margin-bottom:10px;border-bottom:2px solid #778EC1;padding-bottom:1px;color:#203B8F;}
+.modalContainer .trayDialog h2 .tools {float:right;}
+.modalContainer .trayDialog h2 .tools a {font-size:10px;font-weight:normal;}
 .modalContainer .trayDialog p {font-size:12px;margin-bottom:10px;color:#203B8F;line-height:130%;}
 .modalContainer .trayDialog a {color:#203B8F;}
 .modalContainer .trayDialog form input{width:224px;}
