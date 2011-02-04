@@ -166,6 +166,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer .modalTopTray div.buttons {padding:0;font-size:10px;padding-top:4px;padding-left:0;margin:0 -8px; width:110%;}
 .modalContainer .modalTopTray div.buttons input {margin:0;padding:0;float:none;}
 .modalContainer .modalTopTray #assets h2 {display:none;}
+.modalContainer .modalTopTray #assets #properties {display:none;}
 .modalContainer .modalTopTray h2 {margin-bottom:2px;}
 .modalContainer .modalTopTray #path_breadcrumb {margin-bottom:2px;}
 .modalContainer .modalTopTray ul.assets {overflow:auto;height:70px;background:#E1E8F1;}
