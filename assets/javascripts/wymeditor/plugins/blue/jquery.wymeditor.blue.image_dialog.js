@@ -113,14 +113,22 @@ BlueImageDialog.prototype.bindDirectories = function() {
 BlueImageDialog.prototype.bindProperties = function() {
   var wym = this._wym;
   
-  if (wym._selected_image) {
+	var selectedPos = wym.selectedPosition();
+	
+	var image = wym._selected_image;
+	if (!image) {
+	  image = selectedPos.item();
+	}
+	
+  
+  if (image) {
   	var current_dialog = this._options.current_dialog;
   	var thisBlueImageDialog = this;
   	
   	var properties = current_dialog.dialog.leftTray.find("#properties");
   	var alignment = properties.find(".align");
     
-    alignment.val(jQuery(wym._selected_image).css("float"));
+    alignment.val(jQuery(image).css("float"));
     
   	alignment.change(function() {
   		thisBlueImageDialog.changeAlignment(alignment.val());
@@ -130,8 +138,15 @@ BlueImageDialog.prototype.bindProperties = function() {
 
 BlueImageDialog.prototype.changeAlignment = function(alignment) {
   var wym = this._wym;
-  if (wym._selected_image) {
-    jQuery(wym._selected_image).css("float", alignment);
+  var selectedPos = wym.selectedPosition();
+	var image = wym._selected_image;
+	if (!image) {
+	  image = selectedPos.item();
+	}
+	
+  
+  if (image) {
+    jQuery(image).css("float", alignment);
   }
 }
 
