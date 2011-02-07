@@ -116,7 +116,7 @@ BlueImageDialog.prototype.bindProperties = function() {
 	var selectedPos = wym.selectedPosition();
 	
 	var image = wym._selected_image;
-	if (!image) {
+	if (!image && selectedPos.item) {
 	  image = selectedPos.item();
 	}
 	
@@ -140,7 +140,7 @@ BlueImageDialog.prototype.changeAlignment = function(alignment) {
   var wym = this._wym;
   var selectedPos = wym.selectedPosition();
 	var image = wym._selected_image;
-	if (!image) {
+	if (!image && selectedPos.item) {
 	  image = selectedPos.item();
 	}
 	
