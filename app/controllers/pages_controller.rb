@@ -36,16 +36,18 @@ class PagesController < BlueController
     ancestors = ""
     
     # Set Locale
-    if params[:locale].nil?
-      Span::Blue.locales.each do |locale|
-        if @slugs.length > 0 && @slugs[0] == locale.to_s
-          I18n.locale = locale
-          @slugs.shift
-          break
+    if blue_features.include?(:localization)
+      if params[:locale].nil?
+        Span::Blue.locales.each do |locale|
+          if @slugs.length > 0 && @slugs[0] == locale.to_s
+            I18n.locale = locale
+            @slugs.shift
+            break
+          end
         end
+      else
+        I18n.locale = params[:locale]
       end
-    else
-      I18n.locale = params[:locale]
     end
 
     @slugs.each_index do |index|

@@ -26,7 +26,6 @@ class Page < ActiveRecord::Base
   cattr_accessor :types, :allow_ssl
   
   
-  
   # acts_as_ferret :fields => {
   #                              :title => {:store => :yes}, 
   #                              :url => {:store => :yes}, 
@@ -36,7 +35,8 @@ class Page < ActiveRecord::Base
                   
   acts_as_commentable
   acts_as_contentable
-     
+  has_localized_data
+       
   def navigation(path)
     @navigation ||= {}
     @navigation[path] ||= (published? ? working.navigations : navigations).select do |navigation|

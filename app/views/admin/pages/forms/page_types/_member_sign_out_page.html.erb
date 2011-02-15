@@ -20,3 +20,7 @@
 </fieldset>
 </div>
 
+
+<div class="right_column">
+	<%= render :partial => 'admin/pages/forms/page_types/localizations', :locals => {:f => f} if blue_features.include?(:localization) %>
+</div>

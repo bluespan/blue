@@ -68,7 +68,7 @@ module PagesHelper
     return if options[:navigation].nil?
     
     @navigation.self_and_ancestors.delete_if{|navigation| navigation.root? }.collect do |navigation|
-      link_to navigation.page.title, navigation.page.url, :class => (@page == navigation.page) ? "current" : ""
+      link_to navigation.page.l10n_attribute(:title), navigation.page.url, :class => (@page == navigation.page) ? "current" : ""
     end.join(options[:delimiter])
   end
   
@@ -82,7 +82,7 @@ module PagesHelper
   
   def page_title
     return "" if @page.nil?
-    " - #{@page.title}"
+    " - #{@page.l10n_attribute(:title)}"
   end
   
   def working_page
@@ -184,7 +184,7 @@ module PagesHelper
       link_options = page.open_new_window? ? {:target => "_blank"} : {}
       
       navigation_title = navigation.title
-      navigation_title = page.title if navigation_title.blank?
+      navigation_title = page.l10n_attribute(:title) if navigation_title.blank?
       
       output += "<li class=\"#{classes.join(" ")}\">"
         output += link_to filter_page_title(navigation_title), link_url, link_options

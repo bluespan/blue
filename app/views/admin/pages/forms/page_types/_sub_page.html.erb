@@ -39,4 +39,5 @@
 	</fieldset>	
 	<% end %>
 	<%= render :partial => 'admin/pages/forms/page_types/permissions', :locals => {:f => f} if blue_features.include?(:membership) %>
+	<%= render :partial => 'admin/pages/forms/page_types/localizations', :locals => {:f => f} if blue_features.include?(:localization) %>
 </div>

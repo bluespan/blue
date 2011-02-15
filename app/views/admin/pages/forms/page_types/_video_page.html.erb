@@ -46,4 +46,5 @@
 		<input type="button" id="browse_video" value="Browse Videos" />
 	</fieldset>	
 	<%= render :partial => 'admin/pages/forms/page_types/permissions', :locals => {:f => f} if blue_features.include?(:membership) %>
+	<%= render :partial => 'admin/pages/forms/page_types/localizations', :locals => {:f => f} if blue_features.include?(:localization) %>
 </div>
