@@ -3,6 +3,8 @@ class Navigation < ActiveRecord::Base
   validates_presence_of :title, :unless => :has_a_page?
   
   acts_as_nested_set
+  has_localized_data
+  
   belongs_to :page #, :include => :live
 
   def slug

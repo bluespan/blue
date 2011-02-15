@@ -138,6 +138,7 @@ module PagesHelper
       
       page = live_or_working navigation.page
       
+      next if blue_features.include?(:localization) && page.l10n_attribute(:enabled) == false
       next if (navigation.display? == false && options[:force_display] == false) || page.nil?
       next if navigation.display_to_members_only? && member_logged_in? == false
       next if page.class == PageTypes::MemberSignInPage && member_logged_in? == true
@@ -183,7 +184,7 @@ module PagesHelper
       
       link_options = page.open_new_window? ? {:target => "_blank"} : {}
       
-      navigation_title = navigation.title
+      navigation_title = navigation.l10n_attribute(:title)
       navigation_title = page.l10n_attribute(:title) if navigation_title.blank?
       
       output += "<li class=\"#{classes.join(" ")}\">"

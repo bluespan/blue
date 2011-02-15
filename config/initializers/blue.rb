@@ -3,6 +3,7 @@
 # Span::Blue.features << :membership
 # Span::Blue.features << :comments
 # Span::Blue.features << :collapsible_navigation
+# Span::Blue.features << :content_modules
 
 # Span::Blue.features << :localization
 # Span::Blue.locales = [:en, :es]
