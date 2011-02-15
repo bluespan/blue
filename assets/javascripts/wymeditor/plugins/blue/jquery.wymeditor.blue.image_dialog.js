@@ -56,6 +56,7 @@ BlueImageDialog.prototype.open = function() {
 				
 			path = "/admin/assets/selector" + src
 			
+			
 		}
 		
 		this.selectedPos = wym.selectedPosition();
@@ -74,20 +75,25 @@ BlueImageDialog.prototype.bindImages = function() {
 	current_dialog.dialog.leftTray.find("a.file").click(function() {
 
 		
-		sUrl = $(this).attr("href").replace(/^.*selector/, "");
+		sUrl = jQuery(this).attr("href").replace(/^.*selector/, "");
 		//sUrl = "/assets" + sUrl;
 
-		if (!$.browser.msie) {
+		if (!jQuery.browser.msie) {
 			wym._exec(WYMeditor.INSERT_IMAGE, sUrl);
 		}
 		else {
 			wym._doc.caretPos.execCommand(WYMeditor.INSERT_IMAGE, false, sUrl);
 		}
 
-  	jQuery("img[src='" + sUrl + "']", wym._doc.body)
-      .attr(WYMeditor.TITLE, "")
-      .attr(WYMeditor.ALT, "");
+    var properties = current_dialog.dialog.leftTray.find("#properties");
+    var alignment = properties.find(".align").val();
 
+  	jQuery("img[src='" + sUrl + "']", wym._doc)
+      .attr(WYMeditor.TITLE, "")
+      .attr(WYMeditor.ALT, "")
+      .css("float", alignment);
+  
+      
 		current_dialog.closeLeftTray();
 		
 		return false;
@@ -104,12 +110,53 @@ BlueImageDialog.prototype.bindDirectories = function() {
 	});
 }
 
+BlueImageDialog.prototype.bindProperties = function() {
+  var wym = this._wym;
+  
+	var selectedPos = wym.selectedPosition();
+	
+	var image = wym._selected_image;
+	if (!image && selectedPos.item) {
+	  image = selectedPos.item();
+	}
+	
+  
+  if (image) {
+  	var current_dialog = this._options.current_dialog;
+  	var thisBlueImageDialog = this;
+  	
+  	var properties = current_dialog.dialog.leftTray.find("#properties");
+  	var alignment = properties.find(".align");
+    
+    alignment.val(jQuery(image).css("float"));
+    
+  	alignment.change(function() {
+  		thisBlueImageDialog.changeAlignment(alignment.val());
+  	});
+  }
+}
+
+BlueImageDialog.prototype.changeAlignment = function(alignment) {
+  var wym = this._wym;
+  var selectedPos = wym.selectedPosition();
+	var image = wym._selected_image;
+	if (!image && selectedPos.item) {
+	  image = selectedPos.item();
+	}
+	
+  
+  if (image) {
+    jQuery(image).css("float", alignment);
+  }
+}
+
 BlueImageDialog.prototype.loadDirectory = function(path) {
 	var thisBlueImageDialog = this;
 	var current_dialog = this._options.current_dialog;
 	var tray_dialog = current_dialog.dialog.leftTray.find(".trayDialog .content");
 	var tray_loading = current_dialog.dialog.leftTray.find(".trayDialog .loading");
-		
+	var wym = this._wym;
+			
 	tray_dialog.hide();
 	tray_loading.show();	
 		
@@ -117,12 +164,24 @@ BlueImageDialog.prototype.loadDirectory = function(path) {
 		
 		tray_dialog.html(data);
 
+    if (wym._selected_image) {
+  		var properties = current_dialog.dialog.leftTray.find("#properties");
+      properties.find(".align").val(jQuery(wym._selected_image).css("float"));
+    }
+    
 		tray_loading.fadeOut(150, function() {
 					tray_dialog.fadeIn(150);
 		});
-
+		
+		
+    current_dialog.dialog.leftTray.find(".close").click(function(){
+      current_dialog.closeLeftTray();
+      return false;
+    })
+    
 		// Have folders load on click
 		thisBlueImageDialog.bindImages();
 		thisBlueImageDialog.bindDirectories();
+		thisBlueImageDialog.bindProperties();
 	});
 }

@@ -1052,19 +1052,19 @@ WYMeditor.editor.prototype.toggleClass = function(sClass, jqexpr) {
                     : jQuery(this.selected()));
    container = jQuery(container).parentsOrSelf(jqexpr);
    
-   if (this._iframe.contentWindow.getSelection().focusNode != null && jqexpr == "span") {
+   if (this.selected() != null && 
+     jqexpr == "span") {
        if (container.context.nodeName != "SPAN") {
-         this.wrap("<span>", "</span>");
-         container = jQuery(this.selected())
-         container = jQuery(container).parentsOrSelf(jqexpr);
+         this.wrap("<span class='"+sClass+"'>", "</span>");
+          return
        }       
    }
   jQuery(container).toggleClass(sClass);
- console.log(container.context.className)
+
 
   if(!jQuery(container).attr(WYMeditor.CLASS)) jQuery(container).removeAttr(this._class);
 
-  if (jQuery(container).context.nodeName == "SPAN" && jQuery(container).context.className == "") { container.replaceWith(container.html()) }
+  if (jQuery(container).context && jQuery(container).context.nodeName && jQuery(container).context.nodeName == "SPAN" && jQuery(container).context.className == "") { container.replaceWith(container.html()) }
 };
 
 /* @name findUp
@@ -2072,7 +2072,8 @@ WYMeditor.XhtmlValidator = {
       "ismap",
       "longdesc",
       "usemap",
-      "width"
+      "width",
+      "style"
       ],
       "required":[
       "alt",

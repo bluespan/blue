@@ -5,6 +5,7 @@ class PageTypes::HomePage < Page
   end
   
   def template
+    super
     @template ||= TemplateFile.find('/home_page/home.html.erb')
   end
   

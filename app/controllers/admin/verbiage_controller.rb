@@ -1,6 +1,6 @@
 class Admin::VerbiageController < Admin::BlueAdminController
   
-  before_filter :verify_permission_to_admin_content, :find_verbiage
+  before_filter :verify_permission_to_admin_content, :default_wysiwyg_editor, :find_verbiage
   layout false
   
   helper :pages
@@ -39,6 +39,10 @@ class Admin::VerbiageController < Admin::BlueAdminController
   def current_locale
     return params[:verbiage][:locale] if params[:verbiage] && params[:verbiage][:locale]
     I18n.locale.to_s
+  end
+  
+  def default_wysiwyg_editor
+    params[:editor] = "wymeditor" if params[:editor].nil?
   end
   
 end
