@@ -3,6 +3,10 @@ module BlueHelper
   def blue_features
     Span::Blue.features
   end
+  
+  def blue_collections
+    Span::Blue.collections
+  end
 
   def stylesheet_link_admin
     return unless logged_in?
@@ -59,8 +63,10 @@ module BlueHelper
      (live_or_working PageTypes::MemberSignInPage.find(:first, :order => "created_at DESC")).url
   end
 
-  def live_or_working(page)
-    ((not logged_in?) || session[:view_live_site]) && page ? page.live : page
+  def live_or_working(page = nil)
+    version = ((not logged_in?) || session[:view_live_site]) ? :live : :working
+    return version unless page
+    page.version(version)
   end
 
   def humanize(string)

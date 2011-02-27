@@ -8,4 +8,7 @@
 # Span::Blue.features << :localization
 # Span::Blue.locales = [:en, :es]
 
+# Span::Blue.features << :collections
+# Span::Blue.collections = [Article]
+
 # Page.allow_ssl = true

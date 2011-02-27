@@ -5,6 +5,10 @@ class Admin::VerbiageController < Admin::BlueAdminController
   
   helper :pages
   
+  def new
+    render :template => "admin/verbiage/edit_#{params[:editor]}.html.erb"
+  end
+  
   def edit
     render :template => "admin/verbiage/edit_#{params[:editor]}.html.erb"
   end
@@ -29,9 +33,12 @@ class Admin::VerbiageController < Admin::BlueAdminController
   end
   
   def find_verbiage
-    @verbiage = Verbiage.find(params[:id])
+    @verbiage = Verbiage.new
+    @verbiage = Verbiage.find(params[:id]) unless params[:id].blank?
+    return if @verbiage.new_record?
+    
     @page = @verbiage.contentable
-    @page = @page.working if @page.published?
+    @page = @page.working if @page.is_a?(Page) && @page.published?
     
     @verbiage = @page.verbiage[@verbiage.title.to_sym][current_locale] || @page.verbiage.set_verbiage(@verbiage.title.to_sym, current_locale, params[:verbiage][:content])
   end

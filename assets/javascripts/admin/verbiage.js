@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	bind_verbiage_dialog(".admin_content .tools .edit_verbiage");
 	bind_verbiage_dialog("#blue_toolbar .blue_context_toolbar .edit_verbiage");
+	bind_verbiage_field_dialog(".edit_verbiage_field")
 });
 
 
@@ -13,14 +14,23 @@ var verbiage_dialog = {
 	  dialog.link = link;
 		dialog.overlay.fadeIn('normal')
     dialog.container.slideDown('normal');
-		dialog.data.html('<div class="loading"></div>').show();
-    verbiage_dialog.show(dialog);
-	  
+		dialog.data.html('<div class="loading"></div>').show();	  
 	},
-	show: function(dialog, locale) {
+	show: function(dialog, options) {
 	  var url = $(dialog.link).attr("href");
-	  if (locale != null) {
-	    url += "&verbiage[locale]="+locale
+	  options = $.extend({content_loaded_callback : function(){}, editor_loaded_callback : function(){}, complete_callback : function(){},
+	  form_submit_callback : function(dialog, form) {
+	    $.post($(form).attr("action") + ".js", $(form).serialize(), null, "script");
+	    return false;
+	  }}, options)
+	  var locale = options.locale
+	  if (options.locale != null) {
+	    console.log(url)
+	    if (url.indexOf("?") > 0) {
+	      url += "&verbiage[locale]="+options.locale
+	    } else {
+	      url += "?verbiage[locale]="+options.locale
+	    }
 	  }
 	  	$.ajax({
   				url: url,
@@ -39,6 +49,18 @@ var verbiage_dialog = {
 
   						dialog.data.find('.close').click(function () { $.modal.close(); return false; });
 
+  						// Add Change Locales
+  						if (options.locale != null) {
+  						  dialog.data.find("#verbiage_locale").val(options.locale)
+					    }
+  						
+  						dialog.data.find("#verbiage_locale").change(function(){
+  						  dialog.data.html('<div class="loading"></div>').show();
+  						  verbiage_dialog.show(dialog, $.extend(options, {locale : $(this).val()}) );
+  						});
+
+              options.content_loaded_callback(dialog);
+              
   						$('.wymeditor').wymeditor($.extend({}, {
   						    jQueryPath:"/javascripts/blue/jquery.js",
   								toolsItems: [
@@ -95,9 +117,12 @@ var verbiage_dialog = {
 
   						}, wymeditor_config));
 
+              
+              options.editor_loaded_callback(dialog);
+
   						// Add Ajax Submit
   						dialog.data.find('form').submit(function(){
-
+                
   							var editor = $(".wymeditor, .tinymce");
 
   							// Make absolute paths that point to our server relative
@@ -110,17 +135,12 @@ var verbiage_dialog = {
   							html = html.replace(/src="([^"]*)\/\.thumbnails\/([^"]*)"/gi, 'src="$1/$2"');
 
   							editor.val(html);
+  							options.form_submit_callback(dialog, this);
 
-  							$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
-  							return false;
+    			      return false;
   						});
 
-  						// Add Change Locales
-  						dialog.data.find("#verbiage_locale").change(function(){
-  						  dialog.data.html('<div class="loading"></div>').show();
-  						  verbiage_dialog.show(dialog, $(this).val());
-  						});
-
+              options.complete_callback(dialog);
 
   					});
 
@@ -137,11 +157,13 @@ var verbiage_dialog = {
 
 var current_dialog;
 function bind_verbiage_dialog(selector) {
+
 	if ($("#verbiage_dialog").length == 0) {
 		$("body").append('<div id="verbiage_dialog" class="dialog"></div>');
 	}
 	
 	var unbound_selectors = $(selector).filter(function(){  return !($(this).attr("verbiage_dialog_bound") == "true") })
+
 	$(unbound_selectors).attr("verbiage_dialog_bound", "true")
 	$(unbound_selectors).click(function() {
 		var link = $(this);
@@ -154,6 +176,55 @@ function bind_verbiage_dialog(selector) {
 	});
 }
 
+function bind_verbiage_field_dialog(selector) {
+	if ($("#verbiage_dialog").length == 0) {
+		$("body").append('<div id="verbiage_dialog" class="dialog"></div>');
+	}
+	
+	var unbound_selectors = $(selector).filter(function(){  return !($(this).attr("verbiage_dialog_bound") == "true") })
+
+	$(unbound_selectors).attr("verbiage_dialog_bound", "true")
+	$(unbound_selectors).click(function() {
+		var link = $(this);
+		var field_id = link.attr("id").replace("edit_verbiage_field_", "");
+		current_dialog = $("#verbiage_dialog").modal({
+			onOpen: function(dialog){ verbiage_dialog.open(dialog, link)	},
+			onClose: verbiage_dialog.close,		  
+			onShow: function(dialog) {
+			  verbiage_dialog.show(dialog, {
+			    content_loaded_callback : function(dialog) {
+			      var locale = dialog.data.find("#verbiage_locale").val();
+						if (locale) {
+						  textarea = $("#"+field_id+"_"+locale);
+						} else {
+			        textarea = $("textarea[id^='"+field_id+"']").get(0);
+			      }
+			      dialog.data.find("#verbiage_content").val($(textarea).val());
+			    },
+			    form_submit_callback : function (dialog, form) {
+			      var locale = dialog.data.find("#verbiage_locale").val();
+						if (locale) {
+						  textarea = $("#"+field_id+"_"+locale);
+						} else {
+			        textarea = $($("textarea[id^='"+field_id+"']").get(0));
+			      }
+			      content = dialog.data.find("#verbiage_content").val();
+  			    preview = $("#"+field_id+"_content");
+  			    
+			      textarea.val(content);
+			      preview.html(content);
+			      $.modal.close();
+			      return false;
+			    },
+			    complete_callback : function(dialog) {
+		      	dialog.data.find("#verbiage_locale").val()
+			    }
+			  })
+			}
+		});
+		return false
+	});
+}
 
 blue_page_verbiage_comments_dialog = function(options) {
   var blue_page_verbiage_comments_dialog = new BluePageVerbiageCommentsDialog(options);

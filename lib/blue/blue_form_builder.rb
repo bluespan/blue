@@ -46,8 +46,8 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def submit(method, options = {})
-    field_name, label, options = field_settings(method, options.merge( :label => " "))
-    wrapping("submit", method, field_name, label, super, options)
+    field_name, label, options = field_settings(method, options)
+    super(method, options.merge({:class => "button submit"}) )
   end
   
   private

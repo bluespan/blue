@@ -1,5 +1,12 @@
 class TemplateFile < File
   
+  # def self.new(path, *params)
+  #   mode = params.select { |p| p.is_a? String }.first || 'r'
+  #   params.delete(mode)
+  #   @@options = params.select { |p| p.is_a? Hash }.first || {}
+  #   super(path, mode)
+  # end
+  
   def self.humanize(name)
     name = name[/^.+\/([^\/\.]+)\.(.+)$/, 1]
     if name

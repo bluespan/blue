@@ -25,6 +25,7 @@ module Blue
                 
               def hash.set_verbiage(key, locale, value)
                 locale = locale.to_s
+                key = key.to_sym
                 if self.has_key?(key) && self[key].has_key?(locale)
                   self[key][locale].update_attributes({:content => value})
                 else
@@ -65,6 +66,13 @@ module Blue
           @verbiage
         end
         
+        def verbiage=(verbiage_hash)
+          verbiage_hash.each do | key, val |
+            val.each do |locale, value|
+              verbiage.set_verbiage(key, locale, value)
+            end
+          end
+        end
       end
       
     end

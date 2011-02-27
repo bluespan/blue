@@ -1,5 +1,5 @@
 $(function() { 
-	$(".blue_admin_navigation").lavaLamp({ fx: "easeInQuad", speed: 300 });
+	$(".blue_admin_navigation").lavaLamp({ fx: "easeInQuad", speed: 300, container: 'li', target: "li:not(li li)" });
 	$("body:not(.admin) .blue_toolbar").css({opacity:0.25});
 	$("body:not(.admin) .blue_toolbar").hoverIntent({
 			timeout: 800,

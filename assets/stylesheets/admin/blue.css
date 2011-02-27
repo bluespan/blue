@@ -9,8 +9,8 @@ body.login #login label {margin:2px 20px;}
 body.login #login label {font-size:14px;font-weight:normal;color:#203B8F;display:block;margin-top:10px;}
 body.login #login .buttons {margin-top:10px;padding:5px 0;float:none;text-align:center;background:#778EC1;-moz-border-radius:0 0 6px 6px;-webkit-border-bottom-left-radius: 6px;-webkit-border-bottom-right-radius: 6px;border-radius:0 0 6px 6px;}
 
-body.admin .errorExplanation {color:#AF1010;-moz-border-radius:6px 6px 0 0 ;-webkit-border-top-left-radius: 6px;-webkit-border-top-right-radius: 6px;border-radius:6px 6px 0 0 ;margin-bottom:10px;}
-body.admin .errorExplanation h2 {font-size:12px;line-height:120%;text-transform:capitalize;font-weight:normal;letter-spacing:1px;background:#AF1010;color:#fff;padding:5px 20px;-moz-border-radius:6px 6px 0 0 ;-webkit-border-top-left-radius: 6px;-webkit-border-top-right-radius: 6px;border-radius:6px 6px 0 0 ;margin-bottom:5px;}
+body.admin .errorExplanation {color:#AF1010;margin-bottom:10px;}
+body.admin .errorExplanation h2 {font-size:12px;line-height:120%;text-transform:capitalize;font-weight:normal;letter-spacing:1px;background:#AF1010;color:#fff;padding:5px 20px;;margin-bottom:5px;}
 body.admin .errorExplanation p, body.admin .errorExplanation ul {padding:4px 20px;font-size:14px;}
 body.admin .errorExplanation p {font-weight:bold;}
 body.admin .errorExplanation ul {list-style:disc;margin-left:20px;padding-bottom:10px;float:none;}
@@ -123,10 +123,48 @@ body.admin #pending_publish li span.tools a {color:#203B8F;padding-top:3px;paddi
 body.admin #pending_publish li:hover span.tools {display:inline;}
 body.admin #pending_publish li:hover {background-color:#B4C6FF;}
 
+
+
 body.admin form.edit_member label {display:block;margin-bottom:2px;font-size:12px;clear:left;color:#203B8F;font-weight:bold;}
 body.admin form.edit_member input {display:block;margin-bottom:10px;width:250px;}
 body.admin form.edit_member input.button {display:inline;width:auto;}
 body.admin form.edit_member .buttons {float:none;}
+
+body.admin table.items {font-size:12px;}
+body.admin table.items thead td {font-weight:bold;border-bottom:1px solid #203B8F;line-height:15px;color:#333;margin-bottom:3px;}
+body.admin table.items td {padding:3px 10px 3px 2px;}
+body.admin table.items tbody td {line-height:15px;}
+body.admin table.items tbody td a.delete {margin-left:0;}
+body.admin table.items tbody td .buttons {line-height:15px;display:block;float:none;}
+
+body.admin form.collection p {margin-bottom:10px;}
+body.admin form.collection p.verbiage_field {margin-bottom:0;}
+body.admin form.collection label {display:block;font-size:13px;line-height:15px;font-weight:bold;}
+body.admin form.collection label.checkbox {display:inline;}
+body.admin form.collection label.verbiage_field {display:inline;}
+
+body.admin form.collection .verbiage_content {height:180px;width:500px;border:1px dashed #203B8F;padding:5px;overflow:auto;margin-bottom:10px;}
+
+body.admin form.collection .verbiage_content h1 {font-size:18px;font-weight:bold;color:#000;border-width:0  !important;margin:0 !important;padding:0 !important;}
+body.admin form.collection .verbiage_content h2 {font-size:16px;font-weight:bold;color:#000;border-width:0  !important;margin:0 !important;padding:0 !important;}
+body.admin form.collection .verbiage_content h3 {font-size:14px;font-weight:bold;color:#000;border-width:0  !important;margin:0 !important;padding:0 !important;}
+body.admin form.collection .verbiage_content h4 {font-size:12px;font-weight:bold;color:#000;border-width:0  !important;margin:0 !important;padding:0 !important;}
+body.admin form.collection .verbiage_content h5 {font-size:10px;font-weight:bold;color:#000;border-width:0  !important;margin:0 !important;padding:0 !important;}
+body.admin form.collection .verbiage_content h6 {font-size:8px;font-weight:bold; color:#000;border-width:0  !important;margin:0 !important;padding:0 !important;}
+body.admin form.collection .verbiage_content p,
+body.admin form.collection .verbiage_content li {font-size:12px;}
+body.admin form.collection .verbiage_content p {margin-bottom:10px;}
+body.admin form.collection .verbiage_content ul {margin-bottom:10px;padding-left:25px;list-style:disc;}
+body.admin form.collection .verbiage_content ol {margin-bottom:10px;padding-left:25px;list-style:decimal;}
+
+body.admin form.collection .edit_verbiage_field {font-size:12px;color:#203B8F;display:inline;}
+
+body.admin form.collection a {font-size:12px;color:#203B8F;display:inline;}
+body.admin form.collection p {clear:both;}
+body.admin form.collection label sup {color:#f00;}
+
+
+body.admin #collection {float:left;clear:both;padding:5px;border:1px solid #778EC1;overflow: auto;margin-bottom:10px;min-height:82px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;min-width:400px;}
 
 .buttons {font-size:12px;float:right;}
 .buttons a {margin-left:5px;color:#203B8F;}
@@ -156,3 +194,13 @@ span.tools .revert {background:url("/images/blue/icon_history.gif") left center 
 #filter_type li {float:left;padding-left:24px;line-height:26px;font-size:11px;margin-right:5px;padding-right:3px;cursor:pointer;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px;margin-bottom:2px;color:#B4C6FF;}
 #filter_type li:hover {background-color:#B4C6FF;color:#203B8F;}
 #filter_type li.checked {background-color:#B4C6FF;color:#203B8F;border:1px solid #203B8F;margin-bottom:0;}
+
+.admin .field {margin-bottom:5px;clear:both;}
+.admin .field label {text-transform:capitalize;}
+.admin .check-box-field {float:left;white-space:nowrap;}
+.admin .check-box-field label {float:right;margin-left:20px;margin-top:2px;}
+.admin .submit-field .input {display:inline;}
+.admin .submit-field {display:inline;clear:both;}
+.admin .error label {color:#AF1010;}
+.admin .error input {border:1px solid #AF1010;}
+.admin div.collection {float:left;}

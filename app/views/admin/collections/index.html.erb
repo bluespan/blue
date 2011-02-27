@@ -1,0 +1,38 @@
+<%= javascript_include_tag 'blue/admin/collections' %>
+
+<% unless (@flash = flash[:notice]).blank? %>
+<script type="text/javascript" charset="utf-8">
+	$.jGrowl("<%= escape_javascript(@flash) %>", { header: 'Success', theme:'success' });
+</script>
+<% end %>
+
+<div class="collection">
+<h1><%= @model.name.pluralize %> <span class="buttons"><%= link_to "New #{@model.name}", "/admin/collections/#{@model.name.tableize}/new", :class => "new" %></span></h1>
+
+<div id="collection">
+<table class="items">
+	<thead>
+		<tr>
+			<td>Title</td>
+			<td>Publish At</td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<% if @items.length > 0 %>
+			<% @items.each do |item| %>
+			<tr>
+				<td><%= item.title %></td>
+				<td><%= item.published_at.strftime("%m/%d/%Y %I:%M%p") %></td>
+				<td><span class="buttons"><%= link_to "Edit", "/admin/collections/#{@model.name.tableize}/edit/#{item.id}", :class => "edit" %> | <%= link_to "Delete", "/admin/collections/#{@model.name.tableize}/destroy/#{item.id}", :class => "delete" %></span></td>
+			</tr>
+			<% end %>
+		<% else %>
+		<tr>
+			<td colspan="3">You currently don't have any <%= @model.name.pluralize %>. <a href="/admin/collections/<%= @model.name.tableize %>/new">Create one here.</a></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+</div>
+</div>

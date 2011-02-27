@@ -1,11 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
   
   map.namespace :admin do |admin|
+    
     admin.root :controller => 'pages', :action => 'index'
     admin.resources :pages, :member => {:publish => :put, :typecast => :get}, :collection => {:publish_all => :put, :typecast => :get} do |pages|
       pages.resources :comments
       pages.resources :content_placements
     end
+    
     admin.resources :publish, :controller => 'publish'
     admin.resources :verbiage do |verbiage|
       verbiage.resources :comments
@@ -35,11 +37,24 @@ ActionController::Routing::Routes.draw do |map|
   
     admin.connect 'publish/:action/:id/', :controller => 'publish'
     admin.connect 'publish/:action/:id/.:format', :controller => 'publish'
-    admin.connect ':controller', :action => :index
-
+    
     admin.resources :videos
+    
   end
-
+  
+  map.with_options :prefix_path => "admin/collections/" do |collection|
+    collection.connect ':controller', :action => :index
+    collection.connect ':controller/new', :action => :new
+    collection.connect ':controller/create', :action => :create
+    collection.connect ':controller/edit/:id', :action => :edit
+    collection.connect ':controller/update/:id', :action => :update
+    collection.connect ':controller/destroy/:id', :action => :destroy
+  end
+  map.connect ':controller', :action => :index, :prefix_path => "admin/collections/"
+  map.connect ':controller', :action => :index, :prefix_path => "admin/collections/"
+  map.connect ':controller/:action/:id', :prefix_path => "admin/collections/"
+  
+  
   map.resource :member_session, :member => {:signout => :get}
 
   map.connect 'sitemap.:format', :controller => 'sitemap', :action => 'show'

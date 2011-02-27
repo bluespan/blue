@@ -19,7 +19,7 @@ module Blue
       module InstanceMethods
         
         def l10n_attribute(attribute, locale = nil, default = nil)
-          return self.send(attribute.to_sym) unless Span::Blue.features.include?(:localization)
+          return self.send(attribute.to_sym) unless Span::Blue.features.include?(:localization) && self.respond_to?(:locale_data)
           self.locale_data = {} unless locale_data.is_a?(Hash)
           
           locale = I18n.locale if locale.nil?

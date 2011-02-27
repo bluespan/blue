@@ -2,6 +2,7 @@
 
 require 'blue/extensions/routes'
 require 'blue/acts_as_contentable'
+require 'blue/acts_as_collection'
 require 'blue/has_localized_data'
 require 'blue/blue_form_builder'
 
@@ -55,8 +56,11 @@ module Span
     
     @@features = []
     mattr_accessor :features
+    @@collections = []
+    mattr_accessor :collections
     @@locales = ['en']
     mattr_accessor :locales
+    
     
     def @@features.method_missing(method)
       has_key?(method)
@@ -77,7 +81,7 @@ module Span
       end
       
       def load_page(slug, ancestors, leaf)
-        if @page = Page.working(slug, ancestors)
+        if @page = Page.load_from_url(slug, ancestors)
 
           # Show the live version if not logged in
           @page = live_or_working @page

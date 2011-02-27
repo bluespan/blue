@@ -7,6 +7,20 @@ module PagesHelper
     global_verbiage(key, options, &default_block)  
   end
   
+  def verbiage_field(key, options = {}, &default_block)
+    options = {:partial => "field", :contentable => @item, :field_prefix => "contentable"}.merge(options)
+    return if options[:contentable].nil?
+    
+    default_content = block_given? ? capture(&default_block) : nil
+    
+    init_verbiage(key, options, default_content)
+    verbiage = options[:contentable].verbiage[key.to_sym][I18n.locale.to_s]
+    verbiage = options[:contentable].verbiage[key.to_sym][Span::Blue.locales.first.to_s] if verbiage.nil?
+    
+    concat render(:partial => "admin/verbiage/#{options[:partial]}", :object => verbiage, :locals => {:options => options})
+    
+  end
+  
   def global_verbiage(key, options = {}, &default_block)    
       options = {:partial => "global_verbiage", :admin => true, :editor => "wymeditor", :members_only => false}.merge(options)
       default_content = block_given? ? capture(&default_block) : nil
@@ -67,8 +81,15 @@ module PagesHelper
     options = {:navigation => @navigation, :delimiter => " / ", :link_current_page => true}.update(options)
     return if options[:navigation].nil?
     
-    @navigation.self_and_ancestors.delete_if{|navigation| navigation.root? }.collect do |navigation|
-      link_to navigation.page.l10n_attribute(:title), navigation.page.url, :class => (@page == navigation.page) ? "current" : ""
+    pages = @navigation.self_and_ancestors.delete_if{|navigation| navigation.root? }.collect{|n| n.page }
+    pages = pages.collect { |c| live_or_working c}
+    
+    pages.push(@page) unless pages.include?(@page)
+    
+    
+    
+    pages.collect do |page|
+      (options[:link_current_page] || @page != page) ? (link_to page.l10n_attribute(:title), i18n_url(page.url), :class => (@page == page) ? "current" : "") :  content_tag(:span, page.l10n_attribute(:title), :class => "current")
     end.join(options[:delimiter])
   end
   
@@ -81,7 +102,7 @@ module PagesHelper
   end
   
   def page_title
-    return "" if @page.nil?
+    return "" if @page.nil? || @page.class == PageTypes::HomePage
     " - #{@page.l10n_attribute(:title)}"
   end
   
@@ -100,6 +121,41 @@ module PagesHelper
   def video_paginate(options = {})
     options = {:page => 1, :include => {:page => :video}}.merge(options)
     @navigation.children.paginate(options)
+  end
+  
+  def collection(model, *options, &template)
+    conditions = {}
+    options.each do |option|
+      conditions.merge!(options.delete(option)) if option.is_a?(Hash)
+    end
+    scopes = options
+        
+    model = model.name if model.is_a? Class    
+    item_model = model.to_s.tableize.classify.constantize
+    scopes.delete_if { |scope| !item_model.scopes.has_key?(scope) }
+   # scopes << conditions
+    
+    items = item_model
+    scopes.each do |scope|
+      items = items.send(scope)
+    end
+    
+    items = items.all(conditions)
+     
+
+     html = ""
+     items.each do |item|
+       html += with_output_buffer { template.call(item) }
+     end
+     concat html
+  end  
+  
+  def i18n_url(url)
+    return url unless blue_features.include?(:localization)
+    if I18n.locale != Span::Blue.locales.first
+      url = "/#{I18n.locale}#{url}"
+    end
+    url
   end
   
   private 
@@ -138,6 +194,7 @@ module PagesHelper
       
       page = live_or_working navigation.page
       
+      next if page.nil?
       next if blue_features.include?(:localization) && page.l10n_attribute(:enabled) == false
       next if (navigation.display? == false && options[:force_display] == false) || page.nil?
       next if navigation.display_to_members_only? && member_logged_in? == false
@@ -145,11 +202,14 @@ module PagesHelper
       next if page.class == PageTypes::MemberSignInPage && @page.class == PageTypes::MemberSignInPage
       next if page.class == PageTypes::MemberSignOutPage && member_logged_in? == false
       
+        
       if page.class == PageTypes::HomePage
         navigation_url = "/"
       else
         navigation_url = "#{url}/#{page.slug}"
       end
+      
+      navigation_url = i18n_url("/#{page.slug}") unless I18n.locale == Span::Blue.locales.first or level > 1
     
       classes = []
       classes << cycle(*options[:classes][level]) if options[:classes] && options[:classes][level]
