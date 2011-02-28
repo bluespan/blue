@@ -55,8 +55,12 @@ class Admin::CollectionsController < Admin::BlueAdminController
   end
   
   def determine_model
-    @model ||= params[:controller].tableize.classify.constantize if params[:controller]
+    @model ||= controller_unnamespaced.gsub(/^.*\//, "").tableize.classify.constantize if params[:controller]
     raise "Can't detemine the collection model" if @model.nil?
+  end
+  
+  def controller_unnamespaced
+    params[:controller].gsub(params[:prefix_path], "")
   end
   
   def model_params
