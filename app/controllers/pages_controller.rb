@@ -69,7 +69,7 @@ class PagesController < BlueController
       if @page.is_a?(Collection) && !leaf
         item_model = @page.collects.classify.constantize
         @collection = @page
-        @item = item_model.respond_to?(:slug) ? item_model.find_by_slug(@slugs[index+1]) : item_model.find(@slugs[index+1])
+        @item = item_model.column_names.include?("slug") ? item_model.find_by_slug(@slugs[index+1]) : item_model.find(@slugs[index+1])
         
         self.view_paths.unshift "app/views/#{@collection.collects}"
         @page = @item.proxy_page(live_or_working)
