@@ -25,7 +25,11 @@ class Proxy::Page::Item < Proxy::Page
   end
   
   def url
-    item.url
+    @url ||= item.url
+  end
+  
+  def url=(url)
+    @url = url
   end
   
   

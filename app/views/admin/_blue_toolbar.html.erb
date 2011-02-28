@@ -10,12 +10,12 @@
 				<li <%= (controller.class.to_s =~ /.*collections.*/i ? "class=\"current\"" : "") %>>
 					<% if blue_collections.length == 1 
 						collection = blue_collections.first %>
-						<a href="/admin/collections/<%= collection.to_s.tableize %>"><%= collection.to_s.pluralize %></a>
+						<a href="/admin/collections/<%= collection.to_s.tableize %>"><%= collection.to_s.pluralize.titleize %></a>
 					<% else %>
 					<a href="/admin/collections">Collections</a>					
 					<ul>
 						<% blue_collections.each do |collection| %>
-						<li><a href="/admin/collections/<%= collection.to_s.tableize %>"><%= collection.to_s.pluralize %></a></li>
+						<li><a href="/admin/collections/<%= collection.to_s.tableize %>"><%= collection.to_s.pluralize.titleize %></a></li>
 						<% end %>
 					</ul>
 					<% end %>

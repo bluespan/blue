@@ -208,9 +208,9 @@ function bind_verbiage_field_dialog(selector) {
 						} else {
 			        textarea = $($("textarea[id^='"+field_id+"']").get(0));
 			      }
-			      content = dialog.data.find("#verbiage_content").val();
+			      var content = dialog.data.find("#verbiage_content").val();
   			    preview = $("#"+field_id+"_content");
-  			    
+  			  
 			      textarea.val(content);
 			      preview.html(content);
 			      $.modal.close();

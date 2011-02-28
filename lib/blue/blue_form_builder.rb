@@ -68,6 +68,7 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
    to_return = []
    to_return << %Q{<div class="field #{type}-field #{options[:class]}">}
    to_return << %Q{<label for="#{field_name}">#{label}</label>} unless ["radio","check", "submit"].include?(type)
+   to_return << %Q{<p class="description">#{options[:description]}</p>} if options[:description]
    to_return << %Q{<div class="input">}
    to_return << field
    to_return << %Q{<label for="#{field_name}">#{label}</label>} if ["radio","check"].include?(type)    

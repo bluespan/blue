@@ -27,13 +27,13 @@ module PagesHelper
       
       if (options[:contentable].nil?)
         Span::Blue.locales.each do |locale|
-          if GlobalVerbiage[key][locale.to_s].new_record?
-            GlobalVerbiage[key][locale.to_s].content = default_content
-            GlobalVerbiage[key][locale.to_s].members_only = options[:members_only]
-            GlobalVerbiage[key][locale.to_s].save!
+          if GlobalVerbiage.get(key, locale).new_record?
+            GlobalVerbiage.get(key, locale).content = default_content
+            GlobalVerbiage.get(key, locale).members_only = options[:members_only]
+            GlobalVerbiage.get(key, locale).save!
           end
         end
-        verbiage = GlobalVerbiage[key][I18n.locale.to_s]
+        verbiage = GlobalVerbiage.get(key, I18n.locale)
       else
         init_verbiage(key, options, default_content)
         verbiage = options[:contentable].verbiage[key.to_sym][I18n.locale.to_s]
@@ -141,13 +141,12 @@ module PagesHelper
     end
     
     items = items.all(conditions)
-     
 
-     html = ""
-     items.each do |item|
-       html += with_output_buffer { template.call(item) }
-     end
-     concat html
+    html = ""
+    items.each do |item|
+      html += with_output_buffer { template.call(item) }
+    end
+    concat html
   end  
   
   def i18n_url(url)

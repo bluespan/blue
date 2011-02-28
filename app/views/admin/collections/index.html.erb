@@ -7,7 +7,7 @@
 <% end %>
 
 <div class="collection">
-<h1><%= @model.name.pluralize %> <span class="buttons"><%= link_to "New #{@model.name}", "/admin/collections/#{@model.name.tableize}/new", :class => "new" %></span></h1>
+<h1><%= @model.name.tableize.pluralize.titleize %> <span class="buttons"><%= link_to "New #{@model.name.tableize.singularize.titleize}", "/admin/collections/#{@model.name.tableize}/new", :class => "new" %></span></h1>
 
 <div id="collection">
 <table class="items">
@@ -29,7 +29,7 @@
 			<% end %>
 		<% else %>
 		<tr>
-			<td colspan="3">You currently don't have any <%= @model.name.pluralize %>. <a href="/admin/collections/<%= @model.name.tableize %>/new">Create one here.</a></td>
+			<td colspan="3">You currently don't have any <%= @model.name.tableize.pluralize.titleize %>. <a href="/admin/collections/<%= @model.name.tableize %>/new">Create one here.</a></td>
 		</tr>
 		<% end %>
 	</tbody>

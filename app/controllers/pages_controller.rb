@@ -72,7 +72,7 @@ class PagesController < BlueController
         @item = item_model.respond_to?(:slug) ? item_model.find_by_slug(@slugs[index+1]) : item_model.find(@slugs[index+1])
         
         self.view_paths.unshift "app/views/#{@collection.collects}"
-        @page = @item.proxy_page
+        @page = @item.proxy_page(live_or_working)
         break
       end
       

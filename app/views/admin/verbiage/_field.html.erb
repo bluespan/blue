@@ -12,7 +12,9 @@
 	%>
 	<textarea style="display:none;" name="<%= options[:field_prefix] %>[verbiage][<%= field.title %>][<%= locale.to_s %>]" id="<%= options[:field_prefix] %>_<%= field.title %>_<%= locale.to_s %>"><%= verbiage %></textarea>
 <% end%>
-
+<% unless options[:description].blank? %>
+<p class="description"><%= options[:description]%></p>
+<% end %>
 <div class="verbiage_content" id="<%= options[:field_prefix] %>_<%= field.title %>_content">
 <%= field.content %>
 </div>
