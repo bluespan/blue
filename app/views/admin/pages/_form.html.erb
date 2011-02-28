@@ -1,5 +1,5 @@
 <div class="pagetype">
-	<% if Page.types.include? @page.class %>
+	<% if Page.types.include? @page.class or @page.new_record? %>
 	<fieldset>
 		<legend><em>1</em>Page Type</legend>
 		<p>First select <em>type</em> of page this is going to be.</p>
