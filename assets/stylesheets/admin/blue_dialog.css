@@ -4,7 +4,7 @@ body.admin .dialog .errorExplanation {margin-bottom:0;}
 body.admin  .dialog .errorExplanation {-moz-border-radius:6px 0 0 0 ;-webkit-border-top-left-radius: 6px;border-radius:6px 0 0 0 ;}
 body.admin  .dialog .errorExplanation h2 {-moz-border-radius:6px 0 0 0 ;-webkit-border-top-left-radius: 6px;border-radius:6px 0 0 0 ;}
 
-.dialog .content {padding:10px 10px 0;}
+.dialog .content {padding:10px 10px 0;width:auto !important;}
 .dialog .loading {background:url("/images/blue/ajax-loader.gif") no-repeat center center #fff;width:100%;height:100%;}
 .trayDialog .loading {background:url("/images/blue/ajax-loader.gif") no-repeat center center #fff;width:100%;height:350px;}
 

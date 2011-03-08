@@ -246,6 +246,8 @@ module PagesHelper
       navigation_title = navigation.l10n_attribute(:title)
       navigation_title = page.l10n_attribute(:title) if navigation_title.blank?
       
+      classes << "parent" unless navigation.leaf?
+      
       output += "<li class=\"#{classes.join(" ")}\">"
         output += link_to filter_page_title(navigation_title), link_url, link_options
         unless navigation.leaf? or level >= options[:levels] or (options[:collapsed] and classes.include?("active") == false)

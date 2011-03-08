@@ -1,8 +1,8 @@
 class AddSerializedLocaleData < ActiveRecord::Migration
   def self.up
-    add_column :pages, :locale_data, :text,  :null => false
+    add_column :pages, :locale_data, :text
     
-    add_column :navigations, :locale_data, :text,  :null => false
+    add_column :navigations, :locale_data, :text
     
   end
 
