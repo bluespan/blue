@@ -8,7 +8,6 @@ class Page < ActiveRecord::Base
   has_many    :navigations, :dependent => :destroy
   has_many    :content, :dependent => :destroy
   
-  
   has_many    :content_placements
   has_many    :content_modules, :through => :content_placements
   
@@ -18,21 +17,14 @@ class Page < ActiveRecord::Base
     
   validates_presence_of   :title, :message => "can't be blank"
   #validates_uniqueness_of :slug,  :message => "must be unique", :scope => :working_id, :if => Proc.new { |page| page.working_id.nil? }
-
   
   before_validation :generate_unique_slug!
    
   attr_accessor :body_id, :body_class
   cattr_accessor :types, :allow_ssl
+
+  acts_as_taggable
   
-  
-  # acts_as_ferret :fields => {
-  #                              :title => {:store => :yes}, 
-  #                              :url => {:store => :yes}, 
-  #                              :page_content => {:store => :yes}
-  #                            },
-  #                 :if => lambda { |page| page.published? && (not page.working.nil?) && page.working.live == page}
-                  
   acts_as_commentable
   acts_as_contentable
   has_localized_data

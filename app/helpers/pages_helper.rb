@@ -27,10 +27,11 @@ module PagesHelper
       
       if (options[:contentable].nil?)
         Span::Blue.locales.each do |locale|
-          if GlobalVerbiage.get(key, locale).new_record?
-            GlobalVerbiage.get(key, locale).content = default_content
-            GlobalVerbiage.get(key, locale).members_only = options[:members_only]
-            GlobalVerbiage.get(key, locale).save!
+          g = GlobalVerbiage.get(key, locale)
+          if g.new_record?
+            g.content = default_content
+            g.members_only = options[:members_only]
+            g.save!
           end
         end
         verbiage = GlobalVerbiage.get(key, I18n.locale)
@@ -63,12 +64,18 @@ module PagesHelper
                 :exclude => nil, :include => nil,
                 :collapsed => false, :force_display => false}.update(options)
     
-    if top.is_a?(Navigation)
+    if options[:levels].is_a?(Hash) and options[:levels].has_key?(:from)
+        options[:id] = "#{options[:id]}_level_#{options[:levels][:from]}"
+        nav =  @page.navigations.select { |navigation| navigation.root.title.downcase == top.to_s.downcase }.first
+        @top = nav.self_and_ancestors[options[:levels][:from] - 1] if nav
+    elsif top.is_a?(Navigation)
       @top = top
       url = "/#{top.page.slug}"
     else
       @top = Navigation.bookmark(top)
     end
+    
+    options[:levels] = { :limit => options[:levels] } unless options[:levels].is_a?(Hash)
     
     output =  "<ul id=\"#{options[:id]}\""
     output += " class=\"#{options[:class]}\"" if options[:class] 
@@ -78,18 +85,17 @@ module PagesHelper
   end
   
   def breadcrumbs(options = {})
-    options = {:navigation => @navigation, :delimiter => " / ", :link_current_page => true}.update(options)
+    options = {:navigation => @navigation, :delimiter => " / ", :link_current_page => true, :include_current_page => true}.update(options)
     return if options[:navigation].nil?
     
     pages = @navigation.self_and_ancestors.delete_if{|navigation| navigation.root? }.collect{|n| n.page }
     pages = pages.collect { |c| live_or_working c}
     
     pages.push(@page) unless pages.include?(@page)
-    
-    
+    pages = pages.delete_if { |page| page == @page } unless options[:include_current_page]
     
     pages.collect do |page|
-      (options[:link_current_page] || @page != page) ? (link_to page.l10n_attribute(:title), i18n_url(page.url), :class => (@page == page) ? "current" : "") :  content_tag(:span, page.l10n_attribute(:title), :class => "current")
+      (options[:link_current_page] || @page != page ) ? (link_to page.l10n_attribute(:title), i18n_url(page.url), :class => (@page == page) ? "current" : "") :  content_tag(:span, page.l10n_attribute(:title), :class => "current")
     end.join(options[:delimiter])
   end
   
@@ -138,6 +144,11 @@ module PagesHelper
     items = item_model
     scopes.each do |scope|
       items = items.send(scope)
+    end
+    
+    if conditions.include?(:tagged_with_any)
+      tagged_with = conditions.delete(:tagged_with_any)
+      items = items.tagged_with(tagged_with, :any => true) unless tagged_with.empty?
     end
     
     items = items.all(conditions)
@@ -250,7 +261,7 @@ module PagesHelper
       
       output += "<li class=\"#{classes.join(" ")}\">"
         output += link_to filter_page_title(navigation_title), link_url, link_options
-        unless navigation.leaf? or level >= options[:levels] or (options[:collapsed] and classes.include?("active") == false)
+        unless navigation.leaf? or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
           output += "<ul>" + navigation_tree(navigation.children, options, navigation_url, level + 1) + "</ul>"
         end
       output += "</li>"

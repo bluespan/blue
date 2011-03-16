@@ -11,4 +11,6 @@
 # Span::Blue.features << :collections
 # Span::Blue.collections = [Article]
 
+# Span::Blue.features << :tagging
+
 # Page.allow_ssl = true

@@ -4,7 +4,6 @@ class Collection < Page
     page.type_name = "Collection"
   end
   
-  
   def template_path
     sub_dir = self.collects.tableize
     RAILS_ROOT + "/app/views/" + sub_dir + "/"

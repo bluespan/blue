@@ -28,8 +28,8 @@ Rails::Initializer.run do |config|
   config.gem "honeypot-captcha"
   config.gem "validates_email_format_of"
   config.gem "searchlogic"
+  config.gem "acts-as-taggable-on", :source => "http://gemcutter.org", :version => '2.0.0.rc1'
   
-
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

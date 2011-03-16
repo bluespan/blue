@@ -25,7 +25,6 @@ var verbiage_dialog = {
 	  }}, options)
 	  var locale = options.locale
 	  if (options.locale != null) {
-	    console.log(url)
 	    if (url.indexOf("?") > 0) {
 	      url += "&verbiage[locale]="+options.locale
 	    } else {
@@ -53,7 +52,7 @@ var verbiage_dialog = {
   						if (options.locale != null) {
   						  dialog.data.find("#verbiage_locale").val(options.locale)
 					    }
-  						
+					    
   						dialog.data.find("#verbiage_locale").change(function(){
   						  dialog.data.html('<div class="loading"></div>').show();
   						  verbiage_dialog.show(dialog, $.extend(options, {locale : $(this).val()}) );

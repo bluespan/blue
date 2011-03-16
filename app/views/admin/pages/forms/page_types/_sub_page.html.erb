@@ -38,6 +38,7 @@
 		
 	</fieldset>	
 	<% end %>
-	<%= render :partial => 'admin/pages/forms/page_types/permissions', :locals => {:f => f} if blue_features.include?(:membership) %>
-	<%= render :partial => 'admin/pages/forms/page_types/localizations', :locals => {:f => f} if blue_features.include?(:localization) %>
+	<%= render :partial => 'admin/pages/forms/permissions', :locals => {:f => f} if blue_features.include?(:membership) %>
+	<%= render :partial => 'admin/pages/forms/localizations', :locals => {:f => f} if blue_features.include?(:localization) %>
+	<%= render :partial => 'admin/pages/forms/tags', :locals => {:f => f} if blue_features.include?(:tagging) %>
 </div>

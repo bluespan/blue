@@ -1,9 +1,20 @@
+<% form_for :verbiage, :url => "/admin/global_verbiage/#{@verbiage.id}", :html => {:method => :put} do |f| %>
+
 <h1>
+	<span class="tools"><% if blue_features.include?(:comments) %><a href="<%= admin_verbiage_comments_url(@verbiage)%>" class="view_comments" id="view_page_verbiage_comments_button">View Comments</a><% end %>
+	<% if blue_features.include?(:localization)%>
+		<label for="verbiage_locale">Locale:</label>
+		<% 	@locales = []
+			Span::Blue.locales.each do |locale|
+				@locales << [I18n.t(:"meta.language_name.en", :locale => locale, :default =>  locale.to_s), locale.to_s]
+			end %>
+		<%= f.select :locale,  @locales %>
+	<% end %>	
+	</span>
 	Edit Global Verbiage
 </h1>
 <p>Note changes are published immediately on update.</p>
 
-<% form_for @verbiage, :url => "/admin/global_verbiage/#{@verbiage.id}", :method => :put do |f| %>
 
 <%= f.text_area :content, :class => 'wymeditor' %>
 

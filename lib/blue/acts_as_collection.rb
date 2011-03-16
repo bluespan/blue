@@ -43,6 +43,15 @@ module Blue
           Page.workings.find(:first, :conditions => {:type => "Collection", :collects => self.name.tableize})
         end
         
+        def view_paths
+          c = self
+          paths = ["app/views/#{c.name.tableize}"]
+          while c.superclass and c.superclass != ActiveRecord::Base
+             c = c.superclass
+             paths << "app/views/#{c.name.tableize}"
+          end
+          paths
+        end
         
       end
       
@@ -53,7 +62,7 @@ module Blue
         end
         
         def url(version = :live)
-          collection.version(version).nil? ? "#" : "#{collection.version(version).url}/#{(self.id)}"
+          collection.version(version).nil? ? "#" : "#{collection.version(version).url}/#{(self.slug)}"
         end  
         
         def template_file

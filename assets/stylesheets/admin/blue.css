@@ -163,6 +163,11 @@ body.admin form.collection a {font-size:12px;color:#203B8F;display:inline;}
 body.admin form.collection p.description {clear:both;margin-top:0;margin-bottom:3px;font-size:11px;}
 body.admin form.collection label sup {color:#f00;}
 
+body.admin form.collection fieldset {border:1px dashed #000;float:left;clear:both;padding:10px;}
+body.admin form.collection fieldset fieldset {border-style:solid;}
+body.admin form.collection fieldset legend {font-size:14px;font-weight:bold;color:#000;padding-right:10px;}
+body.admin form.collection fieldset p {font-size:12px;}
+
 
 body.admin #collection {float:left;clear:both;padding:5px;border:1px solid #778EC1;overflow: auto;margin-bottom:10px;min-height:82px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;min-width:400px;}
 
@@ -195,10 +200,10 @@ span.tools .revert {background:url("/images/blue/icon_history.gif") left center 
 #filter_type li:hover {background-color:#B4C6FF;color:#203B8F;}
 #filter_type li.checked {background-color:#B4C6FF;color:#203B8F;border:1px solid #203B8F;margin-bottom:0;}
 
-.admin .field {margin-bottom:5px;clear:both;}
+.admin .field {margin-bottom:10px;clear:both;}
 .admin .field label {text-transform:capitalize;}
 .admin .check-box-field {float:left;white-space:nowrap;}
-.admin .check-box-field label {float:right;margin-left:20px;margin-top:2px;}
+.admin .check-box-field label {display:inline !important;margin-left:0px;margin-top:2px;}
 .admin .submit-field .input {display:inline;}
 .admin .submit-field {display:inline;clear:both;}
 .admin .error label {color:#AF1010;}

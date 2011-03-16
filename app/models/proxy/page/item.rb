@@ -17,11 +17,27 @@ class Proxy::Page::Item < Proxy::Page
   end
   
   def template
-    @template ||= TemplateFile.new(item.collection.template_path + "/" + template_file)
+    @template ||= find_template
+  end
+  
+  def find_template
+    item.class.view_paths.each do |view_path|
+      if TemplateFile.exist?(view_path + "/" + template_file)
+        return TemplateFile.new(view_path + "/" + template_file)
+      end
+    end
+    
+    TemplateFile.new(item.class.view_paths.first + "/" + template_file)
   end
   
   def body_class
-    item.class.name.tableize.singularize
+    c = item.class
+    classes = [c.name.tableize.singularize]
+    while c.superclass and c.superclass != ActiveRecord::Base
+       c = c.superclass
+       classes << c.name.tableize.singularize
+    end
+    classes.join(" ")
   end
   
   def url

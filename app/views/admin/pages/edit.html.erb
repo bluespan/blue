@@ -1,6 +1,6 @@
 <h1>Edit Page Attributes</h1>
 
-<% form_for @page, :url => admin_page_path(@page) do |f| %>
+<% form_for @page, :as => :page, :url => admin_page_path(@page) do |f| %>
 
 <%= render :partial => 'form', :locals => {:f => f} %>
 
