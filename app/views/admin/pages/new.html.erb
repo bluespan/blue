@@ -1,6 +1,6 @@
 <h1>Create Page</h1>
 
-<% form_for :page, @page, as: => page, :url => admin_pages_path do |f| %>
+<% form_for @page, :as => page, :url => admin_pages_path do |f| %>
 
 <%= render :partial => 'form', :locals => {:f => f} %>
 

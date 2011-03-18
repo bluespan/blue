@@ -63,7 +63,7 @@ class Page < ActiveRecord::Base
   end
   
   def version(state)
-    case state
+    case state.to_sym
     when :live
       return is_live? ? self : version(:working).live
     when :working
