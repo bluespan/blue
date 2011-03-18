@@ -30,6 +30,7 @@ class PagesController < BlueController
   protected
   
   def handle_request
+    @params = params
     @slugs ||= request.path.split("/").delete_if {|slug| slug == ""}
 
     render_instructions = {}
@@ -58,6 +59,7 @@ class PagesController < BlueController
       @page = load_page(slug, ancestors, leaf)
       
       return nil unless @page.is_a?(Page)
+      @page.request_params = @params
       
       if @page.respond_to? :require_ssl? and @page.require_ssl? 
         if !request.ssl? && RAILS_ENV == "production"

@@ -151,13 +151,21 @@ module PagesHelper
       items = items.tagged_with(tagged_with, :any => true) unless tagged_with.empty?
     end
     
-    items = items.all(conditions)
-
+    if (conditions.include?(:paginate))
+      conditions[:page] = @params[:page]
+      conditions[:per_page] = conditions.delete(:paginate)
+      items = items.paginate(conditions)
+    else
+      items = items.all(conditions)
+    end
+  
     html = ""
     items.each do |item|
       html += with_output_buffer { template.call(item) }
     end
     concat html
+    
+    items
   end  
   
   def i18n_url(url)

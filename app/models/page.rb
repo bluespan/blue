@@ -20,8 +20,9 @@ class Page < ActiveRecord::Base
   
   before_validation :generate_unique_slug!
    
-  attr_accessor :body_id, :body_class
+  attr_accessor :body_id, :body_class, :request_params
   cattr_accessor :types, :allow_ssl
+
 
   acts_as_taggable
   
