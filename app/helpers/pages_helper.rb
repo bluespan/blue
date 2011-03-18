@@ -64,10 +64,12 @@ module PagesHelper
                 :exclude => nil, :include => nil,
                 :collapsed => false, :force_display => false}.update(options)
     
-    if options[:levels].is_a?(Hash) and options[:levels].has_key?(:from)
+    if @page and options[:levels].is_a?(Hash) and options[:levels].has_key?(:from)
         options[:id] = "#{options[:id]}_level_#{options[:levels][:from]}"
-        nav =  @page.navigations.select { |navigation| navigation.root.title.downcase == top.to_s.downcase }.first
-        @top = nav.self_and_ancestors[options[:levels][:from] - 1] if nav
+        nav = @page.version(:working).navigations.select { |navigation| navigation.root.title.downcase == top.to_s.downcase }.first
+        nav = @page.version(:working).navigations.first if nav.nil?
+        @top = nav.self_and_ancestors[options[:levels][:from] - 1] 
+        url = @top.url
     elsif top.is_a?(Navigation)
       @top = top
       url = "/#{top.page.slug}"
@@ -80,7 +82,13 @@ module PagesHelper
     output =  "<ul id=\"#{options[:id]}\""
     output += " class=\"#{options[:class]}\"" if options[:class] 
     output += ">"
-    output += navigation_tree(@top.children.slice(0..(options[:top_levels]-1)), options, url) unless @top.nil?
+    children = @top.children.slice(0..(options[:top_levels]-1))
+    if options[:levels].is_a?(Hash) and options[:levels].has_key?(:include_parent) 
+      @top.title = options[:levels][:include_parent] if options[:levels][:include_parent].is_a?(String)
+      children = children.unshift(@top) 
+    end  
+      
+    output += navigation_tree(children, options, url) unless @top.nil?
     output += "</ul>"
   end
   
@@ -223,11 +231,16 @@ module PagesHelper
         
       if page.class == PageTypes::HomePage
         navigation_url = "/"
-      else
+        navigation_url = i18n_url("/home") unless I18n.locale == Span::Blue.locales.first or level > 1
+      elsif options[:levels].is_a?(Hash) and options[:levels].has_key?(:include_parent) and navigation == navigations.first and level == 1
+        navigation_url = url
+        navigation_url = i18n_url("#{url}") unless I18n.locale == Span::Blue.locales.first or level > 1
+      else  
         navigation_url = "#{url}/#{page.slug}"
+        navigation_url = i18n_url("#{url}/#{page.slug}") unless I18n.locale == Span::Blue.locales.first or level > 1
       end
       
-      navigation_url = i18n_url("/#{page.slug}") unless I18n.locale == Span::Blue.locales.first or level > 1
+      #navigation_url = i18n_url("#{url}/#{page.slug}") unless I18n.locale == Span::Blue.locales.first or level > 1
     
       classes = []
       classes << cycle(*options[:classes][level]) if options[:classes] && options[:classes][level]
