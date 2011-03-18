@@ -124,11 +124,11 @@ class Page < ActiveRecord::Base
   end
   
   def published?
-    working_id != nil
+    self.working_id != nil
   end
   
   def is_working?
-    working_id == nil
+    self.working_id == nil
   end
   
   def pending_publish?
@@ -154,7 +154,7 @@ class Page < ActiveRecord::Base
   
   def urls(count = :all, options = {})
     url_array = []
-    (published? ? version(:working).navigations : navigations).each do |navigation|
+    self.version(:working).navigations do |navigation|
       url_array << navigation.url(published? ? :live : :working)
       return url_array[0] if count == :first
     end
