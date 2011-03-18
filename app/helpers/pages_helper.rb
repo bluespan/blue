@@ -69,7 +69,7 @@ module PagesHelper
         nav = @page.version(:working).navigations.select { |navigation| navigation.root.title.downcase == top.to_s.downcase }.first
         nav = @page.version(:working).navigations.first if nav.nil?
         @top = nav.self_and_ancestors[options[:levels][:from] - 1] 
-        url = @top.url
+        url = @top.url.version(:working)
     elsif top.is_a?(Navigation)
       @top = top
       url = "/#{top.page.slug}"
