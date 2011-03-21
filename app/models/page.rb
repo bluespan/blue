@@ -199,7 +199,7 @@ class Page < ActiveRecord::Base
   class << self
     
     def css_class
-      self.to_s.split("::")[1].underscore
+      self.to_s.split("::").last.underscore
     end
     
     def search (keywords, options = {})
