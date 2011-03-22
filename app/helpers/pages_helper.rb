@@ -178,7 +178,7 @@ module PagesHelper
   
   def i18n_url(url)
     return url unless blue_features.include?(:localization)
-    if I18n.locale != Span::Blue.locales.first
+    if I18n.locale != Span::Blue.locales.first and (url =~ /^http/).nil?
       url = "/#{I18n.locale}#{url}"
     end
     url
