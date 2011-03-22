@@ -126,7 +126,9 @@ class Admin::PagesController < Admin::BlueAdminController
     if params[:id]
       @page = Page.find(params[:id])
       
+        logger.info "Load page #{@page.class}"
       if params[:page]
+        logger.info "Assign type #{page_type}"
         @page.send(:attributes=, params[:page], false)
         @page.class_type = page_type
       end
