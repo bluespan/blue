@@ -4,6 +4,7 @@
 # Span::Blue.features << :comments
 # Span::Blue.features << :collapsible_navigation
 # Span::Blue.features << :content_modules
+Span::Blue.features << :extra_page_code
 
 # Span::Blue.features << :localization
 # Span::Blue.locales = [:en, :es]

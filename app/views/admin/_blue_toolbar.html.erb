@@ -61,6 +61,9 @@
 				</li>
 			</ul>
 			<% end %>
+			<% if blue_features.include? :comments %>
+			<a class="view_comments" href="/admin/pages/<%= working_page.id %>/comments"><em><%= (comment_count = working_page.comments.count) > 0 ? comment_count : "" %></em>View Page Comments</a>
+			<% end %>
 		</fieldset>
 		<% end %>
 		

@@ -1,0 +1,7 @@
+$(".comments").append("<%= escape_javascript(render :partial => 'comment', :locals => {:comment => @comment}) %>")
+$("#comment_<%= @comment.id %>").hide();
+$("#comment_<%= @comment.id %>").fadeIn();
+$("#no_comments").hide();
+$(".comments").scrollTo('#comment_<%= @comment.id %>');
+$("#comment_comment").val("");
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

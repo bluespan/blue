@@ -79,6 +79,11 @@ background:#B4C6FF;
 .blue_toolbar .blue_context_toolbar a:hover {background-color:#B4C6FF;}
 .blue_toolbar .blue_context_toolbar .edit {background:url('/images/blue/page_edit.gif') no-repeat 2px center;padding-left:22px;line-height:16px;}
 
+
+.blue_toolbar .blue_context_toolbar a.view_comments {float:left;margin-left:10px;padding:4px 3px 2px;font-size:11px;}
+.blue_toolbar .blue_context_toolbar a.view_comments em {background:url('/images/blue/comment.gif');margin:-2px 5px 0 0;width:16px;height:12px;display:block;float:left;padding:2px 0 1px;text-align:center;font-size:9px;}
+
+
 div.jGrowl div.success { background:#338F26;line-height:130%;color:#fff; }
 div.jGrowl div.success * {color:#fff;}
 div.jGrowl div.success em {color:#97EF3F;font-style:normal;}

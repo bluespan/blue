@@ -1,0 +1,7 @@
+<p><%= @user.firstname %>,</p>
+
+<p><%= @comment.admin_user.fullname %> has been posted the following comment on page "<%= @comment.commentable.title %>:"</p>
+
+<blockquote>
+<%= h @comment.comment %>
+</blockquote>

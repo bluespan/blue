@@ -4,6 +4,8 @@ class Page < ActiveRecord::Base
   named_scope :published, lambda { |slug|  { :conditions => ["working_id is not ? and slug like ?", nil, slug], :order => "id DESC" } }
   named_scope :workings,  lambda { |*slug| { :conditions => ["working_id is ? and slug like ?", nil, slug.first || "%"] } }
   named_scope :live,  :conditions => {:is_live => true}
+  
+  named_scope :commented_on, :joins => :comments, :group => "pages.id", :order => "comments.created_at"
 
   has_many    :navigations, :dependent => :destroy
   has_many    :content, :dependent => :destroy
@@ -57,6 +59,7 @@ class Page < ActiveRecord::Base
     # Publish Comments
     comments.each do |comment|
       comment.commentable_id = published_page.id
+      comment.save
     end
 
     published_page
@@ -154,10 +157,11 @@ class Page < ActiveRecord::Base
   
   def urls(count = :all, options = {})
     url_array = []
-    self.version(:working).navigations do |navigation|
+    self.version(:working).navigations.each do |navigation|
       url_array << navigation.url(published? ? :live : :working)
-      return url_array[0] if count == :first
+      break if count == :first
     end
+    return url_array[0] if url_array.length > 0 and count == :first
     return "/#{slug}" if count == :first
     url_array << "/#{slug}"
   end

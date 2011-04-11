@@ -8,9 +8,8 @@ class Comment < ActiveRecord::Base
   # NOTE: Comments belong to a user
   belongs_to :admin_user
   
-  def notify_with_email(params = {})
-    params = { :subject => title }.merge(params)
-    email = Notifier.create_comment_notification(self, params)
+  def notify_user(user)
+    email = Notifier.create_comment_notification(user, self)
     Notifier.deliver(email)
   end
 

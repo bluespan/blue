@@ -266,10 +266,46 @@ BluePageVerbiageCommentsDialog.prototype.open = function(path) {
 
 			tray_dialog.html(data);
 			
+				// Add Notifcation Functionality
+				$('#post_comment').click(function(){
+					if ($("#comment_comment").val() != "")
+					{
+						$("#comment_form").hide();
+						$("#notify_form").show();
+					}
+					return false;
+				});
+				
+				$("#notify_all_users").click(function() {
+					if ($(this).is(":checked")) {
+						$(".users .user input").attr("checked", 1);
+					} else {
+						$(".users .user input").attr("checked", 0);
+					}
+				});
+				
+				$(".users .user input").click(function() {
+					$("#notify_all_users").attr("checked", 0);
+				})
+				
+				tray_dialog.find('.close').click(function(){
+				  current_dialog.toggleRightTray()
+				});
+			
 			tray_dialog.find("form").submit(function(){
+				
+			
 				
 				$.post($(this).attr("action"), $(this).serialize(), function(data){
 					$("#comments").append(data);
+					li = $(".comments li:last")
+					li.hide();
+					li.fadeIn();
+					$("#no_comments").hide();
+					$(".dialog").scrollTo(li);
+					
+					$("#comment_form").show();
+					$("#notify_form").hide();
 				});
 				
 				return false;

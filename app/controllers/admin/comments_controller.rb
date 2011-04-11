@@ -24,7 +24,14 @@ class Admin::CommentsController < Admin::BlueAdminController
       if @comment = Comment.create(params[:comment].merge({:admin_user_id => current_admin_user.id}))
         @commentable.add_comment(@comment)
         
-        flash.now[:notice] = "Your comment <em>#{@comment.title}</em> on <em>#{@commentable.class.to_s.underscore.titleize} #{@commentable.title}</em> was successfully <em>added.</em>"
+        # Notifications
+        unless params[:notify_users].nil?
+          AdminUser.find(params[:notify_users]).each do |user|
+            @comment.notify_user(user)
+          end
+        end
+        
+        flash.now[:notice] = "Your comment <em>#{@comment.title}</em> on <em>#{@comment.commentable_type.to_s.underscore.titleize} #{@commentable.title}</em> was successfully <em>added.</em>"
         wants.html { redirect_to :action => "index "}
         wants.js
       else

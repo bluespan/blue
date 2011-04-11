@@ -21,6 +21,7 @@
 	
 	
 	<%= javascript_include_tag "blue/admin" %>
+	<%= javascript_include_tag('blue/admin/comments') if blue_features.include? :comments %>
 	<%= javascript_include_tag "blue/logged_in" %>
 	
 	<!--[if IE]>

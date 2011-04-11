@@ -5,15 +5,15 @@
 
 <ol class="comments">
 	<% @commentable.comments.each do |comment| %>
-	<%= render :partial => "verbiage_comment", :locals => {:comment => comment}%>
+	<%= render :partial => "comment", :locals => {:comment => comment}%>
 	<% end %>
 </ol>
 
 <% else %>
-<p>No comments have been made yet.</p>
+<p id="no_comments">No comments have been made yet.</p>
 <% end %>
 
-<% form_for @comment, :url => admin_page_comments_path(@commentable.contentable, @commentable) do |f| %>
+<% form_for @comment, :url => admin_verbiage_comments_path(@commentable, :format => :js) do |f| %>
 	
 	<label for="comment_comment">Comment</label>
 	<%= f.text_area :comment %>
