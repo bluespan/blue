@@ -1,0 +1,21 @@
+class Create<%= name.underscore.pluralize.camelize %> < ActiveRecord::Migration
+  def self.up
+	create_table :<%= name %> do |t|
+      t.string    :title
+      t.string    :slug
+
+      t.datetime  :published_at
+      t.timestamps
+    end
+    
+    add_index :<%= name %>, [:published_at, :featured]
+    add_index :<%= name %>, :slug
+    
+    Collection.create({:title => "<%= name.capitalize.gsub("_", " ")%>", :collects => "<%= name %>" })
+  end
+
+  def self.down	
+	  drop_table :<%= name %>
+	  Collection.find(:all, {:conditions => {:collects => "<%= name %>"} }).each { |c| c.destroy }
+  end
+end
