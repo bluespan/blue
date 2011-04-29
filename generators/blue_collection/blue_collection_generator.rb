@@ -7,9 +7,8 @@ class BlueCollectionGenerator < Rails::Generator::NamedBase
   def initialize(runtime_args, runtime_options = {})
     super
     @name = runtime_args.first.downcase.underscore.pluralize
-    @controller_name = @name.capitalize
-    @model_name = @name.singularize.capitalize
-    @model_name = @name.singularize.capitalize
+    @controller_name = @name.pluralize.camelize
+    @model_name = @name.singularize.camelize
     @attributes = []
 
     runtime_args[1..-1].each do |arg|
