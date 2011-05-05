@@ -20,11 +20,11 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :external_links
     admin.resources :navigations, :collection => { :move => :put }
   
-    admin.connect 'assets/viewer/:path', :controller => 'assets', :action => 'viewer', :path => /[A-Za-z0-9\-\/_\%]*/
-    admin.connect 'assets/viewer/:path', :controller => 'assets', :action => 'show', :path => /[A-Za-z0-9\-\/_\.\%]*/
-    admin.connect 'assets/:path/destroy', :controller => 'assets', :action => 'destroy', :path => /[A-Za-z0-9\-\/_\.\%]*/
-    admin.connect 'assets/:path/destroy.:format', :controller => 'assets', :action => 'destroy', :path => /[A-Za-z0-9\-\/_\.\%]*/
-    admin.connect 'assets/selector/:path', :controller => 'assets', :action => 'selector', :path => /[A-Za-z0-9\-\/_\%]*/
+    admin.connect 'assets/viewer/:path', :controller => 'assets', :action => 'viewer', :path => /[A-Za-z0-9\-\/_\%\s\[\]]*/
+    admin.connect 'assets/viewer/:path', :controller => 'assets', :action => 'show', :path => /[A-Za-z0-9\-\/_\.\%\s\[\]]*/
+    admin.connect 'assets/:path/destroy', :controller => 'assets', :action => 'destroy', :path => /[A-Za-z0-9\-\/_\.\%\s\[\]]*/
+    admin.connect 'assets/:path/destroy.:format', :controller => 'assets', :action => 'destroy', :path => /[A-Za-z0-9\-\/_\.\%\s\[\]]*/
+    admin.connect 'assets/selector/:path', :controller => 'assets', :action => 'selector', :path => /[A-Za-z0-9\-\/_\%\s\[\]]*/
     admin.resources :assets,  :collection => { :viewer => :get, :selector => :get, :link => :get, :new_folder => :get, :create_folder => :post, :destroy => :delete }
   
     admin.resource :session, :member => {:view_live_site => :put}
