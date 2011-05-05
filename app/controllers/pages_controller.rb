@@ -51,7 +51,7 @@ class PagesController < BlueController
       end
     end
 
-    render_instructions = {:status => 404, :template => "pages/404.html.erb"}
+    #render_instructions = {:status => 404, :template => "pages/404.html.erb"}
     @slugs.each_index do |index|
       slug = @slugs[index]
       @slug_index = index
