@@ -9,9 +9,23 @@
 	<p>
 	<label for="navigation_title" style="width:75px;">Rename Title</label>
 	<%= f.text_field :title, :name => "navigation[title]", :id => "navigation_title", :class => "text" %>
-
 	</p>
 	
+	
+</fieldset>
+<% end %>
+
+<% if blue_features.include?(:localization) %>
+<fieldset>
+	<legend>Localizations</legend>
+	<p>
+	<% Span::Blue.locales.each do |locale| %>
+	
+		<label for="navigation_locale_data_title_<%= locale %>">Rename <%= I18n.t(:"meta.language_name.en", :locale => locale, :default =>  locale.to_s) %> Title</label>
+		<input size="30" class="text" type="text" name="navigation[locale_data][title][<%= locale.to_s %>]" value="<%= @navigation.l10n_attribute(:title, locale, "") %>" />
+	
+	<% end %>
+	</p>
 </fieldset>
 <% end %>
 

@@ -1,0 +1,15 @@
+<%= javascript_include_tag 'blue/admin/collections' %>
+
+<% unless (@flash = flash[:notice]).blank? %>
+<script type="text/javascript" charset="utf-8">
+	$.jGrowl("<%= escape_javascript(@flash) %>", { header: 'Success', theme:'success' });
+</script>
+<% end %>
+
+<div class="collection">
+  <h1><%= @model.name.tableize.pluralize.titleize %> <span class="buttons"><%= link_to "New #{@model.name.tableize.singularize.titleize}", "/admin/collections/#{@model.name.tableize}/new", :class => "new" %></span></h1>
+
+  <div id="collection">
+    <%= render :file => "_items", :locals => {:items => @items, :model => @model} %>
+  </div>
+</div>

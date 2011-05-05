@@ -11,7 +11,7 @@ Install
 
 script/plugin install git://github.com/collectiveidea/awesome_nested_set.git
 script/plugin install git://github.com/thoughtbot/paperclip.git
-script/plugin install git://github.com/jackdempsey/acts_as_commentable.git
+script/plugin install git://github.com/jackdempsey/acts_as_commentable.git -r 2.x
 script/plugin install git://github.com/rsl/stringex.git
 script/plugin install git://github.com/mislav/will_paginate.git
 

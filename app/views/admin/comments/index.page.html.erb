@@ -1,0 +1,44 @@
+
+
+<h1>Page Comments</h1>
+
+
+<% if not @commentable.comments.empty? %>
+
+<ol class="comments">
+	<% @commentable.comments.each do |comment| %>
+	<%= render :partial => "comment", :locals => {:comment => comment}%>
+	<% end %>
+</ol>
+<% else %>
+<ol class="comments">
+</ol>
+
+<p id="no_comments">No comments have been made yet.</p>
+<% end %>
+
+
+<% form_for  @comment, :url => admin_page_comments_path(@commentable, :format => :js) do |f| %>
+	<div class="buttons" id="comment_form">
+		
+		<% if current_admin_user.has_permission?(:comment) %>
+		<label for="comment_comment">Comment</label>
+		<%= f.text_area :comment %>	
+		
+		<input type="button" id="post_comment" value="Post Comment" class="button submit" /> | <% end -%><a  class="close" href="#close">Close</a>
+	</div>
+	
+	<div class="buttons" id="notify_form">
+		
+		<% if current_admin_user.has_permission?(:comment) %>
+		<label>Notify</label>
+		<ul class="users">
+		<li><input type="checkbox" id="notify_all_users" name="notify_all_users" /> <label for="notify_all_users">Everyone</label></li>
+		<% AdminUser.find(:all, :order => "lastname, firstname").each do |user| %>
+		<li class="user"><input type="checkbox" id="notify_user_<%= user.id %>" name="notify_users[]" value="<%= user.id %>" /><%= image_tag user.photo(:icon) %><label for="notify_user_<%= user.id %>"><%= user.fullname %></label></li>
+		<% end %>
+		</ul>
+		
+		<input type="submit" value="Finish Posting" class="button submit" /> | <% end -%><a  class="close" href="#close">Close</a>
+	</div>	
+<% end %>

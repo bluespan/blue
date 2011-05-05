@@ -1,0 +1,11 @@
+<fieldset>
+	<legend>Localizations</legend>
+	<% Span::Blue.locales.each do |locale| %>
+	<fieldset>
+		<legend>
+			<input type="checkbox" name="page[locale_data][enabled][<%= locale.to_s %>]" value="1" <%= @page.l10n_attribute(:enabled, locale) ? "checked" : "" %>> Enabled <%= I18n.t(:"meta.language_name.en", :locale => locale, :default =>  locale.to_s) %></legend>
+		<label for="page_locale_data_title_<%= locale %>" style="width:24px;">Title</label>
+		<input type="text" name="page[locale_data][title][<%= locale.to_s %>]" value="<%= @page.l10n_attribute(:title, locale, "") %>" />
+	</fieldset>
+	<% end %>
+</fieldset>	

@@ -3,6 +3,8 @@ class Navigation < ActiveRecord::Base
   validates_presence_of :title, :unless => :has_a_page?
   
   acts_as_nested_set
+  has_localized_data
+  
   belongs_to :page #, :include => :live
 
   def slug
@@ -25,11 +27,11 @@ class Navigation < ActiveRecord::Base
     @self_and_ancestors ||= self_and_ancestors#(:include => :page) 
   end
   
-  def url
+  def url(version = :live)
     final_url = ""
     self_and_ancestors_cached.each do |navigation|
       unless navigation.root?
-        final_url += "/#{navigation.page.slug}"
+        final_url += "/#{navigation.page.version(version).slug}"
       end
     end
     

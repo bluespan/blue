@@ -4,6 +4,8 @@ class Page < ActiveRecord::Base
   named_scope :published, lambda { |slug|  { :conditions => ["working_id is not ? and slug like ?", nil, slug], :order => "id DESC" } }
   named_scope :workings,  lambda { |*slug| { :conditions => ["working_id is ? and slug like ?", nil, slug.first || "%"] } }
   named_scope :live,  :conditions => {:is_live => true}
+  
+  named_scope :commented_on, :joins => :comments, :group => "pages.id", :order => "comments.created_at"
 
   has_many    :navigations, :dependent => :destroy
   has_many    :content, :dependent => :destroy
@@ -17,29 +19,23 @@ class Page < ActiveRecord::Base
     
   validates_presence_of   :title, :message => "can't be blank"
   #validates_uniqueness_of :slug,  :message => "must be unique", :scope => :working_id, :if => Proc.new { |page| page.working_id.nil? }
-
   
   before_validation :generate_unique_slug!
    
-  attr_accessor :body_id, :body_class
+  attr_accessor :body_id, :body_class, :request_params
   cattr_accessor :types, :allow_ssl
+
+
+  acts_as_taggable
   
-  
-  
-  # acts_as_ferret :fields => {
-  #                              :title => {:store => :yes}, 
-  #                              :url => {:store => :yes}, 
-  #                              :page_content => {:store => :yes}
-  #                            },
-  #                 :if => lambda { |page| page.published? && (not page.working.nil?) && page.working.live == page}
-                  
   acts_as_commentable
   acts_as_contentable
-     
+  has_localized_data
+       
   def navigation(path)
     @navigation ||= {}
-    @navigation[path] ||= (published? ? working.navigations : navigations).select do |navigation|
-      navigation.url == path
+    @navigation[path] ||= (is_live? ? version(:working).navigations : navigations).select do |navigation|
+      navigation.url(is_live? ? :live : :working) == path
     end[0]
   end
 
@@ -63,9 +59,21 @@ class Page < ActiveRecord::Base
     # Publish Comments
     comments.each do |comment|
       comment.commentable_id = published_page.id
+      comment.save
     end
 
     published_page
+  end
+  
+  def version(state)
+    case state.to_sym
+    when :live
+      return is_live? ? self : version(:working).live
+    when :working
+      return is_working? ? self : self.working
+    else
+      return self
+    end
   end
   
   def revert_to_live 
@@ -119,7 +127,11 @@ class Page < ActiveRecord::Base
   end
   
   def published?
-    working_id != nil
+    self.working_id != nil
+  end
+  
+  def is_working?
+    self.working_id == nil
   end
   
   def pending_publish?
@@ -145,10 +157,11 @@ class Page < ActiveRecord::Base
   
   def urls(count = :all, options = {})
     url_array = []
-    (published? ? working.navigations : navigations).each do |navigation|
-      url_array << navigation.url
-      return url_array[0] if count == :first
+    self.version(:working).navigations.each do |navigation|
+      url_array << navigation.url(published? ? :live : :working)
+      break if count == :first
     end
+    return url_array[0] if url_array.length > 0 and count == :first
     return "/#{slug}" if count == :first
     url_array << "/#{slug}"
   end
@@ -190,7 +203,7 @@ class Page < ActiveRecord::Base
   class << self
     
     def css_class
-      self.to_s.split("::")[1].underscore
+      self.to_s.split("::").last.underscore
     end
     
     def search (keywords, options = {})
@@ -229,8 +242,27 @@ class Page < ActiveRecord::Base
     #   slug.nil? ? self.workings.find(:all, :include => :live).collect{|p| p.live}.compact : self.published(slug).first
     # end
 
-    def working(slug = nil, ancestors = "")
+    def load_from_url(slug = nil, ancestors = "")
       return self.workings if slug.nil?
+
+
+      pages = Page.find(:all,  :conditions => ["slug like ?", slug], :order => "id DESC")
+
+      pages = pages.select do |page|
+        page.is_live? or page.is_working?
+      end
+
+      pages.each do |page|
+        page.urls.each do |url|
+          return page if ancestors+"/"+slug == url 
+        end
+      end
+
+      return pages.first
+    end
+      
+    def working(slug = nil, ancestors = "")
+      return (self.workings || self) if slug.nil?
       
       pages = self.workings(slug)
       return pages.first if pages.length == 0 || ancestors.blank?
@@ -245,7 +277,7 @@ class Page < ActiveRecord::Base
     end
 
     def pending_publish
-      self.working(nil).find(:all, :order => :title).delete_if do |page|
+      self.workings.find(:all, :order => :title).delete_if do |page|
          not page.pending_publish?
       end
     end
@@ -258,7 +290,9 @@ class Page < ActiveRecord::Base
       published_pages
     end
     
-
+    def destroyable?
+      true
+    end
         
   end
   

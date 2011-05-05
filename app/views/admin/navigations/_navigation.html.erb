@@ -4,9 +4,9 @@ bucket_tree navigation do |child| -%>
 <div class="navigation_page navigation_<%= child.page.css_class %>"><span class="title"><%= child.title.blank? ? child.page.title : child.title %></span>
 	<span class="tools">
 		<% if current_admin_user.has_role?(:editor) %>	
-		<%= link_to "Edit Content", child.url, :class => "" %> | <%= link_to "Edit Attributes", edit_admin_page_path(child.page), :class => "edit edit_page" %> | <%= link_to "Edit Navigation", edit_admin_navigation_url(child), :class => "edit edit_navigation" %> | <%= link_to "Remove From Navigation", [:admin, child], :class => "delete" %>
+		<%= link_to "Edit Content", child.url(:working), :class => "" %> | <%= link_to "Edit Attributes", edit_admin_page_path(child.page), :class => "edit edit_page" %> | <%= link_to "Edit Navigation", edit_admin_navigation_url(child), :class => "edit edit_navigation" %> | <%= link_to "Remove From Navigation", [:admin, child], :class => "delete" %>
 		<% else %>
-		<%= link_to "Visit", child.url, :class => "" %>
+		<%= link_to "Visit", child.url(:working), :class => "" %>
 		<% end %>
 	</span></div>
 <% end -%>

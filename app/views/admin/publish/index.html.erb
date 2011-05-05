@@ -17,6 +17,9 @@
 		<% Page.pending_publish.each do |page| %>
 			<li class="page <%= page.css_class %>" id="page_<%= page.id %>"><span class="title"><%= page.title %></span> 
 				<span class="tools"><%= link_to "View", "#{page.url}" %> 
+					<% if blue_features.include? :comments %>
+					| <%= link_to "Comments", admin_page_comments_path(page), :class => "view_comments" %>
+					<% end %>
 					<% if current_admin_user.has_role?(:publisher) %>
 					| <%= link_to "Publish", publish_admin_page_url(page), :class => "publish" %>
 					| <%= link_to "Revert", admin_publish_url(page), :class => "revert" %>
@@ -25,5 +28,22 @@
 		<% end %>
 	</ul>
 </div>
+
+<% if blue_features.include? :comments %>
+<div class="report" id="comments">
+	<h2>Page Comments</h2>
+	<ul class="list">
+		<% Page.workings.commented_on.reverse.each do |page| 
+		  if page.comments.last.admin_user %>
+		<li class="<%= page.class.to_s.underscore %> iehover" id="page_<%= page.id %>_comments">
+			<span class="title"><%= page.title %> <span class="comment_count"><%= page.comments.count %></span> <span class="tools"><%= link_to "View Comments", admin_page_comments_path(page), :class => "view_comments" %> | <%= link_to "View Page", "#{page.url}" %></span></span>
+			<span class="user"><strong><%= page.comments.last.created_at.strftime("%b %d, %Y at %I:%M %p")%></strong> by <%= image_tag page.comments.last.admin_user.photo(:icon) %> <%= page.comments.last.admin_user.fullname %></span>
+				<%= h page.comments.last.comment%>
+		</li>
+		<% end 
+		end %>
+	</ul>
+</div>
+<% end %>
 
 <div class="dialog" id="admin_publish_dialog"></div>

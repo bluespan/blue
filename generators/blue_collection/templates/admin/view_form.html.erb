@@ -1,0 +1,13 @@
+<div style="float:left;width:600px">
+<%%= f.text_field :title, :required => true %>
+
+<%%= f.text_field :slug, :description => "Part of the url, will be automatically generated if left blank." %>
+
+</div>
+
+<div style="float:left;width:350px">
+	
+	<%%= f.datetime_select :published_at, :description => "The date that the story will appear on the site, and appear with the story.", :default => Time.now.tomorrow().midnight() %>
+	
+</div>
+<div style="clear:both;"></div>

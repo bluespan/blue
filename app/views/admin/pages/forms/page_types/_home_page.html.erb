@@ -25,8 +25,11 @@
 	<label for="page_meta_description">Meta Description</label>
 	<%= f.text_area :meta_description, :name => "page[meta_description]", :id => "page_meta_description" %>
 </fieldset>
+
+<%= render :partial => 'admin/pages/forms/extra_code', :locals => {:f => f} if blue_features.include?(:extra_page_code) %>
 </div>
 
 <div class="right_column">
-	<%= render :partial => 'admin/pages/forms/page_types/permissions', :locals => {:f => f} if blue_features.include?(:membership) %>
+	<%= render :partial => 'admin/pages/forms/permissions', :locals => {:f => f} if blue_features.include?(:membership) %>
+	<%= render :partial => 'admin/pages/forms/localizations', :locals => {:f => f} if blue_features.include?(:localization) %>
 </div>

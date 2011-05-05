@@ -6,10 +6,28 @@
 	
 		<ul id="blue_admin_navigation" class="blue_admin_navigation">
 			<li <%= (controller.class.to_s =~ /.*pages.*/i ? "class=\"current\"" : "") %>><a href="/admin/pages">Pages &amp; Navigation</a></li>
+			<% if blue_features.include?(:collections) and current_admin_user.has_role?(:editor) %>
+				<li <%= (controller.class.to_s =~ /.*collections.*/i ? "class=\"current\"" : "") %>>
+					<% if blue_collections.length == 1 
+						collection = blue_collections.first %>
+						<a href="/admin/collections/<%= collection.to_s.tableize %>"><%= collection.to_s.pluralize.titleize %></a>
+					<% else %>
+					<a href="/admin/collections">Collections</a>					
+					<ul>
+						<% blue_collections.each do |collection| %>
+						<li><a href="/admin/collections/<%= collection.to_s.tableize %>"><%= collection.to_s.pluralize.titleize %></a></li>
+						<% end %>
+					</ul>
+					<% end %>
+				</li>
+			
+			<% end %>
+			
 			<li <%= (controller.class.to_s =~ /.*publish.*/i ? "class=\"current\"" : "") %>><a href="/admin/publish">Publish</a></li>
 			<% if blue_features.include?(:content_modules) and current_admin_user.has_role?(:editor) %>
 			<li <%= (controller.class.to_s =~ /.*contentmodules.*/i ? "class=\"current\"" : "") %>><a href="/admin/content_modules">Content Modules</a></li>
 			<% end %>
+		
 			<li <%= (controller.class.to_s =~ /.*assets.*/i ? "class=\"current\"" : "") %>><a href="/admin/assets">Assets</a></li>
 			<% if blue_features.include?(:membership) and current_admin_user.has_permission?(:admin_membership) %>
 			<li <%= (controller.class.to_s =~ /.*membership.*/i ? "class=\"current\"" : "") %>><a href="/admin/membership">Membership</a></li>
@@ -42,6 +60,9 @@
 					</ul>
 				</li>
 			</ul>
+			<% end %>
+			<% if blue_features.include? :comments %>
+			<a class="view_comments" href="/admin/pages/<%= working_page.id %>/comments"><em><%= (comment_count = working_page.comments.count) > 0 ? comment_count : "" %></em>View Page Comments</a>
 			<% end %>
 		</fieldset>
 		<% end %>

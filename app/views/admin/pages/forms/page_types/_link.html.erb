@@ -20,4 +20,6 @@
 			<li><%= f.check_box :open_new_window, :name => "page[open_new_window]", :id => "page_open_new_window"  %> <label for="page_open_new_window">Open in New Window</label></li>
 		</ul>
 	</fieldset>
+	
+	<%= render :partial => 'admin/pages/forms/localizations', :locals => {:f => f} if blue_features.include?(:localization) %>
 </div>

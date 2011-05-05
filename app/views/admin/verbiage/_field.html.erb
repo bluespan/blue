@@ -1,0 +1,20 @@
+<% if current_admin_user.has_role?(:editor) %>	
+<a href="/admin/verbiage/new" class="edit edit_verbiage edit_verbiage_field" id="edit_verbiage_field_<%= options[:field_prefix] %>_<%= field.title %>">Edit</a>
+<% end %>
+
+
+<% Span::Blue.locales.each do |locale| 
+	if options[:contentable].verbiage[field.title.to_sym].has_key?(locale.to_s)
+		verbiage = options[:contentable].verbiage[field.title.to_sym][locale.to_s].content
+	else
+		verbiage = ""
+	end
+	%>
+	<textarea style="display:none;" name="<%= options[:field_prefix] %>[verbiage][<%= field.title %>][<%= locale.to_s %>]" id="<%= options[:field_prefix] %>_<%= field.title %>_<%= locale.to_s %>"><%= verbiage %></textarea>
+<% end%>
+<% unless options[:description].blank? %>
+<p class="description"><%= options[:description]%></p>
+<% end %>
+<div class="verbiage_content" id="<%= options[:field_prefix] %>_<%= field.title %>_content">
+<%= field.content %>
+</div>

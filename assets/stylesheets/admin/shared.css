@@ -10,7 +10,7 @@
 .blue_toolbar ul.blue_choose_logo li:hover{cursor:pointer;color:#4A71EB;}
 .blue_toolbar ul.blue_choose_logo li:hover span {color:#E0E8FF;}
 
-.blue_toolbar ul.blue_choose_logo li.back {width: 9px; height: 14px;
+.blue_toolbar ul.blue_choose_logo li.backLava {width: 9px; height: 14px;
 z-index: 8;
 position: absolute;
 border:1px solid #B4C6FF;
@@ -18,21 +18,26 @@ margin-left:0px;
 background:#B4C6FF;
 -moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
 
-.blue_toolbar ul.blue_admin_navigation li {float:left;line-height:50px;font-size:13px;font-weight:bold;z-index:10;margin-left:14px;padding:2px 0 2px 4px;margin-right:6px;}
-.blue_toolbar ul.blue_admin_navigation li a {color:#000;text-decoration:none;}
+.blue_toolbar ul.blue_admin_navigation li {float:left;font-size:13px;font-weight:bold;z-index:10;margin-left:14px;padding:2px 0 2px 4px;margin-right:6px;position:relative;}
+.blue_toolbar ul.blue_admin_navigation li a {color:#000;text-decoration:none;line-height:18px;text-transform:capitalize;}
 .blue_toolbar ul.blue_admin_navigation li.current a {color:#203B8F;}
+.blue_toolbar ul.blue_admin_navigation li.current li a {color:#000;}
 
+.blue_toolbar ul.blue_admin_navigation li ul {display:block;height:auto;overflow:hidden;position:relative;text-transform:capitalize;display:none;}
+.blue_toolbar ul.blue_admin_navigation li:hover ul {display:block;}
+.blue_toolbar ul.blue_admin_navigation li ul li {line-height:15px;font-size:11px;margin-left:0;padding-left:0;}
 .blue_toolbar ul.blue_admin_navigation {
     position: relative;
     height: 37px; 
-    overflow: hidden;
+   /* overflow: hidden;*/
 	float:left;
         list-style:none;
         margin:0;
+        margin-top:16px;
 }
 
 	/* Represents the background of the highlighted menu-item. */
-	.blue_toolbar ul.blue_admin_navigation  li.back {
+	.blue_toolbar ul.blue_admin_navigation  li.backLava {
 		width: 0px; height: 14px;
 		z-index: 8;
 		margin-top:17px;
@@ -73,6 +78,11 @@ background:#B4C6FF;
 .blue_toolbar .blue_context_toolbar a {color:#000;text-transform:capitalize;display:block;margin:0;font-size:12px;}
 .blue_toolbar .blue_context_toolbar a:hover {background-color:#B4C6FF;}
 .blue_toolbar .blue_context_toolbar .edit {background:url('/images/blue/page_edit.gif') no-repeat 2px center;padding-left:22px;line-height:16px;}
+
+
+.blue_toolbar .blue_context_toolbar a.view_comments {float:left;margin-left:10px;padding:4px 3px 2px;font-size:11px;}
+.blue_toolbar .blue_context_toolbar a.view_comments em {background:url('/images/blue/comment.gif');margin:-2px 5px 0 0;width:16px;height:12px;display:block;float:left;padding:2px 0 1px;text-align:center;font-size:9px;}
+
 
 div.jGrowl div.success { background:#338F26;line-height:130%;color:#fff; }
 div.jGrowl div.success * {color:#fff;}

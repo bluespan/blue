@@ -1,6 +1,9 @@
 class Verbiage < Content
   
   acts_as_commentable
+  
+  named_scope :commented_on, :joins => :comments,  :order => "comments.created_at"
+  
   after_save :touch_contentable
   
   def publish!(options = {})

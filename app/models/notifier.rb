@@ -1,12 +1,10 @@
 class Notifier < ActionMailer::Base
   
-  def comment_notification(comment, params)
-    recipients params[:recipients]
-    subject    params[:subject]
+  def comment_notification(recipient, comment)
+    recipients recipient.email
+    subject    "New Comment for Page: #{comment.commentable.title}"
+    body       :user => recipient, :comment => comment
     content_type "multipart/alternative"
-    
-    part :content_type => "text/html",
-            :body => comment.comment
   end
   
 end

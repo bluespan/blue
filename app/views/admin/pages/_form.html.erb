@@ -1,4 +1,5 @@
 <div class="pagetype">
+	<% if Page.types.map(&:to_s).include?(@page.type.to_s) or @page.new_record? %>
 	<fieldset>
 		<legend><em>1</em>Page Type</legend>
 		<p>First select <em>type</em> of page this is going to be.</p>
@@ -12,6 +13,7 @@
 		<% end -%>
 	</select>	
 	</fieldset>
+	<% end %>
 </div>
 
 <div id="page_type_form">

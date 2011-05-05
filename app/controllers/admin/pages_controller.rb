@@ -111,9 +111,14 @@ class Admin::PagesController < Admin::BlueAdminController
   def find_model
     if params[:page] && params[:page][:type]
       page_type = params[:page][:type]
-      type = page_type.split("::")[1]
+      if page_type.split("::").length > 1
+        type = page_type.split("::")[1]
+        page_class = Module.const_get("PageTypes").const_get(type)
+      else
+        page_type = page_type.classify
+        page_class = page_type.constantize
+      end
       params[:page].delete(:type)
-      page_class = Module.const_get("PageTypes").const_get(type)
     else
       page_class = Page
     end
