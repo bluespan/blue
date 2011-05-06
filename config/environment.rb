@@ -24,7 +24,7 @@ Rails::Initializer.run do |config|
   config.gem "authlogic", :version => '< 2'
   config.gem "crack"
   config.gem "httparty"
-  config.gem "matthooks-vimeo", :lib => "vimeo"
+  #config.gem "matthooks-vimeo", :lib => "vimeo"
   config.gem "honeypot-captcha"
   config.gem "validates_email_format_of"
   config.gem "searchlogic"
