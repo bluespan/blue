@@ -14,7 +14,7 @@ class Page < ActiveRecord::Base
   has_many    :content_modules, :through => :content_placements
   
   has_many    :published, :class_name => "Page", :foreign_key => :working_id, :order => "id DESC"
-  has_one     :live,      :class_name => "Page", :foreign_key => :working_id, :order => "id DESC"
+  has_one     :live,      :class_name => "Page", :foreign_key => :working_id, :conditions => {:is_live => true}
   belongs_to  :working,   :class_name => "Page", :foreign_key => :working_id
     
   validates_presence_of   :title, :message => "can't be blank"
@@ -61,6 +61,13 @@ class Page < ActiveRecord::Base
       comment.commentable_id = published_page.id
       comment.save
     end
+    
+    # Publish Taggings
+    taggings.each do |tagging|
+      new_tagging = tagging.clone
+      new_tagging.taggable_id = published_page.id
+      new_tagging.save
+    end    
 
     published_page
   end

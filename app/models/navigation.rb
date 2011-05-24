@@ -7,6 +7,8 @@ class Navigation < ActiveRecord::Base
   
   belongs_to :page #, :include => :live
 
+  named_scope :with_page, :include => [:page => :live]
+
   def slug
     self.title.downcase.gsub(" ", "_")
   end  

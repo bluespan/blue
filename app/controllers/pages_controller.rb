@@ -15,11 +15,16 @@ class PagesController < BlueController
   
   def show   
     render_instructions = handle_request 
-    unless render_instructions.nil?
-      if (render_instructions.has_key?(:redirect_to))
-        redirect_to render_instructions[:redirect_to]
-      else
-        render render_instructions 
+    
+    # Define a protected method before_blue_render in your ApplicationController if you want to potentially override the default render instructions
+    before_render_callback = (self.respond_to?(:before_blue_render) && before_blue_render) || self.respond_to?(:before_blue_render) == false
+    if before_render_callback
+      unless render_instructions.nil?
+        if (render_instructions.has_key?(:redirect_to))
+          redirect_to render_instructions[:redirect_to]
+        else
+          render render_instructions 
+        end
       end
     end
         
@@ -92,6 +97,7 @@ class PagesController < BlueController
       
       ancestors += "/#{slug}"
     end
+    
     
     return {:template => @page.template.path}.merge(render_instructions)
   end

@@ -27,7 +27,9 @@ class Collection < Page
       false
     end
     
-    
+    def page_for(collection_type)
+      find(:first,  :conditions => {:collects => collection_type.to_s})
+    end
   end
 
 end

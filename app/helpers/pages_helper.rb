@@ -82,7 +82,7 @@ module PagesHelper
     output =  "<ul id=\"#{options[:id]}\""
     output += " class=\"#{options[:class]}\"" if options[:class] 
     output += ">"
-    children = @top.children.slice(0..(options[:top_levels]-1))
+    children = @top.children.with_page.slice(0..(options[:top_levels]-1))
     if options[:levels].is_a?(Hash) and options[:levels].has_key?(:include_parent) 
       @top.title = options[:levels][:include_parent] if options[:levels][:include_parent].is_a?(String)
       children = children.unshift(@top) 
@@ -291,7 +291,7 @@ module PagesHelper
       output += "<li class=\"#{classes.join(" ")}\">"
         output += link_to filter_page_title(navigation_title), link_url, link_options
         unless navigation.leaf? or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
-          output += "<ul>" + navigation_tree(navigation.children, options, navigation_url, level + 1) + "</ul>"
+          output += "<ul>" + navigation_tree(navigation.children.with_page, options, navigation_url, level + 1) + "</ul>"
         end
       output += "</li>"
 
