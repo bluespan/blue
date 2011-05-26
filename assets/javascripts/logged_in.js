@@ -1,5 +1,5 @@
 $(function() { 
-	$(".blue_admin_navigation").lavaLamp({ fx: "easeInQuad", speed: 300, container: 'li', target: "li:not(li li)" });
+	$(".blue_admin_navigation").lavaLamp({ fx: "easeInQuad", speed: 300, container: 'li', target: "li:not(li li)", autoResize:true, startItem:$(".blue_admin_navigation > li.current").index() });
 	$("body:not(.admin) .blue_toolbar").css({opacity:0.25});
 	$("body:not(.admin) .blue_toolbar").hoverIntent({
 			timeout: 800,
