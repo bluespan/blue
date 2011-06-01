@@ -33,7 +33,9 @@ class Navigation < ActiveRecord::Base
     final_url = ""
     self_and_ancestors_cached.each do |navigation|
       unless navigation.root?
-        final_url += "/#{navigation.page.version(version).slug}"
+        page = navigation.page.version(version)
+        page = navigation.page.version(:working) if page.nil? #fall back on working if live doesn't exist
+        final_url += "/#{page.slug}"
       end
     end
     
