@@ -64,6 +64,8 @@ module PagesHelper
                 :exclude => nil, :include => nil,
                 :collapsed => false, :force_display => false}.update(options)
     
+    options[:current_page] = @page if options.has_key?(:current_page) == false or options[:current_page].nil? 
+    
     if @page and options[:levels].is_a?(Hash) and options[:levels].has_key?(:from)
         options[:id] = "#{options[:id]}_level_#{options[:levels][:from]}"
         nav = @page.version(:working).navigations.select { |navigation| navigation.root.title.downcase == top.to_s.downcase }.first
@@ -82,7 +84,9 @@ module PagesHelper
     output =  "<ul id=\"#{options[:id]}\""
     output += " class=\"#{options[:class]}\"" if options[:class] 
     output += ">"
-    children = @top.children.with_page.slice(0..(options[:top_levels]-1))
+    
+    children = navigation_children(@top)
+    children = children.slice(0..(options[:top_levels]-1))
     if options[:levels].is_a?(Hash) and options[:levels].has_key?(:include_parent) 
       @top.title = options[:levels][:include_parent] if options[:levels][:include_parent].is_a?(String)
       children = children.unshift(@top) 
@@ -90,6 +94,13 @@ module PagesHelper
       
     output += navigation_tree(children, options, url) unless @top.nil?
     output += "</ul>"
+  end
+  
+  def navigation_children(top)
+    @navigation_descendant_tree ||= {}
+    return @navigation_descendant_tree[top.id] if @navigation_descendant_tree.has_key?(top.id)
+    @navigation_descendant_tree = @navigation_descendant_tree.merge(top.descendant_tree)
+    return @navigation_descendant_tree[top.id]
   end
   
   def breadcrumbs(options = {})
@@ -253,9 +264,9 @@ module PagesHelper
       classes = []
       classes << cycle(*options[:classes][level]) if options[:classes] && options[:classes][level]
       if @navigation
-        classes << "active"   if @navigation.self_and_ancestors_cached.include?(navigation)
+       classes << "active"   if @navigation.self_and_ancestors_cached.include?(navigation)
       end  
-      classes << "current"  if page.id == @page.id
+      classes << "current"  if page.id == options[:current_page].id
       classes << "first"  if navigation == navigations.first
       classes << "last"   if navigation == navigations.last
       classes << "collapsed"   if navigation.collapsed?
@@ -286,12 +297,16 @@ module PagesHelper
       navigation_title = navigation.l10n_attribute(:title)
       navigation_title = page.l10n_attribute(:title) if navigation_title.blank?
       
-      classes << "parent" unless navigation.leaf?
+      leaf = navigation_children(navigation).nil? or navigation_children(navigation).length == 0
       
+      classes << "parent" unless leaf
+      
+      
+    
       output += "<li class=\"#{classes.join(" ")}\">"
         output += link_to filter_page_title(navigation_title), link_url, link_options
-        unless navigation.leaf? or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
-          output += "<ul>" + navigation_tree(navigation.children.with_page, options, navigation_url, level + 1) + "</ul>"
+        unless leaf or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
+          output += "<ul>" + navigation_tree(navigation_children(navigation), options, navigation_url, level + 1) + "</ul>"
         end
       output += "</li>"
 

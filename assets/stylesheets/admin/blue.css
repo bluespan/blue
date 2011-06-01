@@ -126,7 +126,7 @@ body.admin #pending_publish li:hover {background-color:#B4C6FF;}
 body.admin #comments {float:right;width:58%;clear:none;margin-left:10px;padding:5px;border:1px solid #778EC1;overflow: auto;margin-bottom:10px;min-height:82px;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
 body.admin #comments h2 {margin-bottom:10px;font-size:16px;color:#203B8F;}
 body.admin #comments li {background:url("/images/blue/page_24.png") 5px 5px no-repeat;margin:2px 2px 10px;padding:7px 7px 15px 33px;font-size:12px;border:1px solid #203B8F;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
-body.admin #comments li.external_link {background:url("/images/blue/page_link_24.png")  5px 5px no-repeat;}
+body.admin #comments li.link {background:url("/images/blue/page_link_24.png")  5px 5px no-repeat;}
 body.admin #comments li span.tools {font-size:11px;visibility:hidden;padding-left:0px;}
 body.admin #comments li span.tools a {color:#203B8F;font-size:11px;}
 body.admin #comments li:hover span.tools,

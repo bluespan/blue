@@ -52,6 +52,7 @@ module Span
     
   module Blue
     
+    Span::admin_stylesheets[:custom] = []
     Span::admin_stylesheets[:blue] = ["blue_dialog", "content", "jquery.jgrowl.css", "shared"]
     
     @@features = []
@@ -69,15 +70,21 @@ module Span
     module Routing
       
       protected
-
+      
+      mattr_accessor :page_type_mappings
       @@page_type_mappings ||= {}
+     
  
-      def Routing.map_page_type_route(page_type, function)
-        @@page_type_mappings[page_type.to_s] = function
+      module ClassMethods
+        def map_page_type_route(page_type, function)
+          Span::Blue::Routing.page_type_mappings[page_type.to_s] = function
+        end
+      
       end
       
+
       def route
-        send(@@page_type_mappings[@page.class.to_s]) if @@page_type_mappings.has_key?(@page.class.to_s)
+        send(Span::Blue::Routing.page_type_mappings[@page.class.to_s]) if Span::Blue::Routing.page_type_mappings.has_key?(@page.class.to_s)
       end
       
       def load_page(slug, ancestors, leaf)

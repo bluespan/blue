@@ -40,6 +40,63 @@ class Navigation < ActiveRecord::Base
     final_url
   end
   
+  # def descendant_tree
+  #    @descendant_tree ||= begin
+  #        tree = {}
+  #        tree[id] ||= []
+  #        stack = []
+  #        stack.push(id)
+  #        stack_level = 0
+  #      
+  #        descendants.with_page.each do |d|
+  #          while (d.level <= stack_level)
+  #            stack_level = stack_level - 1
+  #            stack.pop
+  #          end
+  #          
+  #          tree[stack.last] << d
+  #          tree[d.id] ||= []
+  #        
+  #          if (d.level > stack_level)
+  #            stack_level = d.level
+  #            stack.push(d.id)
+  #          end
+  #        end
+  # 
+  #      tree
+  #    end
+  #  end
+  
+  def descendant_tree
+     @descendant_tree ||= begin
+         tree = {}
+         tree[id] ||= []
+         stack = []
+         stack.push(id)
+         stack_level = 0
+    
+         descendants.with_page.each do |d|
+           # determine level
+           d_level = stack.index(d.parent_id) + 1
+           
+           while (d_level <= stack_level)
+             stack_level = stack_level - 1
+             stack.pop
+           end
+
+           tree[stack.last] << d
+           tree[d.id] ||= []
+
+           if (d_level > stack_level)
+             stack_level = d_level
+             stack.push(d.id)
+           end
+         end
+
+       tree
+     end
+   end
+  
   def published_page
     @published_page ||= page.find_by_sql
   end

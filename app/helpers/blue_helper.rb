@@ -16,6 +16,9 @@ module BlueHelper
         stylesheets << stylesheet_link_tag("#{engine.to_s.downcase}/admin/#{stylesheet}")
       end
     end
+    Span::admin_stylesheets[:custom].each do |stylesheet|
+      stylesheets << stylesheet_link_tag("/stylesheets/admin/#{stylesheet}")
+    end
     stylesheets.join("\n\t")
   end
 
