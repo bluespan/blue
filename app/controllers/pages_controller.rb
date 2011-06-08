@@ -39,7 +39,7 @@ class PagesController < BlueController
     @slugs ||= request.path.split("/").delete_if {|slug| slug == ""}
 
     render_instructions = {}
-    ancestors = ""
+    @ancestors = ""
     
     # Set Locale
     if blue_features.include?(:localization)
@@ -59,10 +59,15 @@ class PagesController < BlueController
     #render_instructions = {:status => 404, :template => "pages/404.html.erb"}
     @slugs.each_index do |index|
       slug = @slugs[index]
+      @append_ancestor_with = "/#{slug}" # what to append the ancestor string with at the end
+      
       @slug_index = index
       leaf = index == @slugs.length - 1
       
-      @page = load_page(slug, ancestors, leaf)
+     
+      
+      @page = load_page(slug, @ancestors, leaf)
+      
       
       return nil unless @page.is_a?(Page)
       @page.request_params = @params
@@ -95,7 +100,7 @@ class PagesController < BlueController
         return {:status => 404, :template => "pages/404.html.erb"}
       end
       
-      ancestors += "/#{slug}"
+      @ancestors += @append_ancestor_with
     end
     
     

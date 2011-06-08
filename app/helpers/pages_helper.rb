@@ -96,11 +96,22 @@ module PagesHelper
     output += "</ul>"
   end
   
+  def rewire_navigation_tree(parent_id, new_parent_id)
+    rewired_navigation_tree(parent_id, new_parent_id)
+  end
+  
+  def rewired_navigation_tree(parent_id = nil, new_parent_id = nil)
+    @rewired_navigation_tree ||= {}
+    @rewired_navigation_tree[parent_id] = new_parent_id unless parent_id.nil? || new_parent_id.nil?
+    @rewired_navigation_tree
+  end
+  
   def navigation_children(top)
     @navigation_descendant_tree ||= {}
-    return @navigation_descendant_tree[top.id] if @navigation_descendant_tree.has_key?(top.id)
+    return @navigation_descendant_tree[rewired_navigation_tree[top.id] || top.id] if @navigation_descendant_tree.has_key?(top.id)
     @navigation_descendant_tree = @navigation_descendant_tree.merge(top.descendant_tree)
-    return @navigation_descendant_tree[top.id]
+    
+    return @navigation_descendant_tree[rewired_navigation_tree[top.id] || top.id]
   end
   
   def breadcrumbs(options = {})

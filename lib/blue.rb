@@ -101,6 +101,7 @@ module Span
             @navigation = @page.navigation(path)
             @page = nil if @navigation.blank? && (not ancestors.blank?)
           end
+          
         end
 
         # Require member log in?
