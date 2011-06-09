@@ -13,7 +13,7 @@ class Page < ActiveRecord::Base
   has_many    :content_placements
   has_many    :content_modules, :through => :content_placements
   
-  has_many    :published, :class_name => "Page", :foreign_key => :working_id, :order => "id DESC"
+  has_many    :published, :class_name => "Page", :foreign_key => :working_id, :order => "id DESC", :dependent => :destroy
   has_one     :live,      :class_name => "Page", :foreign_key => :working_id, :conditions => {:is_live => true}
   belongs_to  :working,   :class_name => "Page", :foreign_key => :working_id
     

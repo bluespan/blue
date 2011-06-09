@@ -65,7 +65,7 @@ class PagesController < BlueController
       leaf = index == @slugs.length - 1
       
      
-      
+      #logger.info "SLUG: #{slug} - ANCESTORS: #{@ancestors}"
       @page = load_page(slug, @ancestors, leaf)
       
       
