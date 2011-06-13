@@ -1,7 +1,7 @@
 <% form_for @verbiage, :url => "/admin/verbiage/#{@verbiage.id}", :method => :put do |f| %>
 
 <h1>
-	<span class="tools"><% if blue_features.include?(:comments) %><a href="<%= admin_page_comments_url(@verbiage.contentable)%>" class="view_comments" id="view_page_verbiage_comments_button">View Comments</a><% end %>
+	<span class="tools"><% if blue_features.include?(:comments) and @verbiage.contentable.is_a?(Page)%><a href="<%= admin_page_comments_url(@verbiage.contentable)%>" class="view_comments" id="view_page_verbiage_comments_button">View Comments</a><% end %>
 	<% if blue_features.include?(:localization)%>
 		<label for="verbiage_locale">Locale:</label>
 		<% 	@locales = []
