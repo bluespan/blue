@@ -50,8 +50,8 @@ class Admin::CollectionsController < Admin::BlueAdminController
   end
   
   def add_default_view_path
-    self.view_paths.unshift "vendor/plugins/blue/app/views/admin/collections/"
-    self.view_paths.unshift "app/views/#{params[:controller]}"
+    prepend_view_path ["#{RAILS_ROOT}/vendor/plugins/blue/app/views/admin/collections/"]
+    prepend_view_path ["#{RAILS_ROOT}/app/views/#{params[:controller]}"]
   end
   
   def determine_model
