@@ -11,7 +11,7 @@ class Page < ActiveRecord::Base
   has_many    :content_placements
   has_many    :content_modules, :through => :content_placements
   
-  has_many    :published, :class_name => "Page", :foreign_key => :working_id, :order => "id DESC"
+  has_many    :published, :class_name => "Page", :foreign_key => :working_id, :order => "id DESC", :dependent => :destroy
   has_one     :live,      :class_name => "Page", :foreign_key => :working_id, :order => "id DESC"
   belongs_to  :working,   :class_name => "Page", :foreign_key => :working_id
     
@@ -238,7 +238,7 @@ class Page < ActiveRecord::Base
     #   slug.nil? ? self.workings.find(:all, :include => :live).collect{|p| p.live}.compact : self.published(slug).first
     # end
 
-    def load_from_url(slug = nil, ancestors = "")
+    def load_from_url(slug = nil, ancestor_url = "")
       return self.workings if slug.nil?
 
 
@@ -250,22 +250,22 @@ class Page < ActiveRecord::Base
 
       pages.each do |page|
         page.urls.each do |url|
-          return page if ancestors+"/"+slug == url 
+          return page if ancestor_url+"/"+slug == url 
         end
       end
 
       return pages.first
     end
       
-    def working(slug = nil, ancestors = "")
+    def working(slug = nil, ancestor_url = "")
       return (self.workings || self) if slug.nil?
       
       pages = self.workings(slug)
-      return pages.first if pages.length == 0 || ancestors.blank?
+      return pages.first if pages.length == 0 || ancestor_url.blank?
       
       pages.each do |page|
         page.urls.each do |url|
-          return page if ancestors+"/"+slug == url
+          return page if ancestor_url+"/"+slug == url
         end
       end
       
