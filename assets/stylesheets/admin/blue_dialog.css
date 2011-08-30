@@ -35,7 +35,7 @@ body.admin  .dialog .errorExplanation h2 {-moz-border-radius:6px 0 0 0 ;-webkit-
 .modalContainer form .two_lines label {clear:both;width:auto;display:block;float:none;}
 .modalContainer form .two_lines input {clear:both;width:auto;float:none;margin-bottom:5px;}
 
-body .modalContainer h1 {float:none;font-size:18px;margin-bottom:10px;border-bottom:2px solid #778EC1;padding-bottom:1px;color:#203B8F;}
+body .modalContainer h1 {margin:0;float:none;font-size:18px;margin-bottom:10px;border-bottom:2px solid #778EC1;padding-bottom:1px;color:#203B8F;}
 body .modalContainer p {margin:0px 0 10px;line-height:130%;} 
 .modalContainer h1 .tools {float:right;font-size:12px;}
 .modalContainer em {font-size:12px;color:#203B8F;font-weight:bold;}
@@ -128,7 +128,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 
 
 .modalContainer .trayDialog {font-family:arial;margin:10px;	-moz-border-radius: 10px 0 0 10px;-webkit-border-top-left-radius: 10px;-webkit-border-bottom-left-radius: 10px;border-radius: 10px 0 0 10px;}
-.modalContainer .trayDialog .assets {font-size:11px;text-align:center;}
+.modalContainer .trayDialog .assets {font-size:11px;text-align:center;margin:0;}
 .modalContainer .trayDialog .assets li {margin-bottom:5px;padding:5px;border:1px solid #fff;}
 .modalContainer .trayDialog .assets li:hover {background:#B4C6FF;}
 .modalContainer .trayDialog .assets li a {color:#203B8F;}
@@ -139,7 +139,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer .trayDialog #properties {margin-bottom:5px;}
 .modalContainer .trayDialog #properties label {margin-top:0;}
 
-.modalContainer .trayDialog h2 {font-size:16px;margin-bottom:10px;border-bottom:2px solid #778EC1;padding-bottom:1px;color:#203B8F;}
+.modalContainer .trayDialog h2 {margin:0;font-size:16px;margin-bottom:10px;border-bottom:2px solid #778EC1;padding-bottom:1px;color:#203B8F;}
 .modalContainer .trayDialog h2 .tools {float:right;}
 .modalContainer .trayDialog h2 .tools a {font-size:10px;font-weight:normal;}
 .modalContainer .trayDialog p {font-size:12px;margin-bottom:10px;color:#203B8F;line-height:130%;}

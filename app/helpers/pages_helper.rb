@@ -1,5 +1,24 @@
 module PagesHelper
   
+  def blue_include
+    concat stylesheet_link_admin  if logged_in?
+    concat javascript_include_tag "blue/jquery/jquery.simplemodal-1.1.1.js"  if logged_in?
+  	concat javascript_include_tag "blue/jquery/jquery.mousewheel.js"  if logged_in? 
+  	concat javascript_include_tag "blue/wymeditor/jquery.wymeditor.js" if logged_in? 
+  	concat javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.image_dialog.js" if logged_in? 
+  	concat javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.link_dialog.js" if logged_in? 
+  	concat javascript_include_tag "blue/jquery/jquery.easing.min.js" if logged_in? 
+  	concat javascript_include_tag "blue/jquery/jquery.lavalamp.min.js" if logged_in?  
+  	concat javascript_include_tag "blue/jquery/jquery.hoverIntent.js" if logged_in? 
+  	concat javascript_include_tag 'blue/jquery/jquery.jgrowl' if logged_in? 
+  	concat javascript_include_tag 'blue/jquery/jquery.checkbox.min' if logged_in? 
+  	concat javascript_include_tag 'blue/jquery/jquery.checkboxes.pack' if logged_in? 
+
+  	concat javascript_include_tag('blue/admin/verbiage') if logged_in? 
+  	concat javascript_include_tag "blue/logged_in.js" if logged_in?
+  	
+  end
+  
   def verbiage(key, options = {}, &default_block)
     options = {:contentable => @page, :partial => "verbiage"}.merge(options)
     return if options[:contentable].nil?

@@ -21,13 +21,16 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   # config.gem "image_science"
+  config.gem "paperclip"
+  config.gem "awesome_nested_set", :version => "< 2"
+  config.gem "will_paginate", :version => '< 3'
   config.gem "authlogic", :version => '< 2'
   config.gem "crack"
   config.gem "httparty"
   #config.gem "matthooks-vimeo", :lib => "vimeo"
   config.gem "honeypot-captcha"
   config.gem "validates_email_format_of"
-  config.gem "searchlogic"
+  #config.gem "searchlogic"
   config.gem "acts-as-taggable-on", :source => "http://gemcutter.org"
   
   # Only load the plugins named here, in the order given (default is alphabetical).

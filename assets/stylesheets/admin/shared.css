@@ -1,6 +1,7 @@
-.blue_toolbar {left:0px;height:50px;background:#778EC1;border-bottom:5px solid #203B8F;position:fixed;width:100%;top:-45px;opacity:.25;margin-bottom:10px;z-index:10000;font-family:arial;}
+.blue_toolbar {color:#000;left:0px;height:50px;background:#778EC1;border-bottom:5px solid #203B8F;position:fixed;width:100%;top:-45px;opacity:.25;margin-bottom:10px;z-index:10000;font-family:arial;}
 .admin .blue_toolbar {position:relative;opacity:1;top:0;width:100%;}
 
+.blue_toolbar ul {list-style:none;margin:0;padding:0;}
 .blue_toolbar ul.blue_logo {position:relative;float:left;margin:6px 0px 0 8px !important;margin:6px 1px 0 6px;}
 .blue_toolbar ul.blue_logo li {font-size:28px;font-weight:normal;color:#203B8F;padding:4px 8px 8px;}
 .blue_toolbar ul.blue_logo li span {color:#B4C6FF;font-size:20px;margin-left:1px;}
