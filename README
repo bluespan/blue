@@ -7,11 +7,6 @@ Blue is a content management system foundation used to create adminable websites
 Install
 =======
 
-0. Prerequisites:
-
-script/plugin install git://github.com/jackdempsey/acts_as_commentable.git -r 2.x
-script/plugin install git://github.com/rsl/stringex.git
-
 1. Add as a submodule
 git submodule add git@github.com:bluespan/blue.git vendor/plugins/blue
 git submodule init
@@ -36,4 +31,4 @@ map.connect ':controller/:action/:id.:format'
 7. Launch server
 script/server
 
-Copyright (c) 2009 Blue Span Associates, Inc.
+Copyright (c) 2011 Blue Span Associates, Inc.

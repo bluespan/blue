@@ -35,7 +35,8 @@ body.admin  .dialog .errorExplanation h2 {-moz-border-radius:6px 0 0 0 ;-webkit-
 .modalContainer form .two_lines label {clear:both;width:auto;display:block;float:none;}
 .modalContainer form .two_lines input {clear:both;width:auto;float:none;margin-bottom:5px;}
 
-body .modalContainer h1 {margin:0;float:none;font-size:18px;margin-bottom:10px;border-bottom:2px solid #778EC1;padding-bottom:1px;color:#203B8F;}
+body .modalContainer h1 {margin:0 !important;float:none !important;font-size:18px !important;margin-bottom:10px !important;border-bottom:2px solid #778EC1 !important;padding:0 0 1px 0 !important;color:#203B8F !important;background:transparent  !important;position:relative  !important;top:0;left:0;height:auto !important;}
+body .modalContainer h1:before {content:"" !important;padding-right:00px !important;}
 body .modalContainer p {margin:0px 0 10px;line-height:130%;} 
 .modalContainer h1 .tools {float:right;font-size:12px;}
 .modalContainer em {font-size:12px;color:#203B8F;font-weight:bold;}

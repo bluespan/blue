@@ -86,7 +86,7 @@ module PagesHelper
   end
   
   def navigation(top, options = {})
-    options = {:levels => 9999, :top_levels => 9999, :id => "#{top.to_s}_navigation",
+    options = {:levels => 9999, :top_levels => 9999, :top_levels_from => 0, :id => "#{top.to_s}_navigation",
                 :exclude => nil, :include => nil,
                 :collapsed => false, :force_display => false}.update(options)
     
@@ -98,6 +98,7 @@ module PagesHelper
         nav = @page.version(:working).navigations.first if nav.nil?
         @top = nav.self_and_ancestors[options[:levels][:from] - 1] 
         url = @top.url(:working)
+        options[:top_levels_from] = @top.children.index(nav.self_and_ancestors[options[:levels][:from]]) if options[:top_levels] < 9999 and options[:top_levels_from] == 0
     elsif top.is_a?(Navigation)
       @top = top
       url = "/#{top.page.slug}"
@@ -111,8 +112,8 @@ module PagesHelper
     output += " class=\"#{options[:class]}\"" if options[:class] 
     output += ">"
     
-    children = navigation_children(@top)
-    children = children.slice(0..(options[:top_levels]-1))
+    children = navigation_children(@top)    
+    children = children.slice(options[:top_levels_from], options[:top_levels])
     if options[:levels].is_a?(Hash) and options[:levels].has_key?(:include_parent) 
       @top.title = options[:levels][:include_parent] if options[:levels][:include_parent].is_a?(String)
       children = children.unshift(@top) 

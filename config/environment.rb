@@ -21,17 +21,19 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   # config.gem "image_science"
-  config.gem "paperclip"
-  config.gem "awesome_nested_set", :version => "< 2"
-  config.gem "will_paginate", :version => '< 3'
-  config.gem "authlogic", :version => '< 2'
-  config.gem "crack"
-  config.gem "httparty"
+  config.gem "paperclip", :version => "2.3.8"
+  config.gem "stringex", :version => "= 1.2"
+  config.gem "awesome_nested_set", :version => "1.4.3"
+  config.gem "will_paginate", :version => '2.3.15'
+  config.gem "authlogic", :version => '1.3.8'
+  #config.gem "crack"
+  #config.gem "httparty"
   #config.gem "matthooks-vimeo", :lib => "vimeo"
-  config.gem "honeypot-captcha"
-  config.gem "validates_email_format_of"
+  #config.gem "honeypot-captcha"
+  config.gem "validates_email_format_of", :version => "1.4.7"
   #config.gem "searchlogic"
-  config.gem "acts-as-taggable-on", :source => "http://gemcutter.org"
+  config.gem "acts-as-taggable-on", :source => "http://gemcutter.org", :version => '2.1.0'
+  config.gem "acts_as_commentable", :version => "< 3"
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
