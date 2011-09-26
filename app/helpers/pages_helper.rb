@@ -98,7 +98,7 @@ module PagesHelper
         nav = @page.version(:working).navigations.first if nav.nil?
         @top = nav.self_and_ancestors[options[:levels][:from] - 1] 
         url = @top.url(:working)
-        options[:top_levels_from] = @top.children.index(nav.self_and_ancestors[options[:levels][:from]]) if options[:top_levels] < 9999 and options[:top_levels_from] == 0
+        options[:top_levels_from] = @top.children.index(nav.self_and_ancestors[options[:levels][:from]]) || 0 if options[:top_levels] < 9999 and options[:top_levels_from] == 0
     elsif top.is_a?(Navigation)
       @top = top
       url = "/#{top.page.slug}"
