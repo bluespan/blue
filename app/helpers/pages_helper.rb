@@ -97,6 +97,7 @@ module PagesHelper
         nav = @page.version(:working).navigations.select { |navigation| navigation.root.title.downcase == top.to_s.downcase }.first
         nav = @page.version(:working).navigations.first if nav.nil?
         @top = nav.self_and_ancestors[options[:levels][:from] - 1] 
+        return if @top.nil?
         url = @top.url(:working)
         options[:top_levels_from] = @top.children.index(nav.self_and_ancestors[options[:levels][:from]]) || 0 if options[:top_levels] < 9999 and options[:top_levels_from] == 0
     elsif top.is_a?(Navigation)
@@ -157,8 +158,10 @@ module PagesHelper
   end
   
   def body_attributes
+    extra_classes = ""
+    extra_classes += " can-admin-content" if logged_in? and current_admin_user.has_permission?(:admin_content)
     if @page
-     return "id=\"#{@page.body_id || @page.slug}\" class=\"#{@page.body_class || @page.template.css_class}\""
+     return "id=\"#{@page.body_id || @page.slug}\" class=\"#{@page.body_class || @page.template.css_class}#{extra_classes}\""
     else
       return "class=\"error\""
     end
@@ -335,12 +338,12 @@ module PagesHelper
       navigation_title = navigation.l10n_attribute(:title)
       navigation_title = page.l10n_attribute(:title) if navigation_title.blank?
       
-      leaf = navigation_children(navigation).nil? or navigation_children(navigation).length == 0
+      children = navigation_children(navigation)
+      logger.info "NAV #{navigation}, CHILDREN #{children}"
+      leaf = children.blank? or children.length == 0
       
       classes << "parent" unless leaf
-      
-      
-    
+          
       output += "<li class=\"#{classes.join(" ")}\">"
         output += link_to filter_page_title(navigation_title), link_url, link_options
         unless leaf or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)

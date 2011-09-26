@@ -129,8 +129,8 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 
 
 .modalContainer .trayDialog {font-family:arial;margin:10px;	-moz-border-radius: 10px 0 0 10px;-webkit-border-top-left-radius: 10px;-webkit-border-bottom-left-radius: 10px;border-radius: 10px 0 0 10px;}
-.modalContainer .trayDialog .assets {font-size:11px;text-align:center;margin:0;}
-.modalContainer .trayDialog .assets li {margin-bottom:5px;padding:5px;border:1px solid #fff;}
+.modalContainer .trayDialog .assets {font-size:11px;text-align:center;margin:0;list-style:none;margin:0;padding-left:0;}
+.modalContainer .trayDialog .assets li {margin-bottom:5px;padding:5px;border:1px solid #fff;margin-left:0;}
 .modalContainer .trayDialog .assets li:hover {background:#B4C6FF;}
 .modalContainer .trayDialog .assets li a {color:#203B8F;}
 .modalContainer .trayDialog .assets li .thumbnail {margin-bottom:5px;}
