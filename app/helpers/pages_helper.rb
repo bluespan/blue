@@ -161,7 +161,7 @@ module PagesHelper
     extra_classes = ""
     extra_classes += " can-admin-content" if logged_in? and current_admin_user.has_permission?(:admin_content)
     if @page
-     return "id=\"#{@page.body_id || @page.slug}\" class=\"#{@page.body_class || @page.template.css_class}#{extra_classes}\""
+     return "id=\"#{@page.body_id || @page.slug}\" class=\"#{@page.body_class || @page.template.css_class} #{@page.class.css_class}#{extra_classes}\""
     else
       return "class=\"error\""
     end
