@@ -339,7 +339,6 @@ module PagesHelper
       navigation_title = page.l10n_attribute(:title) if navigation_title.blank?
       
       children = navigation_children(navigation)
-      logger.info "NAV #{navigation}, CHILDREN #{children}"
       leaf = children.blank? or children.length == 0
       
       classes << "parent" unless leaf
