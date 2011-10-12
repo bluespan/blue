@@ -28,18 +28,24 @@ class Admin::CollectionsController < Admin::BlueAdminController
   end
   
   def update
-    @item = @model.find(params[:id])
-    if @item.update_attributes(model_params)
-      flash[:notice] = "#{@item.class.name.titleize} <em>#{@item.title}</em> was successfully <em>updated.</em>"
-      redirect_to :action => 'index'
-    else
-      render_default_template :edit
+   respond_to do |wants|
+      @item = @model.find(params[:id])
+      if @item.update_attributes(model_params)
+        #ActivityLog.log(current_admin_user, @page, :updated, "#{current_admin_user.fullname} updated #{@page.class.to_s} #{@page.title}")
+
+        flash.now[:notice] = "#{@item.class.name.titleize} <em>#{@item.display_title}</em> was successfully <em>updated.</em>"
+        wants.html { redirect_to :action => "index "}
+        wants.js
+      else
+        wants.html { render_default_template :edit }
+        wants.js { render :template => "admin/error", :locals => {:object => @item} }
+      end
     end
   end
   
   def destroy
     @item = @model.destroy(params[:id])
-    flash[:notice] = "#{@item.class.name.titleize} <em>#{@item.title}</em> was successfully <em>deleted.</em>"
+    flash[:notice] = "#{@item.class.name.titleize} <em>#{@item.display_title}</em> was successfully <em>deleted.</em>"
     redirect_to :action => 'index'
   end
   

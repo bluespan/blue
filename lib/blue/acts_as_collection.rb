@@ -65,6 +65,10 @@ module Blue
           collection.version(version).nil? ? "#" : "#{collection.version(version).url}/#{(self.slug)}"
         end  
         
+        def display_title
+          title
+        end
+        
         def template_file
           "show.html.erb"
         end
