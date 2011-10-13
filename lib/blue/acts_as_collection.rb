@@ -9,29 +9,30 @@ module Blue
       end
 
       module ClassMethods
-        def acts_as_collection(params = {})  
+        def acts_as_collection(options = {})  
                     
-          include Blue::Acts::Collection::InstanceMethods
           extend Blue::Acts::Collection::SingletonMethods
+          include Blue::Acts::Collection::InstanceMethods
           
-          @@options = {:slugs => false}
-
-          def options=(options)
-            @@options = options
-          end
-
-          def options
-            @@options
-          end
-          
-          @@options = options.merge(params)
+          options = {:slugs => false}.merge(options)
           
           named_scope :newest, :order => "published_at DESC"
           named_scope :published, lambda { {:conditions => ["published_at <= ?", Time.now] } }
           
-          if @@options[:slugs]
-            before_validation :generate_unique_slug!
+          
+          if options[:slugs]
+            auto_slug_field = "'#{options[:slugs]}'.intern"
+          else
+            auto_slug_field = "false"
           end
+          
+          class_eval <<-EOV
+            def auto_slug_field
+              #{auto_slug_field}
+            end
+          EOV
+          
+          before_validation :generate_unique_slug! if auto_slug_field
           
         end
         
@@ -94,10 +95,10 @@ module Blue
         end
 
         def generate_unique_slug!
-          return self[:slug] unless self[:slug].blank?
+          return self[:slug] unless self.auto_slug_field == false or self[:slug].blank?
           
           # StringExtensions method
-          self[:slug] = (self[self.class.options[:slugs]] || "").to_url 
+          self[:slug] = (self[self.auto_slug_field] || "").to_url 
 
           # Make sure slug is unique-like
           unless ( item = self.class.find_by_slug(:last, :conditions => ["slug like ?", self[:slug]], :select => "slug", :order => "slug") ).nil?
@@ -113,4 +114,5 @@ module Blue
   end
 end
 
-ActiveRecord::Base.send(:include, Blue::Acts::Collection)
+ActiveRecord::Base.class_eval { include Blue::Acts::Collection }
+
