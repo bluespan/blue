@@ -34,7 +34,7 @@ class Admin::CollectionsController < Admin::BlueAdminController
         #ActivityLog.log(current_admin_user, @page, :updated, "#{current_admin_user.fullname} updated #{@page.class.to_s} #{@page.title}")
 
         flash.now[:notice] = "#{@item.class.name.titleize} <em>#{@item.display_title}</em> was successfully <em>updated.</em>"
-        wants.html { redirect_to :action => "index "}
+        wants.html { redirect_to :action => "index"}
         wants.js
       else
         wants.html { render_default_template :edit }
