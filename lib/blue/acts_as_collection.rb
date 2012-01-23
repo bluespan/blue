@@ -77,7 +77,7 @@ module Blue
         def proxy_page(version = :live)
           @proxy_page ||= begin
             proxy = Proxy::Page::Item.new({:id => collection.id })
-            exclude_attributes = [:id, :type, :url]
+            exclude_attributes = [:id, :type, :url, :published]
 
             proxy.attributes.reject{|a, v| exclude_attributes.include?(a.to_sym) }.each do |a, v|
               proxy.send(:"#{a}=", self.send(:"#{a}") ) if self.respond_to?(a)
