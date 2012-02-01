@@ -13,12 +13,12 @@ class Admin::MembersController < Admin::BlueAdminController
     password_chars = ("a".."z").to_a + ("1".."9").to_a 
     password = Array.new(8, '').collect{password_chars[rand(password_chars.size)]}.join
     
-    params[:member] = params[:member].merge(:login => params[:member][:email], :password => password, :password_confirmation => password)
+    params[:member] = {:login => params[:member][:email], :password => password, :password_confirmation => password}.merge(params[:member])
     @member = Member.new(params[:member])
     
     respond_to do |wants|
       if @member.save
-        flash.now[:notice] = "Member <em>#{@member.firstname} #{@member.lastname}</em> successfully created."
+        flash.now[:notice] = "Member <em>#{@member.name}</em> successfully created."
         wants.html { redirect_to admin_membership_url}
         wants.js
       else
@@ -37,7 +37,7 @@ class Admin::MembersController < Admin::BlueAdminController
     
     respond_to do |wants|
       if @member.update_attributes(params[:member])
-        flash.now[:notice] = "Member <em>#{@member.firstname} #{@member.lastname}</em> successfully updated."
+        flash.now[:notice] = "Member <em>#{@member.name}</em> successfully updated."
         wants.html { redirect_to admin_membership_url }
         wants.js
       else
@@ -53,7 +53,7 @@ class Admin::MembersController < Admin::BlueAdminController
       if @member.destroy
         #ActivityLog.log(current_admin_user, @old_page, :deleted, "#{current_admin_user.fullname} deleted #{@old_page.class.to_s} #{@old_page.title}")
         
-          flash.now[:notice] = "Member <em>#{@member.firstname} #{@member.lastname}</em> successfully deleted."
+          flash.now[:notice] = "Member <em>#{@member.name}</em> successfully deleted."
           wants.html { redirect_to admin_membership_url }
           wants.js { render :template => "admin/members/destroy.js" }
       end

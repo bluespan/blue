@@ -283,7 +283,7 @@ module PagesHelper
       next if page.nil?
       next if blue_features.include?(:localization) && page.l10n_attribute(:enabled) == false
       next if (navigation.display? == false && options[:force_display] == false) || page.nil?
-      next if navigation.display_to_members_only? && member_logged_in? == false
+      next if navigation.display_to_members_only? && (member_logged_in? == false || page.can_access?(current_member) == false)
       next if page.class == PageTypes::MemberSignInPage && member_logged_in? == true
       next if page.class == PageTypes::MemberSignInPage && @page.class == PageTypes::MemberSignInPage
       next if page.class == PageTypes::MemberSignOutPage && member_logged_in? == false

@@ -7,6 +7,18 @@ module BlueHelper
   def blue_collections
     Span::Blue.collections
   end
+  
+  def blue_error_messages_for (object)
+    error_message = ""
+    if object.errors.any?
+      error_message += "<div class='errorExplanation'><h2>There were the following errors:</h2><ul>"
+        object.errors.full_messages.each do |msg|
+          error_message += "<li>#{msg}</li>"
+        end 
+      error_message += "</ul></div>"
+    end
+    error_message
+  end
 
   def stylesheet_link_admin
     return unless logged_in?

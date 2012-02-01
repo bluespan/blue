@@ -19,7 +19,7 @@ class Admin::MembershipController < Admin::BlueAdminController
   private
   def create_or_load_member
     unless @member = Member.find(:first)
-      @member = Member.create({:login => "member", :password => "member", :password_confirmation => "member"})
+      #@member = Member.create({:login => "member", :password => "member", :password_confirmation => "member"})
     end
   end
   

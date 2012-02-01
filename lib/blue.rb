@@ -3,6 +3,7 @@
 require 'blue/extensions/routes'
 require 'blue/acts_as_contentable'
 require 'blue/acts_as_collection'
+require 'blue/has_assigned_member_roles'
 require 'blue/has_localized_data'
 require 'blue/blue_form_builder'
 
@@ -106,7 +107,7 @@ module Span
 
         # Require member log in?
        
-        if leaf == true && @page.nil? == false && @page.members_only? && member_logged_in? == false && logged_in? == false
+        if leaf == true && @page.nil? == false && @page.members_only? && (member_logged_in? == false || @page.can_access?(current_member) == false) && logged_in? == false
           session[:member_requested_page] = request.path
           redirect_to new_member_session_url
         else  

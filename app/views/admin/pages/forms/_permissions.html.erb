@@ -3,4 +3,25 @@
 	<ul class="permissions checkbox">
 		<li><%= f.check_box :members_only, :class => "checkbox", :name => "page[members_only]", :id => "page_members_only"  %> <label for="page_members_only">Members Only</label></li>
 	</ul>
+	
+	<% if MemberRole.count > 0 %>
+	<legend>Roles</legend>
+	<ul class="permissions checkbox">
+	    <input type="hidden" name="page[member_role_ids][]" value="">
+	  <% MemberRole.all.each do |role| %>
+			<li><input class="checkbox role" type="checkbox" name="page[member_role_ids][]" value="<%= role.id %>" id="page_member_role_ids_<%= role.id %>" <%= "checked='checked'" if @page.has_role?(role.name) %> /> <label for="page_member_role_ids_<%= role.id %>"  class="checkbox" ><%= role.name %></label></li>
+		<% end %>
+	</ul>
+	
+	<script type="text/javascript">
+	  $(function(){
+	    $(".permissions input.role").change(function(){
+	      if ($(this).attr("checked")) {
+	        $("#page_members_only").attr("checked", true)
+	      }
+	    })
+	  })
+	</script>
+	
+	<% end %>
 </fieldset>	

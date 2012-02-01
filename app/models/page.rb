@@ -31,6 +31,7 @@ class Page < ActiveRecord::Base
   acts_as_commentable
   acts_as_contentable
   has_localized_data
+  has_assigned_member_roles
        
   def navigation(path)
     @navigation ||= {}
@@ -67,7 +68,14 @@ class Page < ActiveRecord::Base
       new_tagging = tagging.clone
       new_tagging.taggable_id = published_page.id
       new_tagging.save
-    end    
+    end  
+    
+    # Publish Member Roles
+    assigned_member_roles.each do |role|
+      new_assigned_role = role.clone
+      new_assigned_role.assignable_id = published_page.id
+      new_assigned_role.save
+    end  
 
     published_page
   end

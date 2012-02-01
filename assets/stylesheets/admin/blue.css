@@ -143,8 +143,8 @@ body.admin #comments .user strong {font-weight:bold;}
 body.admin #comments span.tools .view_comments {background-image:url(#);padding-left:0;}
 
 
-body.admin form.edit_member label {display:block;margin-bottom:2px;font-size:12px;clear:left;color:#203B8F;font-weight:bold;}
-body.admin form.edit_member input {display:block;margin-bottom:10px;width:250px;}
+/*body.admin form.edit_member label {display:block;margin-bottom:2px;font-size:12px;clear:left;color:#203B8F;font-weight:bold;}
+body.admin form.edit_member input {display:block;margin-bottom:10px;width:250px;}*/
 body.admin form.edit_member input.button {display:inline;width:auto;}
 body.admin form.edit_member .buttons {float:none;}
 
