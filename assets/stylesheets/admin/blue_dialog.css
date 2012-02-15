@@ -15,7 +15,7 @@ body.admin  .dialog .errorExplanation h2 {-moz-border-radius:6px 0 0 0 ;-webkit-
 #admin_user_dialog .left_column img {border:1px solid #000;margin-bottom:5px;}
 #admin_user_dialog .left_column a {color:#203B8F;}
 #admin_user_dialog .middle_column {width:319px;float:left;margin-right:20px;}
-#admin_user_dialog .right_column {width:140px;float:left;}
+#admin_user_dialog .right_column {width:auto;float:left;}
 #admin_user_dialog .middle_column *,
 #admin_user_dialog .right_column * {width:auto;}
 

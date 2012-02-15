@@ -2,7 +2,9 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace :admin do |admin|
     
-    admin.root :controller => 'pages', :action => 'index'
+    admin.root :controller => 'blue_admin', :action => 'index'
+    admin.blue 'blue', :controller => 'pages', :action => 'index'
+    
     admin.resources :pages, :member => {:publish => :put, :typecast => :get}, :collection => {:publish_all => :put, :typecast => :get} do |pages|
       pages.resources :comments
       pages.resources :content_placements

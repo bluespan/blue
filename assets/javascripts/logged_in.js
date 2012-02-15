@@ -26,8 +26,8 @@ $(function() {
 		logo_list.attr("id", logo_list.attr("id") + "_clone")
 		logo_list.addClass("blue_choose_logo");
 		
-		var current_color = $(this).find("li:first").attr("class").split("_");
-		current_color = current_color[0];
+		var current_color = $(this).find("li:first").attr("class").replace("_logo", "");
+		//current_color = current_color[0];
 		
 		$(".blue_toolbar:hidden .blue_logo").each(function(){
 			$(this).find("li:first").clone().appendTo(logo_list)
@@ -36,8 +36,8 @@ $(function() {
 		
 		logo_list.find("li").click(function(){
 			$(".blue_logo").trigger("mouseleave");
-			var color = $(this).attr("class").split("_")
-			color = color[0];
+			var color = $(this).attr("class").replace("_logo", "");
+			//color = color[0];
 			
 			if (color != current_color) {
 				

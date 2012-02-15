@@ -8,5 +8,5 @@
 <% form_for @item, :url => "/admin/collections/#{@model.name.tableize}/update/#{@item.id}", :html => { :class => "collection", :multipart => true }, :builder => BlueFormBuilder do |f| %>
 	<%= f.error_messages %>
 	<%= render :partial => "form", :locals => {:f => f} %>
-	<p><%= f.submit "Update" %> | <%= link_to "Cancel", :action => "index" %></p>
+	<p class="buttons"><%= f.submit "Update" %> | <%= link_to "Cancel", :action => "index" %></p>
 <% end %>

@@ -37,7 +37,7 @@ module BlueHelper
   def render_admin_toolbars
     html = ""
     Span::included_engines.each do |engine|
-      html += render :partial => "admin/#{engine.to_s.downcase}_toolbar" if logged_in?
+      html += render :partial => "admin/#{engine.to_s.downcase}_toolbar" if logged_in? and current_admin_user.can_access_engine?(engine)
     end
     return html
   end
@@ -86,6 +86,12 @@ module BlueHelper
 
   def humanize(string)
     string.to_s.underscore.titleize
+  end
+  
+  def default_admin_url
+    Span::included_engines.each do |engine|
+      return self.send("admin_#{engine}_url") if current_admin_user.can_access_engine?(engine)
+    end
   end
   
 

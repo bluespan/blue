@@ -1,6 +1,6 @@
-<li id="admin_user_<%= admin_user.id %>"><%= image_tag admin_user.photo.url %>
+<li id="admin_user_<%= admin_user.id %>"><%= image_tag admin_user.photo.url if Span::Blue.features.include?(:comments)%>
   	<div class="data">
-	<% if (current_admin_user.has_role?(:administrator) or current_admin_user == admin_user) and ((admin_user.has_permission?(:blue_admin) == false) or (current_admin_user.has_permission?(:blue_admin) and admin_user.has_permission?(:blue_admin)))%>
+	<% if (current_admin_user.has_permission?(:admin_admin_users) or current_admin_user == admin_user) and ((admin_user.has_permission?(:blue_admin) == false) or (current_admin_user.has_permission?(:blue_admin) and admin_user.has_permission?(:blue_admin)))%>
 
 	<span class="tools"> <%= link_to "Edit", edit_admin_admin_user_path(admin_user), :class => "edit" %>
 		<% if current_admin_user != admin_user %>
@@ -10,6 +10,6 @@
 	<% end %>
 	<span class="name"><%= admin_user.fullname %></span>
 	<span class="email"><%= link_to admin_user.email, "mailto:#{admin_user.email}" %></span> <br />
-	<span class="rolls"><label>Roles:</label> <% admin_user.roles.each do |role| %><span class="role"><%= role.name %></span> <% end %></span>
+	<span class="roles"><label>Roles:</label> <% admin_user.roles.each do |role| %><span class="role <%= role.engine %>"><%= role.name %></span> <% end %></span>
 	</div>
 </li>

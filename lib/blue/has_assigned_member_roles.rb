@@ -20,13 +20,17 @@ module Blue
       
       module InstanceMethods
         
+        def roles
+          member_roles
+        end
+        
         def has_role?(role_name)
-          member_roles.map { |role| role.name.downcase }.include?(role_name.to_s.downcase)
+          roles.map { |role| role.name.downcase }.include?(role_name.to_s.downcase)
         end
         
         def can_access? (member)
           return true if member_roles.count == 0
-          member_roles.each do |role|
+          roles.each do |role|
             return true if member.has_role?(role.name)
           end
           false

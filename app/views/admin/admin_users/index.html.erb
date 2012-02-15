@@ -6,8 +6,8 @@
 
 
 <h1>
-	<% if current_admin_user.has_role?(:administrator)%>
-	<span class="buttons"><a href="admin_users/new" class="new new_user" id="new_admin_user_button">Create Admin User</a></span>
+  <% if current_admin_user.has_permission?(:admin_admin_users)%>
+	<span class="buttons"><a href="<%= new_admin_admin_user_path %>" class="new new_user" id="new_admin_user_button">Create Admin User</a></span>
 	<% end %>
 	Admin Users
 </h1>

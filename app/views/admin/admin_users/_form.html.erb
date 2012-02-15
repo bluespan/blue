@@ -1,9 +1,11 @@
-<div class="left_column">
+
+<% if Span::Blue.features.include?(:comments)%><div class="left_column">
 	<div class="photo">
 		<%= image_tag @admin_user.photo.url %><br />
 		<%= link_to "Change", "#", :class => "select_file" %>
 	</div>
 </div>
+<% end %>
 
 <div class="middle_column">
 <fieldset>
@@ -46,15 +48,17 @@
 </div>
 
 <div class="right_column">
-<% if current_admin_user.has_role?(:administrator)%>
-<fieldset>
-	<legend>Roles</legend>
-	
-	<ul class="roles">
-		<% roles.each do |role| %>
+<% if current_admin_user.has_permission?(:admin_admin_users)%>
+
+	<% Span::included_engines.each do |engine| %>
+	<fieldset>
+  	<legend><%= engine != "blue" ? engine.gsub("_", " ").titleize+" " : "" %>Roles</legend>
+	<ul class="roles <%= engine %>_roles">
+		<% roles.select{ |role| role.engine == engine }.each do |role| %>
 			<li><input class="checkbox" type="checkbox" name="admin_user[admin_user_roles][<%= role.name %>]" value="1" <%= "checked" if @admin_user.has_role?(role.name) %> /> <%= role.name %></li>
 		<% end %>
 	</ul>	
-</fieldset>
+  </fieldset>
+	<% end %>
 <% end %>
 </div>

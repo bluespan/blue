@@ -16,7 +16,7 @@ if ($("#admin_user_photo_form").length > 0) {
 
 function admin_users_tear_down(admin_user) {
 	$.modal.close();
-	$("#admin_user_<%= @admin_user.id %>").html(admin_user)
+	$("#admin_user_<%= @admin_user.id %>").replaceWith(admin_user)
 
 	// Update Logged In As Name
 	<% if current_admin_user == @admin_user %>
@@ -27,5 +27,6 @@ function admin_users_tear_down(admin_user) {
 
 	$("#admin_user_<%= @admin_user.id %>").hide();
 	$("#admin_user_<%= @admin_user.id %>").fadeIn();
+	equalize_admin_user_height();
 }
 $.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

@@ -27,4 +27,8 @@ class AdminUser < ActiveRecord::Base
   def has_permission?(permission_name)
     roles.map { |role| role.has_permission?(permission_name) }.include?(true)
   end
+  
+  def can_access_engine?(engine_name)
+    roles.map { | role| role.engine }.include?(engine_name)
+  end
 end

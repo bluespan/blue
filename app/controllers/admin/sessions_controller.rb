@@ -11,7 +11,7 @@ class Admin::SessionsController < BlueController
   def create
     @admin_session = AdminSession.new(params[:admin_session])
     if @admin_session.save
-      redirect_to admin_pages_url
+      redirect_to default_admin_url
     else
       render :action => :new
     end

@@ -66,7 +66,7 @@ class Admin::CollectionsController < Admin::BlueAdminController
   end
   
   def controller_unnamespaced
-    params[:controller].gsub(params[:prefix_path], "")
+    params[:controller].gsub(params[:prefix_path] || "", "")
   end
   
   def model_params

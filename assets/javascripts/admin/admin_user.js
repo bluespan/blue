@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	bind_admin_user_dialog("#new_admin_user_button");
 	bind_admin_users("#admin_users li");
-	
+	equalize_admin_user_height();
 });
 
 var current_dialog;
@@ -85,6 +85,15 @@ function bind_admin_users(admin_user) {
 		}
 		return false;
 	})
+}
+
+function equalize_admin_user_height() {
+  var max_height = 0;
+  $("#admin_users > li").each(function(){
+    if ($(this).height() > max_height) { max_height = $(this).height();}
+  }).each(function(){
+    $(this).height(max_height);
+  })
 }
 
 

@@ -60,6 +60,7 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
     options[:class] += options[:required] ? " required" : "" 
     options[:class] += @object.errors.on(method) ? " error" : ""
     label += "<strong><sup>*</sup></strong>" if options[:required]
+    options.delete(:required) unless options[:required] == true
     [field_name, label, options]
   end
 

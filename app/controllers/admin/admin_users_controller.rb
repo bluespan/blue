@@ -16,9 +16,11 @@ class Admin::AdminUsersController < Admin::BlueAdminController
     respond_to do |wants|
        if @admin_user.save(params[:admin_user])
          flash.now[:notice] = "#{@admin_user.class.to_s.underscore.titleize} <em>#{@admin_user.fullname}</em> was successfully <em>created.</em>"
+            logger.info "SUCCESS"
          wants.html { render :partial => "admin_user", :locals => {:admin_user => @admin_user} }
          wants.js
        else
+         logger.info "ERROR"
          wants.html { render :action => :new }
          wants.js { render :template => "admin/error", :locals => {:object => @admin_user} }
        end
@@ -59,7 +61,7 @@ class Admin::AdminUsersController < Admin::BlueAdminController
      end
   end
   
-  private 
+  protected 
   
   def find_model
     params[:admin_user][:admin_user_roles] = AdminUserRole.find(:all, :conditions => {:name => params[:admin_user][:admin_user_roles].keys} ) if params[:admin_user] && params[:admin_user][:admin_user_roles]
@@ -67,7 +69,7 @@ class Admin::AdminUsersController < Admin::BlueAdminController
   end
   
   def verify_administrator
-    head(422) unless current_admin_user.has_role?(:administrator) || ((action_name == 'edit' || action_name == 'update') && params[:id] == current_admin_user.id.to_s)
+    head(422) unless current_admin_user.has_permission?(:admin_admin_users) || ((action_name == 'edit' || action_name == 'update') && params[:id] == current_admin_user.id.to_s)
   end
   
 end
