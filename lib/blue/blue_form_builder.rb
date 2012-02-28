@@ -68,7 +68,7 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
   def wrapping(type, method, field_name, label, field, options = {})
    to_return = []
    to_return << %Q{<div class="field #{type}-field #{options[:class]}">}
-   to_return << %Q{<label for="#{field_name}">#{label}</label>} unless ["radio","check-box", "submit"].include?(type)
+   to_return << %Q{<label for="#{field_name}">#{label}</label>} unless ["radio","check-box", "submit"].include?(type) or label.blank?
    to_return << %Q{<p class="description">#{options[:description]}</p>} if options[:description] && ["radio","check-box"].include?(type) == false
    to_return << %Q{<div class="input">}
    to_return << field
