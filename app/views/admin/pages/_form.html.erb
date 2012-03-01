@@ -17,5 +17,5 @@
 </div>
 
 <div id="page_type_form">
-	<%= render :partial => "admin/pages/forms/#{@page.class_type.to_s.underscore}.html.erb", :locals => {:f => f} unless @page.class == Page%>
+	<%= render :partial => "admin/pages/forms/#{@page.page_type_file_name}.html.erb", :locals => {:f => f} unless @page.class == Page%>
 </div>

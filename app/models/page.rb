@@ -215,6 +215,10 @@ class Page < ActiveRecord::Base
     return self[:type]
   end 
 
+  def page_type_file_name
+    self.class_type.to_s.underscore
+  end
+
   class << self
     
     def css_class

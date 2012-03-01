@@ -53,6 +53,15 @@ module Blue
           end
           paths
         end
+
+        def find_collection_item(slug, options)
+          begin
+            item = self.column_names.include?("slug") ? self.find_by_slug(slug) : self.find(slug)
+          rescue
+            item = self.new if slug == "new"
+          end
+          item
+        end
         
       end
       

@@ -82,8 +82,9 @@ class PagesController < BlueController
       if @page.is_a?(Collection) && !leaf && index == @slugs.length - 2
         item_model = @page.collects.classify.constantize
         @collection = @page
-        @item = item_model.column_names.include?("slug") ? item_model.find_by_slug(@slugs[index+1]) : item_model.find(@slugs[index+1])
-        if (@item)
+        @item  = item_model.find_collection_item(@slugs[index+1], {:member =>  current_member})
+        
+        if @item
           @item.class.view_paths.each { |view_path| self.view_paths.unshift view_path }
           @page = @item.proxy_page(live_or_working)
           break

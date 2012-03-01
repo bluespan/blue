@@ -1,8 +1,17 @@
 class BlueFormBuilder < ActionView::Helpers::FormBuilder
 
   def text_field(method, options = {})
+    return readonly_text_field(method, options) if options[:readonly]
     field_name, label, options = field_settings(method, options)
     wrapping("text", method, field_name, label, super, options)
+  end
+
+  def readonly_text_field(method, options = {}) 
+    field_name, label, options = field_settings(method, options)
+    value = options[:value] || object.send(method)
+    classes = "readonly #{options[:class]}"
+    classes += " blank" if value.blank?
+    wrapping("span", method, field_name, label, "<span id='#{field_name}' class='#{classes}'>#{value}</span>", options)
   end
 
   def file_field(method, options = {})
@@ -11,16 +20,18 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def datetime_select(method, options = {})
+    return readonly_text_field(method, {:value => @object.send(method).strftime("%Y-%m-%d %I:%M:%S %p")}.merge(options)) if options[:readonly]
     field_name, label, options = field_settings(method, options)
     wrapping("datetime", method, field_name, label, super, options)
   end
 
-  def date_select(method, options = {})
+  def date_select(method, options = {})    
+    return readonly_text_field(method, {:value => @object.send(method).strftime("%Y-%m-%d")}.merge(options)) if options[:readonly]
     field_name, label, options = field_settings(method, options)
     wrapping("date", method, field_name, label, super, options)
   end
 
-  def radio_button(method, tag_value, options = {})
+  def radio_button(method, tag_value, options = {})    
     field_name, label, options = field_settings(method, options)
     wrapping("radio", method, field_name, label, super, options)
   end
@@ -31,6 +42,7 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def select(method, choices, options = {}, html_options = {})
+    return readonly_text_field(method, {:value => choices.select { |c| c[1] == @object.send(method)}.first.first }.merge(options)) if options[:readonly]
     field_name, label, options = field_settings(method, options)
     wrapping("select", method, field_name, label, super, options)
   end
@@ -41,6 +53,7 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def text_area(method, options = {})
+    return readonly_text_field(method, options) if options[:readonly]
     field_name, label, options = field_settings(method, options)
     wrapping("textarea", method,  field_name, label, super, options)
   end
