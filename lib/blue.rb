@@ -76,12 +76,12 @@ module Span
       @@page_type_mappings ||= {}
      
  
-      module ClassMethods
-        def map_page_type_route(page_type, function)
+      
+        def self.map_page_type_route(page_type, function)
           Span::Blue::Routing.page_type_mappings[page_type.to_s] = function
         end
       
-      end
+      
       
 
       def route

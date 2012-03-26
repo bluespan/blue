@@ -104,7 +104,7 @@ namespace :blue do
   
   namespace :create do
     desc "Create a default admin"
-    task (:admin, :force, :needs => [:admin_roles]) do |t, args|
+    task ([:admin, :force, :needs] => [:admin_roles]) do |t, args|
       if AdminUser.count == 0 or args.force
         AdminUser.find_by_login("admin").destroy if AdminUser.count > 0
         
