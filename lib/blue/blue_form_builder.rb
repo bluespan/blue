@@ -32,7 +32,7 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def radio_button(method, tag_value, options = {})    
-    field_name, label, options = field_settings(method, options)
+    field_name, label, options = field_settings(method, options, tag_value)
     wrapping("radio", method, field_name, label, super, options)
   end
 
@@ -67,6 +67,7 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
 
   def field_settings(method, options = {}, tag_value = nil)
     field_name = "#{@object_name}_#{method.to_s}" 
+    field_name += "_#{tag_value.to_s}" unless tag_value.nil?
     default_label = tag_value.nil? ? "#{method.to_s.gsub(/\_/, " ")}" : "#{tag_value.to_s.gsub(/\_/, " ")}" 
     label = options[:label] ? options.delete(:label) : default_label
     options[:class] ||= "" 
