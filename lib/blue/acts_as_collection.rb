@@ -107,11 +107,11 @@ module Blue
           return self[:slug] unless self.auto_slug_field == false or self[:slug].blank?
           
           # StringExtensions method
-          self[:slug] = (self[self.auto_slug_field] || "").to_url 
+          self[:slug] = (self.send(self.auto_slug_field) || "").to_url 
 
           # Make sure slug is unique-like
-          unless ( item = self.class.find_by_slug(:last, :conditions => ["slug like ?", self[:slug]], :select => "slug", :order => "slug") ).nil?
-            incrementer = page.slug.match(/(-\d+)$/).to_a[1] || "-1"
+          unless ( item = self.class.last(:conditions => ["slug like ?", self[:slug]], :select => "slug", :order => "slug") ).nil?
+            incrementer = item.slug.match(/(-\d+)$/).to_a[1] || "-1"
             self[:slug] += incrementer.next
           end
         end
