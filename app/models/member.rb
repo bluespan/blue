@@ -4,7 +4,11 @@ class Member < ActiveRecord::Base
   has_assigned_member_roles
   
   def name
-    "#{firstname} #{lastname}"
+  	if attributes.include?("name")
+  		return attributes["name"]
+  	else
+    	return "#{firstname} #{lastname}"
+    end
   end
   
 end
