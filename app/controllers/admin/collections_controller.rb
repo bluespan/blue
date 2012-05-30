@@ -70,7 +70,7 @@ class Admin::CollectionsController < Admin::BlueAdminController
   end
   
   def model_params
-    @model_params ||= params[@model.name.tableize.singularize.to_sym]
+    @model_params ||= params[item_name.tableize.singularize.to_sym]
     @model_params
   end
   

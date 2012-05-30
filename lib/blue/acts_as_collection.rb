@@ -104,7 +104,7 @@ module Blue
         end
 
         def generate_unique_slug!
-          return self[:slug] unless self.auto_slug_field == false or self[:slug].blank?
+          return self[:slug] unless self.auto_slug_field != false and self[:slug].blank?
           
           # StringExtensions method
           self[:slug] = (self.send(self.auto_slug_field) || "").to_url 
