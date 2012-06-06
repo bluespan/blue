@@ -9,6 +9,7 @@ class SitemapController < PagesController
     @buckets = Navigation.buckets
     respond_to do |wants|
       wants.html { render :layout => false }
+      wants.js { render :layout => false }
     end
   end
   

@@ -92,23 +92,23 @@ module PagesHelper
     
     options[:current_page] = @page if options.has_key?(:current_page) == false or options[:current_page].nil? 
     
+    url = options[:host]
+
     if @page and options[:levels].is_a?(Hash) and options[:levels].has_key?(:from)
         options[:id] = "#{options[:id]}_level_#{options[:levels][:from]}"
         nav = @page.version(:working).navigations.select { |navigation| navigation.root.title.downcase == top.to_s.downcase }.first
         nav = @page.version(:working).navigations.first if nav.nil?
         @top = nav.self_and_ancestors[options[:levels][:from] - 1] 
         return if @top.nil?
-        url = @top.url(:working)
+        url += @top.url(:working)
         options[:top_levels_from] = @top.children.index(nav.self_and_ancestors[options[:levels][:from]]) || 0 if options[:top_levels] < 9999 and options[:top_levels_from] == 0
     elsif top.is_a?(Navigation)
       @top = top
-      url = @top.page.nil? ? @top.url(:working) : "/#{top.page.slug}"
+      url += @top.page.nil? ? @top.url(:working) : "/#{top.page.slug}"
     else
       @top = Navigation.bookmark(top)
     end
 
-    url = options[:host] + url unless url.nil?
-    
     options[:levels] = { :limit => options[:levels] } unless options[:levels].is_a?(Hash)
     
     output =  "<ul id=\"#{options[:id]}\""
@@ -292,8 +292,8 @@ module PagesHelper
       
         
       if page.class == PageTypes::HomePage
-        navigation_url = "/"
-        navigation_url = i18n_url("/home") unless I18n.locale == Span::Blue.locales.first or level > 1
+        navigation_url = options[:host] + "/"
+        navigation_url = i18n_url(options[:host] + "/home") unless I18n.locale == Span::Blue.locales.first or level > 1
       elsif options[:levels].is_a?(Hash) and options[:levels].has_key?(:include_parent) and navigation == navigations.first and level == 1
         navigation_url = url
         navigation_url = i18n_url("#{url}") unless I18n.locale == Span::Blue.locales.first or level > 1

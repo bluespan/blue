@@ -1,0 +1,8 @@
+$(function(){
+	var buckets = "";
+	<% @buckets.each do |bucket| %>
+  		buckets += '<%= navigation(bucket, :host => @host, :id => "#{bucket.title.downcase.gsub(" ", "_").to_s}_navigation").gsub("'", "&rsquo;") %>';
+	<% end %>
+	$("body").append("<div id='blue_navigation_buckets' style='display:none;'></div>");
+	$("#blue_navigation_buckets").append(buckets);
+});
