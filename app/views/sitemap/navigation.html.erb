@@ -1,0 +1,5 @@
+<div id="blue_navigation_buckets" style="display:none;">
+	<% @buckets.each do |bucket| %>
+	  <%= navigation(bucket, :host => @host, :id => "#{bucket.title.downcase.gsub(" ", "_").to_s}_navigation") %>
+	<% end %>
+</div>

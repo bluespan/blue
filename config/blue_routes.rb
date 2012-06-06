@@ -60,6 +60,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :member_session, :member => {:signout => :get}
 
   map.connect 'sitemap.:format', :controller => 'sitemap', :action => 'show'
+  map.connect 'sitemap/navigation.:format', :controller => 'sitemap', :action => 'navigation'
 
   map.connect ':ancestors/:slug', :controller => 'pages', :action => 'show', :ancestors => /[A-Za-z0-9\-\/_]*/
   map.connect ':slug', :controller => 'pages', :action => 'show'

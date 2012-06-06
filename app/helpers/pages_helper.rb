@@ -88,7 +88,7 @@ module PagesHelper
   def navigation(top, options = {})
     options = {:levels => 9999, :top_levels => 9999, :top_levels_from => 0, :id => "#{top.to_s}_navigation",
                 :exclude => nil, :include => nil,
-                :collapsed => false, :force_display => false}.update(options)
+                :collapsed => false, :force_display => false, :host => ""}.update(options)
     
     options[:current_page] = @page if options.has_key?(:current_page) == false or options[:current_page].nil? 
     
@@ -102,10 +102,12 @@ module PagesHelper
         options[:top_levels_from] = @top.children.index(nav.self_and_ancestors[options[:levels][:from]]) || 0 if options[:top_levels] < 9999 and options[:top_levels_from] == 0
     elsif top.is_a?(Navigation)
       @top = top
-      url = "/#{top.page.slug}"
+      url = @top.page.nil? ? @top.url(:working) : "/#{top.page.slug}"
     else
       @top = Navigation.bookmark(top)
     end
+
+    url = options[:host] + url unless url.nil?
     
     options[:levels] = { :limit => options[:levels] } unless options[:levels].is_a?(Hash)
     
@@ -307,7 +309,7 @@ module PagesHelper
       if @navigation
        classes << "active"   if @navigation.self_and_ancestors_cached.include?(navigation)
       end  
-      classes << "current"  if page.id == options[:current_page].id
+      classes << "current"  if !options[:current_page].nil? && page.id == options[:current_page].id
       classes << "first"  if navigation == navigations.first
       classes << "last"   if navigation == navigations.last
       classes << "collapsed"   if navigation.collapsed?
