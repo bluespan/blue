@@ -5,7 +5,7 @@ $(document).ready(function(){
 });
 
 if (wymeditor_config == null) var wymeditor_config = {};
-var verbiage_updated_callback = function() {};
+if (verbiage_updated_callback == null) var verbiage_updated_callback = function() {};
 
 // Page Dialogs
 var verbiage_dialog = {
