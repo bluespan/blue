@@ -42,7 +42,8 @@ var verbiage_dialog = {
   						//html = html.replace(/src=&quot;\/assets\/images\/([^\.])/gi, 'src=&quot;/assets/images/.thumbnails/$1');
   						//html = html.replace(/src=&quot;(.*)\/assets\/images\/([^\.].*)&quot;/gi, 'src=&quot;$1/assets/images/.thumbnails/$2&quot;');
   						//html = html.replace(/src="(.*)\/assets\/images\/([^\.].*)"/gi, 'src="$1/assets/images/.thumbnails/$2"');
-  				    html = html.replace(/src=(.*)\/assets\/images/gi, "src=$1/assets/images/.thumbnails").replace(/\.thumbnails\/\.thumbnails/gi, "/.thumbnails")
+  				    html = html.replace(/src=([^\/]*)\/assets\/images/gi, "src=$1/assets/images/.thumbnails").replace(/\.thumbnails\/\.thumbnails/gi, "/.thumbnails")
+
   						dialog.data.html('<div class="content">' + html + '</div>');
 
   						dialog.data.find('.close').click(function () { $.modal.close(); return false; });
@@ -130,7 +131,7 @@ var verbiage_dialog = {
   							html = html.replace(re, '$1=\"$2')
 
   							// Replace asset thumbnails with their full images
-  							html = html.replace(/src="([^"]*)\/\.thumbnails\/([^"]*)"/gi, 'src="$1/$2"');
+  							html = html.replace(/(href|src)="([^"]*)\/\.thumbnails\/([^"]*)"/gi, '$1="$2/$3"');
 
   							editor.val(html);
   							options.form_submit_callback(dialog, this);
