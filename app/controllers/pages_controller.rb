@@ -104,8 +104,8 @@ class PagesController < BlueController
       @ancestors += @append_ancestor_with
     end
     
-    
-    return {:template => @page.template.path}.merge(render_instructions)
+    render_instructions.merge!({:layout => @page.layout}) if @page.respond_to? :layout
+    return {:template => @page.template.path }.merge(render_instructions)
   end
   
 
