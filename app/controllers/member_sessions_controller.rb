@@ -12,7 +12,7 @@ class MemberSessionsController < BlueController
     if @member_session.save
       flash[:notice] = "You have successfully signed in."
      
-      member_requested_page = session[:member_requested_page] || request.referer
+      member_requested_page = redirect_after_login
 
       session[:member_requested_page] = nil
       redirect_to member_requested_page
@@ -34,6 +34,11 @@ class MemberSessionsController < BlueController
   end  
   
   private
+
+  def redirect_after_login
+    session[:member_requested_page] || request.referer
+  end
+
   def load_page
       @page = live_or_working PageTypes::MemberSignInPage.find(:first, :order => "created_at DESC")
 

@@ -20,13 +20,15 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def datetime_select(method, options = {})
-    return readonly_text_field(method, {:value => @object.send(method).strftime("%Y-%m-%d %I:%M:%S %p")}.merge(options)) if options[:readonly]
+    value = @object.send(method).nil? ? "" : @object.send(method).strftime("%Y-%m-%d %I:%M:%S %p")
+    return readonly_text_field(method, {:value => value}.merge(options)) if options[:readonly]
     field_name, label, options = field_settings(method, options)
     wrapping("datetime", method, field_name, label, super, options)
   end
 
   def date_select(method, options = {})    
-    return readonly_text_field(method, {:value => @object.send(method).strftime("%Y-%m-%d")}.merge(options)) if options[:readonly]
+    value = @object.send(method).nil? ? "" : @object.send(method).strftime("%Y-%m-%d")
+    return readonly_text_field(method, {:value => value}.merge(options)) if options[:readonly]
     field_name, label, options = field_settings(method, options)
     wrapping("date", method, field_name, label, super, options)
   end

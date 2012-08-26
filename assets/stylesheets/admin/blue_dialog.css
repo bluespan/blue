@@ -31,7 +31,7 @@ body.admin  .dialog .errorExplanation h2 {-moz-border-radius:6px 0 0 0 ;-webkit-
 
 #admin_user_dialog form div.single_line {clear:both;}
 #admin_user_dialog form div.single_line input {width:auto;}
-
+.modalContainer form {padding-top:0 !important;}
 .modalContainer form .two_lines label {clear:both;width:auto;display:block;float:none;}
 .modalContainer form .two_lines input {clear:both;width:auto;float:none;margin-bottom:5px;}
 
@@ -66,7 +66,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer input.error {border:1px solid #AF1010;color:#AF1010;}
 .modalContainer label.error {color:#AF1010;font-style:italic;}
 
-.modalContainer .buttons {text-align:center;background:#778EC1;padding:10px;width:630px;left:0;bottom:0;position:absolute;}
+.modalContainer .buttons {text-align:center;background:#778EC1;padding:10px;margin-left:0 !important;width:630px;left:0;bottom:0;position:absolute;}
 #modalContainerNavigation .buttons {width:360px;}
 #modalContainerAsset .buttons {width:400px;}
 #modalContainerContentPlacement .buttons {width:360px;}
