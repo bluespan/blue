@@ -39,7 +39,7 @@ class Admin::NavigationsController < Admin::BlueAdminController
     respond_to do |wants|
       if @navigation.update_attributes(params[:navigation])
         flash.now[:notice] = "#{@navigation.class.to_s.underscore.titleize} <em>#{@navigation.title}</em> was successfully <em>updated.</em>"
-        wants.html { redirect_to :action => "index "}
+        wants.html { render :template => "admin/navigations/update.js"}
         wants.js
       else
         wants.html { render :action => "edit" }
