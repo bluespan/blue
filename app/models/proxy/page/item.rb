@@ -32,7 +32,7 @@ class Proxy::Page::Item < Proxy::Page
   
   def body_class
     c = item.class
-    classes = [c.name.tableize.singularize]
+    classes = [c.name.tableize.singularize, c.name.tableize.pluralize]
     while c.superclass and c.superclass != ActiveRecord::Base
        c = c.superclass
        classes << c.name.tableize.singularize
