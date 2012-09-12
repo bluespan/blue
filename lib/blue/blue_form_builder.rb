@@ -62,7 +62,7 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
 
   def submit(method, options = {})
     field_name, label, options = field_settings(method, options)
-    super(method, options.merge({:class => "button submit"}) )
+    wrapping("submit", method, field_name, label, super(method, options.merge({:class => "button submit"})), options )
   end
   
   private
@@ -88,7 +88,7 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
    to_return << %Q{<p class="description">#{options[:description]}</p>} if options[:description] && ["radio","check-box"].include?(type) == false
    to_return << %Q{<div class="input">}
    to_return << field
-   to_return << %Q{<label for="#{field_name}">#{label}</label>} if ["radio","check-box"].include?(type)    
+   to_return << %Q{<label for="#{field_name.downcase.gsub(/ /, "_")}">#{label}</label>} if ["radio","check-box"].include?(type)    
    to_return << %Q{<p class="description">#{options[:description]}</p>} if options[:description] && ["radio","check-box"].include?(type)
    if @object.errors.on(method) and @options[:inline_errors]
 		 to_return << %Q{<ul class="error_messages">#{@object.errors.on(method).collect { |e| "<li>#{e}</li>"} }</ul>}
