@@ -74,7 +74,8 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
     label = options[:label] ? options.delete(:label) : default_label
     options[:class] ||= "" 
     options[:class] += options[:required] ? " required" : "" 
-    options[:class] += @object.errors.on(method) ? " error" : ""
+    options[:class] += (@object.errors.on(method) || @object.errors.on((method.to_s+"_file_size").to_sym) || @object.errors.on((method.to_s+"_content_type").to_sym)) ? " error" : ""
+
     label += "<strong><sup>*</sup></strong>" if options[:required]
     options.delete(:required) unless options[:required] == true
     [field_name, label, options]
@@ -90,8 +91,13 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
    to_return << field
    to_return << %Q{<label for="#{field_name.downcase.gsub(/ /, "_")}">#{label}</label>} if ["radio","check-box"].include?(type)    
    to_return << %Q{<p class="description">#{options[:description]}</p>} if options[:description] && ["radio","check-box"].include?(type)
-   if @object.errors.on(method) and @options[:inline_errors]
-		 to_return << %Q{<ul class="error_messages">#{@object.errors.on(method).collect { |e| "<li>#{e}</li>"} }</ul>}
+   errors = []
+   errors << @object.errors.on(method)
+   errors << @object.errors.on((method.to_s+"_file_size").to_sym)
+   errors << @object.errors.on((method.to_s+"_content_type").to_sym)
+   errors = errors.flatten.compact
+   if errors.length and @options[:inline_errors]
+		 to_return << %Q{<ul class="error_messages">#{errors.collect { |e| "<li>#{e}</li>"} }</ul>}
    end
    to_return << %Q{</div></div>}
   end
