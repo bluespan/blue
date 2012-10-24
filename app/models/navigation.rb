@@ -2,12 +2,20 @@ class Navigation < ActiveRecord::Base
   
   validates_presence_of :title, :unless => :has_a_page?
   
+  has_attached_file :image
+
+  before_save :delete_image!
   acts_as_nested_set
   has_localized_data
   
   belongs_to :page #, :include => :live
 
   named_scope :with_page, :include => [:page => :live]
+  attr_accessor :delete_image
+
+  def delete_image!
+    self.image = nil if delete_image == "1"
+  end
 
   def slug
     self.title.downcase.gsub(" ", "_")

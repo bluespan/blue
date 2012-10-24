@@ -19,6 +19,8 @@ margin-left:0px;
 background:#B4C6FF;
 -moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;}
 
+.blue_toolbar fieldset {border-width: 0;}
+
 .blue_toolbar ul.blue_admin_navigation li {float:left;font-size:13px;font-weight:bold;z-index:10;margin-left:14px;padding:2px 0 2px 4px;margin-right:6px;position:relative;}
 .blue_toolbar ul.blue_admin_navigation li a {color:#000;text-decoration:none;line-height:18px;text-transform:capitalize;}
 .blue_toolbar ul.blue_admin_navigation li.current a {color:#203B8F;}

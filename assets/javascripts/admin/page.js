@@ -105,10 +105,21 @@ var page_dialog = {
 	  	video_select_dialog.init();
 			
 			// Add Ajax Submit
-			dialog.data.find('form').submit(function(){
-				$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
-				return false;
-			});
+			if (dialog.data.find('input[type=file]').length > 0) {
+				// Submit to ajaxupload iframe
+				dialog.data.find('form').attr("target", "ajaxupload").submit(function(){
+					$("#ajaxupload").load(function() {
+							response = $("#ajaxupload").contents().find('body').text();	
+							$("#ajaxupload").unbind("load")
+							eval(response);
+					});
+				});
+			} else {
+				dialog.data.find('form').submit(function(){
+					$.post($(this).attr("action") + ".js", $(this).serialize(), null, "script");
+					return false;
+				});
+			}
 			
 			// Add typecast
 			$("#page_type").bind("change", function(){

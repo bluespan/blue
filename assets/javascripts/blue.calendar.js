@@ -108,7 +108,7 @@ jQuery.fn.calendar = function(settings) {
 			(category_displayed(data.categories) == false) ? display = "style=\"display:none\"" : display = "";
 			
 			// Insert on start date
-			cell.append("<a href=\""+settings.event_url+"?id="+data.id+"\" class=\""+data.categories.join(" ")+"\" "+display+">"+data.title+"</a>");
+			cell.append("<a href=\""+document.location.pathname+"/"+data.slug+"\" class=\""+data.categories.join(" ")+"\" "+display+">"+data.title+"</a>");
 		
 		}
 
@@ -349,14 +349,13 @@ var draw_present_month = function () {
 		// Set up the category checkboxes
 		categories.find(":checkbox").click(function(){
 			if (this.name == "all") {
-				if (categories.find(":checkbox[name='all']").attr("checked") == true) {
-					// Uncheck all categories but 'all'
-					categories.find(":checkbox[name!='all']").attr("checked", false);
-					display_events({all:true});
-				} else {
+				if (categories.find(":checkbox[name='all']").attr("checked") == false) {
 					// Force 'all' to be checked
 					categories.find(":checkbox[name='all']").attr("checked", true)
 				}
+				// Uncheck all categories but 'all'
+				categories.find(":checkbox[name!='all']").attr("checked", false);
+				display_events({all:true});
 			} else {
 				categories.find(":checkbox[name='all']").attr("checked", false);
 				display_events();
@@ -504,9 +503,9 @@ jQuery.fn.event_list = function (settings) {
     var presentYear = new Date();
     prevYear.setFullYear(options.year - 1);
     nextYear.setFullYear(options.year + 1);
-    if (settings.previous_year) settings.previous_year.attr("href", "#" + prevYear.getFullYear());
-    if (settings.next_year) settings.next_year.attr("href", "#" + nextYear.getFullYear());
-    if (settings.present_year) settings.present_year.attr("href", "#" + nextYear.getFullYear());
+    if (settings.previous_year) settings.previous_year.attr("href", "#list-" + prevYear.getFullYear());
+    if (settings.next_year) settings.next_year.attr("href", "#list-" + nextYear.getFullYear());
+    if (settings.present_year) settings.present_year.attr("href", "#list-" + nextYear.getFullYear());
 }
 
     var draw_calendar = function (options) {
@@ -522,6 +521,9 @@ jQuery.fn.event_list = function (settings) {
             options.month = month;
             draw_events(options);
         }
+
+
+
     };
 
     var scroll_to_month = function (month) {
@@ -571,7 +573,7 @@ jQuery.fn.event_list = function (settings) {
 		                      '<td class="category"></td>' +
 		                      '<td style="width:100px;">' + (options.month + 1) + '/' + options.day + '/' + options.year + '</td>' +
 		                      '<td style="width:100px;">' + (data.time) + '</td>' +
-		                      '<td><a href="' + settings.event_url + '?id=' + data.id + '">' + data.title + '</a></td>' +
+		                      '<td><a href="' +document.location.pathname+"/"+data.slug+ '">' + data.title + '</a></td>' +
 		                   '</tr>');
     }
 
@@ -586,24 +588,39 @@ jQuery.fn.event_list = function (settings) {
 
 
     var draw_scrollbar = function () {
-        if (list.css("display") == "block")
+        if (jQuery.jScrollPane && list.css("display") == "block")
             cal_list_scrollbar = list.find("#list_events").jScrollPane({ dragMaxHeight: 73, dragMinHeight: 73, scrollbarWidth: 9, scrollbarDragWidth: 9, scrollbarMargin: 0 });
     }
 
     categories.find(":checkbox").click(function () {
-        if (this.name == "all") {
-            if (categories.find(":checkbox[name='all']").attr("checked") == true) {
-                // Uncheck all categories but 'all'
-                categories.find(":checkbox[name!='all']").attr("checked", false);
-                display_events({ all: true });
-            } else {
-                // Force 'all' to be checked
-                categories.find(":checkbox[name='all']").attr("checked", true)
-            }
-        } else {
-            categories.find(":checkbox[name='all']").attr("checked", false);
-            display_events();
-        }
+	    	if (this.name == "all") {
+					if (categories.find(":checkbox[name='all']").attr("checked") == false) {
+						// Force 'all' to be checked
+						categories.find(":checkbox[name='all']").attr("checked", true)
+					}
+					// Uncheck all categories but 'all'
+					categories.find(":checkbox[name!='all']").attr("checked", false);
+					display_events({all:true});
+				} else {
+					categories.find(":checkbox[name='all']").attr("checked", false);
+					display_events();
+				}
+
+
+
+        // if (this.name == "all") {
+        //     if (categories.find(":checkbox[name='all']").attr("checked") == true) {
+        //         // Uncheck all categories but 'all'
+        //         categories.find(":checkbox[name!='all']").attr("checked", false);
+        //         display_events({ all: true });
+        //     } else {
+        //         // Force 'all' to be checked
+        //         categories.find(":checkbox[name='all']").attr("checked", true)
+        //     }
+        // } else {
+        //     categories.find(":checkbox[name='all']").attr("checked", false);
+        //     display_events();
+        // }
     });
 
 
@@ -733,10 +750,16 @@ function initCalendar(settings) {
 		   
 		    var categories = hash.split("-");
 		    jQuery(categories).each(function(i, category){
+		    	//if (jQuery("#categories input:checkbox[name='"+ category +"']").is(":checked") == false) {
 		        jQuery("#categories input:checkbox[name='"+ category +"']").attr("checked", "checked").trigger("click").attr("checked", "checked");
+		   			
+		   		//}
 		    });
 		
 		    if (hash.indexOf("list") >= 0) {
+		        // var year = parseInt(hash.replace("list", "").replace("-", ""))
+		        // console.log(year)
+		        // if (year && year != "") event_list.draw_year(year);
 		        event_list.show_list();
 		        calendar.hide_calendar();
 		    }

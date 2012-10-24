@@ -1,5 +1,5 @@
 <h1>Edit Navigation</h1>
-<% form_for [:admin, @navigation] do |f| %>
+<% form_for [:admin, @navigation], :html => {:enctype => 'multipart/form-data', :id => "navigation_form"} do |f| %>
 
 <% unless @navigation.bucket? %>
 <fieldset>
@@ -11,7 +11,21 @@
 	<%= f.text_field :title, :name => "navigation[title]", :id => "navigation_title", :class => "text" %>
 	</p>
 	
+	<% if blue_features.include?(:navigation_images) %>
+	<input type="hidden" name="_method" value="put" />
+	<p>
+	<label for="navigation_image" style="width:75px;">Image File</label>
 	
+	<%= f.file_field :image, :name => "navigation[image]", :id => "navigation_image", :size => "20" %>
+	<% if @navigation.image? %>
+		<%= image_tag @navigation.image.url %><br>
+		<ul class="checkbox">
+			<li><%= f.check_box :delete_image, :class => "checkbox"  %> <label for="navigation_delete_image">Delete Image</label></li>
+		</ul>
+	<% end %>
+	</p>
+	<% end %>
+		
 </fieldset>
 <% end %>
 

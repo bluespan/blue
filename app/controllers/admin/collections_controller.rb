@@ -16,7 +16,8 @@ class Admin::CollectionsController < Admin::BlueAdminController
     @item = @model.new(model_params)
     if @item.save
       flash[:notice] = "#{@item.class.name.titleize} <em>#{@item.title}</em> was successfully <em>created.</em>"
-      redirect_to :action => 'index'
+      @redirect_to ||= {:action => 'index'}
+      redirect_to @redirect_to.is_a?(Proc) ? @redirect_to.call : @redirect_to 
     else
       render_default_template :new
     end
@@ -34,7 +35,10 @@ class Admin::CollectionsController < Admin::BlueAdminController
         #ActivityLog.log(current_admin_user, @page, :updated, "#{current_admin_user.fullname} updated #{@page.class.to_s} #{@page.title}")
 
         flash.now[:notice] = "#{@item.class.name.titleize} <em>#{@item.display_title}</em> was successfully <em>updated.</em>"
-        wants.html { redirect_to :action => "index"}
+        wants.html do
+          @redirect_to ||= {:action => 'index'}
+          redirect_to @redirect_to.is_a?(Proc) ? @redirect_to.call : @redirect_to 
+        end
         wants.js
       else
         wants.html { render_default_template :edit }
@@ -46,7 +50,8 @@ class Admin::CollectionsController < Admin::BlueAdminController
   def destroy
     @item = @model.destroy(params[:id])
     flash[:notice] = "#{@item.class.name.titleize} <em>#{@item.display_title}</em> was successfully <em>deleted.</em>"
-    redirect_to :action => 'index'
+    @redirect_to ||= {:action => 'index'}
+    redirect_to @redirect_to.is_a?(Proc) ? @redirect_to.call : @redirect_to 
   end
   
   private

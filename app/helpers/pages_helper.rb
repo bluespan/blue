@@ -336,6 +336,11 @@ module PagesHelper
       end
       
       link_options = page.open_new_window? ? {:target => "_blank"} : {}
+
+
+      if blue_features.include?(:navigation_images) && navigation.image?
+        link_options[:style] = "background-image:url('#{navigation.image.url}');text-indent:-9999px;"
+      end
       
       navigation_title = navigation.l10n_attribute(:title)
       navigation_title = page.l10n_attribute(:title) if navigation_title.blank?
@@ -344,6 +349,7 @@ module PagesHelper
       leaf = children.blank? or children.length == 0
       
       classes << "parent" unless leaf
+      classes << ((navigations.index(navigation) % 2 == 0 ) ? "odd" : "even")
           
       output += "<li class=\"#{classes.join(" ")}\">"
         output += link_to filter_page_title(navigation_title), link_url, link_options
