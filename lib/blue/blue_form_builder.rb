@@ -34,17 +34,25 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def radio_button(method, tag_value, options = {})    
+    options[:disabled] = true if options[:readonly]
     field_name, label, options = field_settings(method, options, tag_value)
     wrapping("radio", method, field_name, label, super, options)
   end
 
   def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+    options[:disabled] = true if options[:readonly]
     field_name, label, options = field_settings(method, options)
     wrapping("check-box", method, field_name, label, super, options)
   end
 
   def select(method, choices, options = {}, html_options = {})
-    return readonly_text_field(method, {:value => choices.select { |c| c[1] == @object.send(method)}.first.first }.merge(options)) if options[:readonly]
+    if options[:readonly]
+      values = choices.select { |c| c[1] == @object.send(method)}
+      value = ""
+      value = values.first.first if values.is_a?(Array) and values.first.is_a?(Array)
+
+      return readonly_text_field(method, options.merge({:value => value}))
+    end
     field_name, label, options = field_settings(method, options)
     wrapping("select", method, field_name, label, super, options)
   end
