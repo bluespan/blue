@@ -9,11 +9,12 @@ if (verbiage_updated_callback == null) var verbiage_updated_callback = function(
 
 // Page Dialogs
 var verbiage_dialog = {
-	open: function(dialog, link) {
+	open: function(dialog, link) {  
+    $("body").addClass("editing-verbiage");
 	  dialog.link = link;
 		dialog.overlay.fadeIn('normal')
     	dialog.container.slideDown('normal');
-		dialog.data.html('<div class="loading"></div>').show();	  
+		dialog.data.html('<div class="loading"></div>').show();	
 	},
 	show: function(dialog, options) {
 	  var url = $(dialog.link).attr("href");
@@ -151,6 +152,8 @@ var verbiage_dialog = {
 		current_dialog.closeLeftTray();
 		dialog.data.fadeOut('normal'); 
     dialog.container.slideUp('normal', function() {$.modal.close();})
+
+    $("body").removeClass("editing-verbiage");
 	}
 }
 
