@@ -26,6 +26,10 @@
 	</p>
 	<% end %>
 		
+	<% if blue_features.assoc(:navigation_custom_fields) %>
+		<%= render :partial => blue_features.assoc(:navigation_custom_fields)[1], :locals => {:f => f} %> 
+	<% end %>
+
 </fieldset>
 <% end %>
 

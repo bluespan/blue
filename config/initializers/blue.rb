@@ -15,3 +15,6 @@ Span::Blue.features << :extra_page_code
 # Span::Blue.features << :tagging
 
 # Page.allow_ssl = true
+
+
+ActionController::Base.param_parsers.delete(Mime::XML) 

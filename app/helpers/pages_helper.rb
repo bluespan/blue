@@ -85,7 +85,7 @@ module PagesHelper
     concat render(:partial => "content/placement", :object => placement, :locals => {:options => options}) # unless verbiage.members_only? and member_logged_in? == false and logged_in? == false
   end
   
-  def navigation(top, options = {})
+  def navigation(top, options = {}, &logic_block)
     options = {:levels => 9999, :top_levels => 9999, :top_levels_from => 0, :id => "#{top.to_s}_navigation",
                 :exclude => nil, :include => nil,
                 :collapsed => false, :force_display => false, :host => ""}.update(options)
@@ -122,8 +122,14 @@ module PagesHelper
       children = children.unshift(@top) 
     end  
       
-    output += navigation_tree(children, options, url) unless @top.nil?
+    output += navigation_tree(children, options, url, 1, &logic_block) unless @top.nil?
     output += "</ul>"
+
+    if block_given?
+      concat output
+    else
+      return output
+    end
   end
   
   def rewire_navigation_tree(parent_id, new_parent_id)
@@ -272,7 +278,7 @@ module PagesHelper
     options[:contentable]
   end
   
-  def navigation_tree(navigations, options = {}, url = "", level = 1)
+  def navigation_tree(navigations, options = {}, url = "", level = 1, &logic_block)
     output = ""
     
     navigations = navigations.delete_if { |n| options[:exclude].call(n) } unless options[:exclude].nil?
@@ -350,13 +356,17 @@ module PagesHelper
       
       classes << "parent" unless leaf
       classes << ((navigations.index(navigation) % 2 == 0 ) ? "odd" : "even")
-          
-      output += "<li class=\"#{classes.join(" ")}\">"
-        output += link_to filter_page_title(navigation_title), link_url, link_options
-        unless leaf or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
-          output += "<ul>" + navigation_tree(navigation_children(navigation), options, navigation_url, level + 1) + "</ul>"
-        end
-      output += "</li>"
+       
+      if block_given?
+        binding.eval(logic_block.call)
+      else    
+        output += "<li class=\"#{classes.join(" ")}\">"
+          output += link_to filter_page_title(navigation_title), link_url, link_options
+          unless leaf or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
+            output += "<ul>" + navigation_tree(navigation_children(navigation), options, navigation_url, level + 1) + "</ul>"
+          end
+        output += "</li>"
+      end
 
     end
     

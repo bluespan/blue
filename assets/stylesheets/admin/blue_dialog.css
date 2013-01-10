@@ -41,7 +41,7 @@ body .modalContainer p {margin:0px 0 10px;line-height:130%;}
 .modalContainer h1 .tools {float:right;font-size:12px;}
 .modalContainer em {font-size:12px;color:#203B8F;font-weight:bold;}
 .modalContainer label {display:block;margin:5px 10px 0 0;font-size:12px;clear:left;float:left;color:#203B8F;font-weight:bold;}
-.modalContainer input.text, .dialog select {display:block;margin-bottom:10px;float:left;width:auto;padding:2px 3px;border:1px solid #203B8F;}
+.modalContainer input.text, .modalContainer textarea.text, .dialog select {display:block;margin-bottom:10px;float:left;width:auto;padding:2px 3px;border:1px solid #203B8F;}
 .dialog select {padding:0;}
 .modalContainer input.text, .modalContainer select {border-width:1px;border-style:solid;}
 .modalContainer input.button {display:inline;width:auto;}
