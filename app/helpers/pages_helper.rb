@@ -374,7 +374,8 @@ module PagesHelper
   end
   
   def filter_page_title(title)
-    title.gsub("®", "<sup>®</sup>")
+    #title.gsub("®", "<sup>®</sup>")
+    title
   end
 
   

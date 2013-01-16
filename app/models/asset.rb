@@ -135,6 +135,7 @@ class Asset::Image::Thumbnail < Asset::Image
   
  def create(path)
    FileUtils.mkdir_p(path.gsub(/\/[^\/]*$/, "")) 
+   # ActiveRecord::Base.logger.debug "convert \"#{path.gsub("/" + THUMBNAIL_DIR, "")}\" -resize 100x100\\> \"#{path}\""
    system("convert \"#{path.gsub("/" + THUMBNAIL_DIR, "")}\" -resize 100x100\\> \"#{path}\"")
    # ImageScience.with_image(path.gsub("/" + THUMBNAIL_DIR, "")) do |img|
    #   img.thumbnail("100>") do |thumb|

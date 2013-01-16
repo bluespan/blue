@@ -43,7 +43,7 @@ class Admin::PagesController < Admin::BlueAdminController
   
   def update
     respond_to do |wants|
-      if @page.update_attributes(params[:page].merge({:updated_at, Time.now}))
+      if @page.update_attributes(params[:page].merge({:updated_at => Time.now}))
         #ActivityLog.log(current_admin_user, @page, :updated, "#{current_admin_user.fullname} updated #{@page.class.to_s} #{@page.title}")
         
         flash.now[:notice] = "#{@page.display_name} <em>#{@page.title}</em> was successfully <em>updated.</em>"

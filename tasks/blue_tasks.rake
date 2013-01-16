@@ -104,7 +104,7 @@ namespace :blue do
   
   namespace :create do
     desc "Create a default admin"
-    task ([:admin] => [:admin_roles]) do |t, args|
+    task [:admin] => [:admin_roles] do |t, args|
       if AdminUser.count == 0 or args.force
         AdminUser.find_by_login("admin").destroy if AdminUser.count > 0
         
@@ -123,7 +123,7 @@ namespace :blue do
     end
     
     desc "Create user admin roles"
-    task (:admin_roles => :environment) do
+    task :admin_roles => :environment do
       AdminUserRole.create({:name => "Administrator", :admin_admin_users => true, :admin_membership => true})
       AdminUserRole.create({:name => "Publisher", :publish => true})
       AdminUserRole.create({:name => "Editor", :admin_content => true, :admin_assets => true})

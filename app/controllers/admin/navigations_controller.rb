@@ -61,9 +61,12 @@ class Admin::NavigationsController < Admin::BlueAdminController
     end
     
     @moved = case params[:where]
-      when "left"   : @navigation.move_to_left_of  @reference_navigation
-      when "right"  : @navigation.move_to_right_of @reference_navigation
-      when "child"  : @navigation.move_to_child_of @reference_navigation
+      when "left"
+        @navigation.move_to_left_of  @reference_navigation
+      when "right"
+        @navigation.move_to_right_of @reference_navigation
+      when "child"
+        @navigation.move_to_child_of @reference_navigation
     end
     
     if @moved
