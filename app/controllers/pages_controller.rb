@@ -69,7 +69,7 @@ class PagesController < BlueController
       @page = load_page(slug, @ancestors, leaf)
       
       
-      return nil unless @page.is_a?(Page)
+      return {:status => 404, :template => "pages/404.html.erb"} unless @page.is_a?(Page)
       @page.request_params = @params
       
       if @page.respond_to? :require_ssl? and @page.require_ssl? 
