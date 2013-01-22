@@ -18,7 +18,7 @@ class Admin::AssetsController < Admin::BlueAdminController
   
   def create
     if params[:asset][:file]
-      @asset = File.open(BLUE_ASSETS_ROOT + params[:asset][:path] + "/" + params[:asset][:file].original_filename, "w") { |f| f.write(params[:asset][:file].read) }
+      @asset = File.open(BLUE_ASSETS_ROOT + params[:asset][:path] + "/" + params[:asset][:file].original_filename, "w", :encoding => "BINARY") { |f| f.write(params[:asset][:file].read) }
     
       
       flash.now[:notice] = "Asset <em>#{params[:asset][:file].original_filename}</em> was successfully <em>uploaded.</em>"
