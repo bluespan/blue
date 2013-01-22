@@ -74,7 +74,7 @@ class Admin::AssetsController < Admin::BlueAdminController
       wants.html { redirect_to :action => "index "}
       wants.js
     end
-  rescue e
+  rescue => e
     respond_to do |wants|
       flash.now[:error] = "Asset <em>#{params[:path]}</em> was failed to <em>deleted.</em> #{e}"
       wants.js { render :template => "admin/error", :locals => {:object => @page} }
