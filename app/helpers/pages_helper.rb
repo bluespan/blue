@@ -68,9 +68,9 @@ module PagesHelper
       end
       
       if options[:return] == :concat
-        concat output
+        concat output.force_encoding("UTF-8")
       else
-        return output
+        return output.force_encoding("UTF-8")
       end      
   end
   

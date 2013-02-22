@@ -144,6 +144,15 @@ module Span
   end
 end
 
+
+# Fix for ruby 1.8
+class String
+  def force_encoding(enc)
+    self
+  end
+end
+
+
 class BlueError < StandardError #:nodoc:
 end
 
