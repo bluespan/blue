@@ -91,23 +91,24 @@ class BlueFormBuilder < ActionView::Helpers::FormBuilder
 
 
   def wrapping(type, method, field_name, label, field, options = {})
-   to_return = []
-   to_return << %Q{<div class="field #{type}-field #{options[:class]}">}
-   to_return << %Q{<label for="#{field_name}">#{label}</label>} unless ["radio","check-box", "submit"].include?(type) or label.blank?
-   to_return << %Q{<p class="description">#{options[:description]}</p>} if options[:description] && ["radio","check-box"].include?(type) == false
-   to_return << %Q{<div class="input">}
-   to_return << field
-   to_return << %Q{<label for="#{field_name.downcase.gsub(/ /, "_")}">#{label}</label>} if ["radio","check-box"].include?(type)    
-   to_return << %Q{<p class="description">#{options[:description]}</p>} if options[:description] && ["radio","check-box"].include?(type)
-   errors = []
-   errors << @object.errors.on(method)
-   errors << @object.errors.on((method.to_s+"_file_size").to_sym)
-   errors << @object.errors.on((method.to_s+"_content_type").to_sym)
-   errors = errors.flatten.compact
-   if errors.length and @options[:inline_errors]
-		 to_return << %Q{<ul class="error_messages">#{errors.collect { |e| "<li>#{e}</li>"} }</ul>}
-   end
-   to_return << %Q{</div></div>}
+    to_return = []
+    to_return << %Q{<div class="field #{type}-field #{options[:class]}">}
+    to_return << %Q{<label for="#{field_name}">#{label}</label>} unless ["radio","check-box", "submit"].include?(type) or label.blank?
+    to_return << %Q{<p class="description">#{options[:description]}</p>} if options[:description] && ["radio","check-box"].include?(type) == false
+    to_return << %Q{<div class="input">}
+    to_return << field
+    to_return << %Q{<label for="#{field_name.downcase.gsub(/ /, "_")}">#{label}</label>} if ["radio","check-box"].include?(type)    
+    to_return << %Q{<p class="description">#{options[:description]}</p>} if options[:description] && ["radio","check-box"].include?(type)
+    errors = []
+    errors << @object.errors.on(method)
+    errors << @object.errors.on((method.to_s+"_file_size").to_sym)
+    errors << @object.errors.on((method.to_s+"_content_type").to_sym)
+    errors = errors.flatten.compact
+    if errors.length and @options[:inline_errors]
+     to_return << %Q{<ul class="error_messages">#{errors.collect { |e| "<li>#{e}</li>"} }</ul>}
+    end
+    to_return << %Q{</div></div>}
+    to_return.join("")
   end
   
 end
