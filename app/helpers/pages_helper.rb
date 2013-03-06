@@ -358,7 +358,8 @@ module PagesHelper
       classes << ((navigations.index(navigation) % 2 == 0 ) ? "odd" : "even")
        
       if block_given?
-        binding.eval(logic_block.call)
+        #binding.eval(logic_block.call)
+        eval(logic_block.call, binding)
       else    
         output += "<li class=\"#{classes.join(" ")}\">"
           output += link_to filter_page_title(navigation_title), link_url, link_options

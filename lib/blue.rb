@@ -146,9 +146,16 @@ end
 
 
 # Fix for ruby 1.8
-class String
-  def force_encoding(enc)
-    self
+
+if RUBY_VERSION =~ /1.8/
+  ActiveSupport::MessageVerifier::Encoding = ""
+  class String
+    def force_encoding(enc)
+      self
+    end
+    def encoding
+      self
+    end
   end
 end
 
