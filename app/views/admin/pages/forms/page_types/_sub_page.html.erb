@@ -11,8 +11,11 @@
 
 	<label for="page_template_file">Template</label>
 	<select name="page[template_file]" id="page_template_file">
-		<% PageTypes::SubPage.templates.each do |template| -%>
-		<option value="<%= template.name %>" <%= @page.template_file == template.name ? "selected" : "" %>><%= template.humanize.gsub("_", " ") %></option>
+		<% 
+		selected_template = @page.template_file.blank? ? PageTypes::SubPage.default_template : @page.template_file
+
+		PageTypes::SubPage.templates.each do |template| -%>
+		<option value="<%= template.name %>" <%= selected_template == template.name ? "selected" : "" %>><%= template.humanize.gsub("_", " ") %></option>
 		<% end -%>
 	</select>	
 </fieldset>

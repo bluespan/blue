@@ -23,7 +23,7 @@ class Page < ActiveRecord::Base
   before_validation :generate_unique_slug!
    
   attr_accessor :body_id, :body_class, :request_params
-  cattr_accessor :types, :allow_ssl
+  cattr_accessor :types, :allow_ssl, :default_template
 
 
   acts_as_taggable
@@ -250,8 +250,21 @@ class Page < ActiveRecord::Base
         templates << TemplateFile.new(BLUE_TEMPLATE_ROOT + "/" + sub_dir + "/" + file, "r") unless file[/^\..*$/]
       end
 
+      templates = templates.sort {|x,y| x.name <=> y.name}
+
       return templates
     end
+
+    # def default_template
+    #   nil
+    # end
+
+    # def default_template=(template)
+    #   metaclass = class << self; self; end
+    #   metaclass.instance_eval do
+    #     define_method(:default_template, proc {template})
+    #   end    
+    # end
 
     def display_name
       "Page"
