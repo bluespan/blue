@@ -5,7 +5,8 @@ module PagesHelper
     concat javascript_include_tag "blue/jquery/jquery.simplemodal-1.1.1.js"  if logged_in?
   	concat javascript_include_tag "blue/jquery/jquery.mousewheel.js"  if logged_in? 
   	concat javascript_include_tag "blue/wymeditor/jquery.wymeditor.js" if logged_in? 
-  	concat javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.image_dialog.js" if logged_in? 
+    concat javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.image_dialog.js" if logged_in? 
+  	concat javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.insert_paragraph.js" if logged_in? 
   	concat javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.link_dialog.js" if logged_in? 
   	concat javascript_include_tag "blue/jquery/jquery.easing.min.js" if logged_in? 
   	concat javascript_include_tag "blue/jquery/jquery.lavalamp.min.js" if logged_in?  
