@@ -149,6 +149,11 @@ end
 
 if RUBY_VERSION =~ /1.8/
   ActiveSupport::MessageVerifier::Encoding = ""
+  module Encoding
+    module BINARY
+    end
+  end
+  #ActiveSupport::JSON::Encoding = ""
   class String
     def force_encoding(enc)
       self

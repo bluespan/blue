@@ -82,7 +82,7 @@ class PagesController < BlueController
       if @page.is_a?(Collection) && !leaf && index == @slugs.length - 2
         item_model = @page.collects.classify.constantize
         @collection = @page
-        @item  = item_model.find_collection_item(@slugs[index+1], {:member =>  current_member})
+        @item  = item_model.find_collection_item(@slugs[index+1], {:member =>  current_member, :params => params})
         
         if @item
           @item.class.view_paths.each { |view_path| self.view_paths.unshift view_path }

@@ -68,7 +68,14 @@ module Blue
       # This module contains instance methods
       module InstanceMethods  
         def collection
-          @collection ||= Page.workings.find(:first, :conditions => {:type => "Collection", :collects => self.class.name.tableize})
+          @collection ||= begin
+
+            # Get parent class
+            c = self.class
+            c = c.superclass while c.superclass and c.superclass != ActiveRecord::Base
+
+            Page.workings.find(:first, :conditions => {:type => "Collection", :collects => c.name.tableize})
+          end
         end
         
         def url(version = :live)
