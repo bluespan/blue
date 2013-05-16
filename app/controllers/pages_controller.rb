@@ -67,7 +67,9 @@ class PagesController < BlueController
      
       #logger.info "SLUG: #{slug} - ANCESTORS: #{@ancestors}"
       @page = load_page(slug, @ancestors, leaf)
-      
+      if @page.is_a?(Hash)
+        return @page
+      end
       
       return {:status => 404, :template => "pages/404.html.erb"} unless @page.is_a?(Page)
       @page.request_params = @params

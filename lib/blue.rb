@@ -109,7 +109,7 @@ module Span
        
         if leaf == true && @page.nil? == false && @page.members_only? && (member_logged_in? == false || @page.can_access?(current_member) == false) && logged_in? == false
           session[:member_requested_page] = request.path
-          redirect_to new_member_session_url
+          return {:redirect_to => new_member_session_url}
         else  
           return @page
         end
