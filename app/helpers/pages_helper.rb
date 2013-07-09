@@ -126,7 +126,7 @@ module PagesHelper
     output += navigation_tree(children, options, url, 1, &logic_block) unless @top.nil?
     output += "</ul>"
 
-    if block_given?
+    if block_given? && !(RUBY_VERSION =~ /1.8/)
       concat output
     else
       return output
