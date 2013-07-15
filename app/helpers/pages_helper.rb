@@ -89,7 +89,8 @@ module PagesHelper
   def navigation(top, options = {}, &logic_block)
     options = {:levels => 9999, :top_levels => 9999, :top_levels_from => 0, :id => "#{top.to_s}_navigation",
                 :exclude => nil, :include => nil,
-                :collapsed => false, :force_display => false, :host => ""}.update(options)
+                :collapsed => false, :force_display => false, :host => "",
+                :flatten => false}.update(options)
     
     options[:current_page] = @page if options.has_key?(:current_page) == false or options[:current_page].nil? 
     
@@ -122,6 +123,18 @@ module PagesHelper
       @top.title = options[:levels][:include_parent] if options[:levels][:include_parent].is_a?(String)
       children = children.unshift(@top) 
     end  
+
+    if options[:flatten]
+      flattened_children = []
+      children.each do |c|
+        c.self_and_descendants.each do |d|
+          unless d.level > options[:levels][:limit] or d.level < options[:levels][:from]
+            flattened_children.push(d)
+          end
+        end
+      end
+      children = flattened_children
+    end
       
     output += navigation_tree(children, options, url, 1, &logic_block) unless @top.nil?
     output += "</ul>"
@@ -364,7 +377,7 @@ module PagesHelper
       else    
         output += "<li class=\"#{classes.join(" ")}\">"
           output += link_to filter_page_title(navigation_title), link_url, link_options
-          unless leaf or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
+          unless options[:flatten] == true or leaf or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
             output += "<ul>" + navigation_tree(navigation_children(navigation), options, navigation_url, level + 1) + "</ul>"
           end
         output += "</li>"

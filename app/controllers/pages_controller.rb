@@ -18,6 +18,7 @@ class PagesController < BlueController
     
     # Define a protected method before_blue_render in your ApplicationController if you want to potentially override the default render instructions
     before_render_callback = (self.respond_to?(:before_blue_render) && before_blue_render) || self.respond_to?(:before_blue_render) == false
+    logger.info "BEFORE RENDER CALLBACK: #{self.respond_to?(:before_blue_render)} #{before_render_callback}"
     if before_render_callback
       unless render_instructions.nil?
         if (render_instructions.has_key?(:redirect_to))
@@ -54,6 +55,13 @@ class PagesController < BlueController
       else
         I18n.locale = params[:locale]
       end
+    end
+
+    # Set Format
+    if @slugs.last.include?(".")
+      @slugs[@slugs.count - 1], @params[:format] = @slugs.last.split(".")
+      @params[:format].downcase!
+      render_instructions[:format] = @params[:format]
     end
 
     #render_instructions = {:status => 404, :template => "pages/404.html.erb"}

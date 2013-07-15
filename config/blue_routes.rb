@@ -46,11 +46,17 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options :prefix_path => "admin/collections/" do |collection|
     collection.connect ':controller', :action => :index
+    collection.connect ':controller.:format', :action => :index
     collection.connect ':controller/new', :action => :new
+    collection.connect ':controller/new.:format', :action => :new
     collection.connect ':controller/create', :action => :create
+    collection.connect ':controller/create.:format', :action => :create
     collection.connect ':controller/edit/:id', :action => :edit
+    collection.connect ':controller/edit/:id.:format', :action => :edit
     collection.connect ':controller/update/:id', :action => :update
+    collection.connect ':controller/update/:id.:format', :action => :update
     collection.connect ':controller/destroy/:id', :action => :destroy
+    collection.connect ':controller/destroy/:id.:format', :action => :destroy
   end
   map.connect ':controller', :action => :index, :prefix_path => "admin/collections/"
   map.connect ':controller', :action => :index, :prefix_path => "admin/collections/"
@@ -64,6 +70,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect ':ancestors/:slug', :controller => 'pages', :action => 'show', :ancestors => /[A-Za-z0-9\-\/_]*/
   map.connect ':slug', :controller => 'pages', :action => 'show'
+
+  map.connect ':ancestors/:slug.:format', :controller => 'pages', :action => 'show', :ancestors => /[A-Za-z0-9\-\/_]*/
+  map.connect ':slug.:format', :controller => 'pages', :action => 'show'
 
   map.root :controller => 'pages', :action => 'home'
 
