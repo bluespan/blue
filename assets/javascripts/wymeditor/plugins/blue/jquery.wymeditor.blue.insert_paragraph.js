@@ -3,7 +3,7 @@ WYMeditor.editor.prototype.blue_insert_paragraph = function(options) {
   var html = "<li class='wym_tools_newbutton'>"
            + "<a name='NewButton' href='#'"
            + " style='background-image:"
-           + " url(../javascripts/blue/wymeditor/skins/default/icons.png);"
+           + " url(/javascripts/blue/wymeditor/skins/default/icons.png);"
            + " background-position: 0 -264px;'>"
            + "Insert paragraph after"
            + "</a></li>";
