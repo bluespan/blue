@@ -128,17 +128,17 @@ module PagesHelper
       children = children.unshift(@top) 
     end  
 
-    if options[:flatten]
-      flattened_children = []
-      children.each do |c|
-        c.self_and_descendants.each do |d|
-          unless d.level > options[:levels][:limit] or d.level < options[:levels][:from]
-            flattened_children.push(d)
-          end
-        end
-      end
-      children = flattened_children
-    end
+    # if options[:flatten]
+    #   flattened_children = []
+    #   children.each do |c|
+    #     c.self_and_descendants.each do |d|
+    #       unless d.level > options[:levels][:limit] or d.level < options[:levels][:from]
+    #         flattened_children.push(d)
+    #       end
+    #     end
+    #   end
+    #   children = flattened_children
+    # end
       
     output += navigation_tree(children, options, url, 1, &logic_block) unless @top.nil?
     output += "</ul>"
@@ -381,8 +381,10 @@ module PagesHelper
       else    
         output += "<li class=\"#{classes.join(" ")}\">"
           output += link_to filter_page_title(navigation_title), link_url, link_options
-          unless options[:flatten] == true or leaf or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
-            output += "<ul>" + navigation_tree(navigation_children(navigation), options, navigation_url, level + 1) + "</ul>"
+          unless leaf or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
+            output += "<ul>" unless options[:flatten] == true
+            output += navigation_tree(navigation_children(navigation), options, navigation_url, level + 1)
+            output += "</ul>" unless options[:flatten] == true
           end
         output += "</li>"
       end
