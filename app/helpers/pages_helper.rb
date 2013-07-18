@@ -383,7 +383,7 @@ module PagesHelper
       else    
         output += "<li class=\"#{classes.join(" ")}\">"
           output += link_to filter_page_title(navigation_title), link_url, link_options
-          unless leaf or level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
+          unless leaf or navigation.level >= options[:levels][:limit] or (options[:collapsed] and classes.include?("active") == false)
             output += "<ul>" unless options[:flatten] == true
             output += navigation_tree(navigation_children(navigation), options, navigation_url, level + 1)
             output += "</ul>" unless options[:flatten] == true
