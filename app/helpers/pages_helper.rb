@@ -100,7 +100,11 @@ module PagesHelper
         options[:id] = "#{options[:id]}_level_#{options[:levels][:from]}"
         nav = @page.version(:working).navigations.select { |navigation| navigation.root.title.downcase == top.to_s.downcase }.first
         nav = @page.version(:working).navigations.first if nav.nil?
-        @top = nav.self_and_ancestors[options[:levels][:from] - 1] 
+        if nav
+          @top = nav.self_and_ancestors[options[:levels][:from] - 1] 
+        else
+          @top = Navigation.bookmark(top)
+        end
         return if @top.nil?
         url += @top.url(:working)
         options[:top_levels_from] = @top.children.index(nav.self_and_ancestors[options[:levels][:from]]) || 0 if options[:top_levels] < 9999 and options[:top_levels_from] == 0

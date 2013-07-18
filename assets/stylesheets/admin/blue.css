@@ -175,6 +175,8 @@ body.admin form.collection .verbiage_content p {margin-bottom:10px;}
 body.admin form.collection .verbiage_content ul {margin-bottom:10px;padding-left:25px;list-style:disc;}
 body.admin form.collection .verbiage_content ol {margin-bottom:10px;padding-left:25px;list-style:decimal;}
 
+body.admin form.collection .field.radio-field label {display:inline;padding-left:5px;}
+
 body.admin .collection p {font-size: 13px;margin-bottom:10px;}
 
 body.admin form.collection .edit_verbiage_field {font-size:12px;color:#203B8F;display:inline;}
