@@ -88,7 +88,7 @@ module PagesHelper
   
   def navigation(top, options = {}, &logic_block)
     options = {:levels => 9999, :top_levels => 9999, :top_levels_from => 0, :id => "#{top.to_s}_navigation",
-                :exclude => nil, :include => nil,
+                :exclude => nil, :include => nil, :map => nil,
                 :collapsed => false, :force_display => false, :host => "",
                 :flatten => false}.update(options)
     
@@ -301,7 +301,9 @@ module PagesHelper
     
     navigations = navigations.delete_if { |n| options[:exclude].call(n) } unless options[:exclude].nil?
     navigations = navigations.delete_if { |n| not options[:include].call(n) } unless options[:include].nil?
-    
+    navigations = navigations.map { |n| options[:map].call(n) } unless options[:map].nil?
+    navigations.flatten! unless options[:map].nil?
+
     navigations.each do |navigation|
       
       page = live_or_working navigation.page
