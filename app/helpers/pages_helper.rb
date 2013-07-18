@@ -375,6 +375,7 @@ module PagesHelper
       leaf = children.blank? or children.length == 0
       
       classes << "parent" unless leaf
+      classes << "link_page" if navigation.page.is_a?(PageTypes::Link)
       classes << ((navigations.index(navigation) % 2 == 0 ) ? "odd" : "even")
        
       if block_given?
