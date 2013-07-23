@@ -152,6 +152,8 @@ if RUBY_VERSION =~ /1.8/
   module Encoding
     module BINARY
     end
+    module ASCII_8BIT
+    end
   end
   #ActiveSupport::JSON::Encoding = ""
   class String
