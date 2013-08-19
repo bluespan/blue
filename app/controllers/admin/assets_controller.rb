@@ -18,8 +18,11 @@ class Admin::AssetsController < Admin::BlueAdminController
   
   def create
     if params[:asset][:file]
-      @asset = File.open(BLUE_ASSETS_ROOT + params[:asset][:path] + "/" + params[:asset][:file].original_filename, "w", :encoding => "BINARY") { |f| f.write(params[:asset][:file].read) }
-    
+      if RUBY_VERSION =~ /1.8/
+        @asset = File.open(BLUE_ASSETS_ROOT + params[:asset][:path] + "/" + params[:asset][:file].original_filename, "w") { |f| f.write(params[:asset][:file].read) }
+      else
+        @asset = File.open(BLUE_ASSETS_ROOT + params[:asset][:path] + "/" + params[:asset][:file].original_filename, "w", :encoding => "BINARY") { |f| f.write(params[:asset][:file].read) }
+      end
       
       flash.now[:notice] = "Asset <em>#{params[:asset][:file].original_filename}</em> was successfully <em>uploaded.</em>"
       render :nothing => true
