@@ -110,6 +110,7 @@ var verbiage_dialog = {
   								var page_verbiage_comments_dialog = blue_page_verbiage_comments_dialog({current_dialog: current_dialog});
   						  	page_verbiage_comments_dialog.init();
                   var blue_insert_paragraph = wym.blue_insert_paragraph()
+                  var blue_insert_rule = wym.blue_insert_rule()
   							},
   							postInitDialog: function() {
 
